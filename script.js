@@ -67,7 +67,7 @@ let questions = [
       return form;
 
     },
-    userAnswer: null
+    userAnswer: " "
   },
   {
     id: 4,
@@ -244,33 +244,45 @@ function insertIntoDOM() {
 }
 
 function prevElement() {
-  // for (let i = 0; i < questions.length; i++) {
-  //   answer.querySelector("input").value = questions[i].userAnswer;
-  // }
+
 
   answer.textContent = "";
 
   let currentEl = prevItem();
   qTitle.textContent = currentEl.question;
   qText.textContent = currentEl.txt;
+
   answer.appendChild(questions[i].answerQ());
   if (questions[i].userAnswer) {
-    console.log("there is an answer!")
-    if (questions[i].type == "input") {
-      answer.querySelector("input").value = questions[i].userAnswer;
-    }
-    if (questions[i].type == "radio") {
-      console.log("answer is radio!")
-      if (questions[i].userAnswer == answer.querySelector("input").value)
-        answer.querySelector("input") == checked;
-      // for (let i = 1; i < questions[i].length; i++) {
-      //   console.log("answers are there?", questions[i].userAnswer)
-      //   if (questions[i].userAnswer) {
 
-      //   }
-      // }
-    }
+    // if (questions[i].type == "input") {
+
+    // }
+
+
+
+    answer.querySelector("input").value = currentEl.userAnswer;
   }
+
+  // for (let i = 0; i < radios.length; i++) {
+  //   console.log("radios value", radios[i].value)
+  //   console.log("questions[i].userAnswer", questions[i].userAnswer)
+  //   if (radios[i].value == questions[i].userAnswer) {
+  //     console.log("value of the selected radio", questions[i].userAnswer)
+  //   }
+  // }
+
+
+
+  // if (questions[i].type == "radio") {
+  //   console.log("answer is radio!")
+  //   for (let i = 1; i < questions[i]; i++) {
+  //     if (questions[i].userAnswer == answer.querySelector("input").value) {
+  //       answer.querySelector("input").checked = true;
+  //     }
+  //   }
+  // }
+  // }
 
   console.log("question", currentEl)
   if (currentEl.id == 9) {
@@ -299,10 +311,21 @@ function prevElement() {
   }
 }
 
+
 function nextElement() {
   event.preventDefault();
   //save user input
 
+  if (questions[i].type == "radio") {
+    console.log("it is radio!")
+    let input = answer.querySelectorAll("input");
+    console.log("form", input)
+    let radioName = input[0].getAttribute("name");
+    console.log("radio_name", radioName)
+    let radioValue = getRadioCheckedValue(radioName);
+    console.log("radioValue", radioValue);
+    questions[i].userAnswer = radioValue;
+  }
 
   questions[i].userAnswer = answer.querySelector("input").value;
   answer.textContent = "";
@@ -336,6 +359,19 @@ function nextElement() {
     document.getElementById("submit").style.display = "none";
   }
 }
+
+function getRadioCheckedValue(radio_name) {
+  var oRadio = document.forms[0].elements[radio_name];
+
+  for (var i = 0; i < oRadio.length; i++) {
+    if (oRadio[i].checked) {
+      return oRadio[i].value;
+    }
+  }
+
+  return '';
+}
+
 
 
 function nextItem() {
