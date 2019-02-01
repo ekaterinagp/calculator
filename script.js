@@ -146,9 +146,16 @@ let questions = [
 
 
 function insertIntoDOM() {
+  if (questions[currentQuestionIndex].id == 1) {
+    document.querySelector("#prev_button").style.display = "none";
+    // } else {
+    //   document.querySelector("#prev_button").style.display = "inline-block";
+  }
   questionTitle.textContent = questions[currentQuestionIndex].question;
   questionText.textContent = questions[currentQuestionIndex].txt;
   answer.appendChild(questions[currentQuestionIndex].answerQ());
+  console.log("it is displayed")
+
 
   document.getElementById('prev_button').addEventListener(
     'click',
@@ -166,7 +173,7 @@ function insertIntoDOM() {
 
 function nextElement() {
 
-
+  document.querySelector("#prev_button").style.display = "inline-block";
   if (questions[currentQuestionIndex].type == "radio") {
     console.log("it is radio!");
     let input = answer.querySelector("input");
@@ -195,34 +202,17 @@ function nextElement() {
 
   insertSavedAnswers(currentEl);
 
-  //COMMENT BACK WHEN READY THE REST
-  if (currentEl.id == 9) {
-    console.log("it is 9")
-    let factorsRadio = document.getElementsByName("factors");
-    // var factorsArray = Array.prototype.slice.call(factorsRadio);
-    factorsRadio[0].addEventListener("click", function () {
-      console.log("works");
-      this.checked = true;
-      document.getElementById('next_button').style.display = "none";
-      //add total validation before submit appears 
-      document.getElementById("submit").style.display = "inline-block";
-    })
-    factorsRadio[1].addEventListener("click", function () {
-      console.log("works");
-      this.checked = true;
-      document.getElementById('next_button').style.display = "none";
-      //add total validation before submit appears 
-      document.getElementById("submit").style.display = "inline-block";
-    })
+  ifLastElement(currentEl);
 
-  } else {
-    document.getElementById('next_button').style.display = "inline-block";
-    document.getElementById("submit").style.display = "none";
-  }
 }
 
-function prevElement() {
 
+
+
+function prevElement() {
+  if (questions[currentQuestionIndex].id == 1) {
+    document.querySelector("#prev_button").style.display = "none";
+  }
   answer.textContent = "";
 
   let currentEl = prevItem();
@@ -233,7 +223,7 @@ function prevElement() {
 
   insertSavedAnswers(currentEl);
 
-
+  ifLastElement(currentEl);
   console.log("question", currentEl)
 
 }
@@ -257,14 +247,67 @@ function insertSavedAnswers(currentEl) {
           radioArr[u].checked = true;
         }
       }
-
-
     }
-
-
   }
 }
 
+function ifLastElement(currentEl) {
+
+  if (questions[currentQuestionIndex].userAnswer) {
+    document.getElementById('next_button').style.display = "none";
+
+    document.getElementById("submit").style.display = "inline-block";
+  }
+
+
+  if (currentEl.id == questions.length) {
+
+    console.log("it is 9")
+    let factorsRadio = document.getElementsByName("factors");
+    // var factorsArray = Array.prototype.slice.call(factorsRadio);
+    factorsRadio[0].addEventListener("click", function () {
+      console.log("works");
+      let input = answer.querySelector("input");
+      console.log("form", input);
+      let radioName = input.getAttribute("name");
+      console.log("radio_name", radioName);
+      let radioValue = getRadioCheckedValue(radioName);
+      questions[currentQuestionIndex].userAnswer = radioValue;
+      console.log("radioValue", radioValue);
+      this.checked = true;
+
+
+      document.getElementById('next_button').style.display = "none";
+      //add total validation before submit appears 
+      document.getElementById("submit").style.display = "inline-block";
+
+    })
+    factorsRadio[1].addEventListener("click", function () {
+      console.log("works");
+      let input = answer.querySelector("input");
+      console.log("form", input);
+      let radioName = input.getAttribute("name");
+      console.log("radio_name", radioName);
+      let radioValue = getRadioCheckedValue(radioName);
+      questions[currentQuestionIndex].userAnswer = radioValue;
+      console.log("radioValue", radioValue);
+      // let inputValue = factorsRadio[0].value;
+      // questions[currentQuestionIndex].userAnswer = inputValue;
+      this.checked = true;
+
+      document.getElementById('next_button').style.display = "none";
+      //ADD FULL VALIDATION HERE
+      document.getElementById("submit").style.display = "inline-block";
+    })
+
+  } else {
+    insertSavedAnswers(currentEl);
+    document.getElementById('next_button').style.display = "inline-block";
+    document.getElementById("submit").style.display = "none";
+  }
+
+
+}
 
 function getRadioCheckedValue(radio_name) {
   let oRadio = document.forms[0].elements[radio_name];
@@ -274,7 +317,6 @@ function getRadioCheckedValue(radio_name) {
       return oRadio[u].value;
     }
   }
-
   return '';
 }
 
@@ -285,7 +327,6 @@ function nextItem() {
   if (currentQuestionIndex + 1 < questions.length) {
     currentQuestionIndex++;
   }
-
   return questions[currentQuestionIndex];
 }
 
@@ -315,6 +356,26 @@ function generateRadioInputs(nameStr) {
   })
   return form;
 }
+
+function collectAllAnswers() {
+  if (questions[currentQuestionIndex].id == 9) {
+
+  }
+  let allOneUserAnswers = [];
+  for (let i = 0; i < questions.length; i++) {
+    let userAnswer = questions[i].userAnswer;
+    console.log("userAnswer", userAnswer);
+  }
+
+  // questions.userAnswer.forEach(answer => {
+  //   allOneUserAnswers.push(answer)
+  // })
+
+  // console.log("all questions", allOneUserAnswers)
+
+}
+
+// collectAllAnswers();
 
 function init() {
   insertIntoDOM();
