@@ -181,8 +181,10 @@ function nextElement() {
     let radioName = input.getAttribute("name");
     console.log("radio_name", radioName);
     let radioValue = getRadioCheckedValue(radioName);
-    questions[currentQuestionIndex].userAnswer = radioValue;
-    console.log("radioValue", radioValue);
+    let checkedValue = turnToNumber(radioValue);
+    console.log("is it a number now?", checkedValue)
+    questions[currentQuestionIndex].userAnswer = checkedValue;
+    console.log("radioValue", checkedValue);
   }
 
   if (questions[currentQuestionIndex].type == "input") {
@@ -272,7 +274,11 @@ function ifLastElement(currentEl) {
       let radioName = input.getAttribute("name");
       console.log("radio_name", radioName);
       let radioValue = getRadioCheckedValue(radioName);
-      questions[currentQuestionIndex].userAnswer = radioValue;
+
+      if (radioValue == "yes") {
+        radioValue = 100
+        questions[currentQuestionIndex].userAnswer = radioValue;
+      }
       console.log("radioValue", radioValue);
       this.checked = true;
 
@@ -289,10 +295,13 @@ function ifLastElement(currentEl) {
       let radioName = input.getAttribute("name");
       console.log("radio_name", radioName);
       let radioValue = getRadioCheckedValue(radioName);
-      questions[currentQuestionIndex].userAnswer = radioValue;
+
+
+      if (radioValue == "no") {
+        radioValue = 0
+        questions[currentQuestionIndex].userAnswer = radioValue;
+      }
       console.log("radioValue", radioValue);
-      // let inputValue = factorsRadio[0].value;
-      // questions[currentQuestionIndex].userAnswer = inputValue;
       this.checked = true;
 
       document.getElementById('next_button').style.display = "none";
@@ -317,6 +326,7 @@ function getRadioCheckedValue(radio_name) {
       return oRadio[u].value;
     }
   }
+
   return '';
 }
 
@@ -357,27 +367,44 @@ function generateRadioInputs(nameStr) {
   return form;
 }
 
-function collectAllAnswers() {
-  if (questions[currentQuestionIndex].id == 9) {
-
+function turnToNumber(radioValue) {
+  if (questions[currentQuestionIndex].userAnswer != Number) {
+    switch (radioValue) {
+      case "Slower Growth":
+        radioValue = 115;
+        break;
+      case "Average Growth":
+        radioValue = 130;
+        break;
+      case "Above Average Growth":
+        radioValue = 300;
+        break;
+      case "Amazing Growth":
+        radioValue = 450;
+        break;
+    }
   }
-  let allOneUserAnswers = [];
-  for (let i = 0; i < questions.length; i++) {
-    let userAnswer = questions[i].userAnswer;
-    console.log("userAnswer", userAnswer);
-  }
-
-  // questions.userAnswer.forEach(answer => {
-  //   allOneUserAnswers.push(answer)
-  // })
-
-  // console.log("all questions", allOneUserAnswers)
-
+  return radioValue;
 }
 
-// collectAllAnswers();
+function collectAllAnswers() {
+
+  let allOneUserAnswers = [];
+  for (let i = 0; i < questions.length; i++) {
+    let userAnswer = Number(questions[i].userAnswer);
+    allOneUserAnswers.push(userAnswer);
+  }
+  return allOneUserAnswers;
+  // console.log("userAnswer", allOneUserAnswers);
+}
+
+
 
 function init() {
   insertIntoDOM();
+  document.getElementById("submit").addEventListener("click", function () {
+    let allOneUserAnswers = collectAllAnswers();
+    console.log("userAnswer", allOneUserAnswers);
+  })
 
 }
