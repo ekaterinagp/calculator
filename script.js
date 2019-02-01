@@ -398,6 +398,33 @@ function collectAllAnswers() {
   // console.log("userAnswer", allOneUserAnswers);
 }
 
+//Calculation part
+function calculateResult(array) {
+  let answer1 = array[0] * 12;
+  let answer2 = ((answer1 * array[1]) / 100) + answer1;
+  console.log("answer2", answer2)
+  let terminalValue = answer2 * 2;
+  console.log("treminalValue", terminalValue)
+  let postMV = (terminalValue / 20);
+  console.log("postMV", postMV)
+  let preMV = postMV - array[0];
+  console.log("preMV", preMV)
+  let answer3 = array[2] * 30 / 10000;
+  let answer4 = array[3] * 25 / 10000;
+  let answer5 = array[4] * 15 / 10000;
+  let answer6 = array[5] * 10 / 10000;
+  let answer7 = array[6] * 10 / 10000;
+  //figure out how to make it prettier
+  let answer81 = (array[7] * 100) / array[0];
+  let answer8 = (answer81 * 5) / 10000;
+  let answer9 = array[8] * 5 / 10000;
+  let sumOfFactors = answer3 + answer4 + answer5 + answer6 + answer7 + answer8 + answer9;
+  let preFinalResult = sumOfFactors * preMV;
+  let finalResult = parseFloat(preFinalResult.toFixed(2))
+  console.log("sumOfFactors", sumOfFactors)
+  return finalResult;
+}
+
 
 
 function init() {
@@ -405,6 +432,9 @@ function init() {
   document.getElementById("submit").addEventListener("click", function () {
     let allOneUserAnswers = collectAllAnswers();
     console.log("userAnswer", allOneUserAnswers);
+    let finalResult = calculateResult(allOneUserAnswers);
+    console.log("final result function", finalResult)
   })
+
 
 }
