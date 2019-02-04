@@ -146,15 +146,17 @@ let questions = [
 
 
 function insertIntoDOM() {
+
   if (questions[currentQuestionIndex].id == 1) {
     document.querySelector("#prev_button").style.display = "none";
-    // } else {
-    //   document.querySelector("#prev_button").style.display = "inline-block";
+
   }
+
   questionTitle.textContent = questions[currentQuestionIndex].question;
   questionText.textContent = questions[currentQuestionIndex].txt;
   answer.appendChild(questions[currentQuestionIndex].answerQ());
   console.log("it is displayed")
+
 
 
   document.getElementById('prev_button').addEventListener(
@@ -166,6 +168,7 @@ function insertIntoDOM() {
   document.getElementById('next_button').addEventListener(
     'click',
     function () {
+
       nextElement();
     }
   );
@@ -175,6 +178,7 @@ function nextElement() {
 
   document.querySelector("#prev_button").style.display = "inline-block";
   if (questions[currentQuestionIndex].type == "radio") {
+
     console.log("it is radio!");
     let input = answer.querySelector("input");
     console.log("form", input);
@@ -185,6 +189,7 @@ function nextElement() {
     console.log("is it a number now?", checkedValue)
     questions[currentQuestionIndex].userAnswer = checkedValue;
     console.log("radioValue", checkedValue);
+
   }
 
   if (questions[currentQuestionIndex].type == "input") {
@@ -205,7 +210,7 @@ function nextElement() {
   insertSavedAnswers(currentEl);
 
   ifLastElement(currentEl);
-
+  disabledIfEmpty();
 }
 
 
@@ -263,7 +268,7 @@ function ifLastElement(currentEl) {
 
 
   if (currentEl.id == questions.length) {
-
+    //not dynamic, turn to dynamic
     console.log("it is 9")
     let factorsRadio = document.getElementsByName("factors");
     // var factorsArray = Array.prototype.slice.call(factorsRadio);
@@ -330,7 +335,35 @@ function getRadioCheckedValue(radio_name) {
   return '';
 }
 
+function disabledIfEmpty() {
+  console.log("questions[currentQuestionIndex].type", questions[currentQuestionIndex].type)
+  if (questions[currentQuestionIndex].type == "input") {
+    if (answer.querySelector("input").value.length) {
+      document.getElementById('next_button').disabled = false;
+    } else {
+      console.log("it is disabled!");
+      document.getElementById('next_button').disabled = true;
+    }
+  }
+  if (questions[currentQuestionIndex].type == "radio") {
+    console.log("disable it is radio")
+    document.getElementById('next_button').disabled = true;
+    // console.log("allRadios", allRadios)
+    // for (let i = 0; i < allRadios.length; i++) {
+    document.querySelector("form").addEventListener("click", function () {
+      let allRadios = document.querySelectorAll("input");
+      for (let i = 0; i < allRadios.length; i++) {
+        if (allRadios[i].checked == true) {
+          document.getElementById('next_button').disabled = false;
+        }
+      }
 
+    })
+  }
+  // }
+
+
+}
 
 function nextItem() {
 
@@ -427,6 +460,8 @@ function calculateResult(array) {
 
 
 
+
+
 function init() {
   insertIntoDOM();
   document.getElementById("submit").addEventListener("click", function () {
@@ -435,6 +470,8 @@ function init() {
     let finalResult = calculateResult(allOneUserAnswers);
     console.log("final result function", finalResult)
   })
-
+  answer.querySelector("input").addEventListener("keyup", function () {
+    disabledIfEmpty();
+  })
 
 }

@@ -15,7 +15,7 @@
 
 .buttons{
   padding: 14px 40px;
-  background-color: black;
+  background-color: green;
   color:white;
 }
 
@@ -26,6 +26,10 @@
 
 .hidden{
   display:none;
+}
+
+button:disabled{
+  background-color: black;
 }
 
 /* input[type="radio"] {
