@@ -30,6 +30,7 @@ let questions = [
     answerQ: function () {
       let values = ["Slower Growth", "Average Growth", "Above Average Growth", "Amazing"]
       let form = document.createElement("form");
+      form.setAttribute("id", "expectation")
       values.forEach(function (value) {
         let theInput = document.createElement("input");
         let theBreak = document.createElement("br");
@@ -226,10 +227,7 @@ function nextElement() {
 
 
 function prevElement() {
-  if (questions[currentQuestionIndex].id == 1) {
-    console.log("currentID", questions[currentQuestionIndex].id)
-    document.querySelector("#prev_button").style.display = "none";
-  }
+
   answer.textContent = "";
 
   let currentEl = prevItem();
@@ -237,7 +235,10 @@ function prevElement() {
   questionText.textContent = currentEl.txt;
 
   answer.appendChild(questions[currentQuestionIndex].answerQ());
-
+  if (questions[currentQuestionIndex].id == 1) {
+    console.log("currentID", questions[currentQuestionIndex].id)
+    document.querySelector("#prev_button").style.display = "none";
+  }
   insertSavedAnswers(currentEl);
 
   ifLastElement(currentEl);
@@ -413,6 +414,7 @@ function prevItem() {
 function generateRadioInputs(nameStr) {
   let values = ["0", "50", "100", "150"];
   let form = document.createElement("form");
+  form.setAttribute("id", nameStr)
   values.forEach(function (value) {
     let theInput = document.createElement("input");
     theInput.setAttribute('type', "radio");
@@ -501,7 +503,7 @@ function calculateResult(array) {
 function init() {
   insertIntoDOM();
   document.getElementById("submit").addEventListener("click", function () {
-
+    document.querySelector("#popUp").style.display = "block";
     let allOneUserAnswers = collectAllAnswers();
     console.log("userAnswer", allOneUserAnswers);
 
