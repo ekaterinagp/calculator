@@ -146,7 +146,7 @@ let questions = [
 
 
 function insertIntoDOM() {
-
+  // disabledIfEmpty();
   if (questions[currentQuestionIndex].id == 1) {
     document.querySelector("#prev_button").style.display = "none";
 
@@ -185,32 +185,41 @@ function nextElement() {
     let radioName = input.getAttribute("name");
     console.log("radio_name", radioName);
     let radioValue = getRadioCheckedValue(radioName);
-    let checkedValue = turnToNumber(radioValue);
-    console.log("is it a number now?", checkedValue)
-    questions[currentQuestionIndex].userAnswer = checkedValue;
-    console.log("radioValue", checkedValue);
+    // let checkedValue = turnToNumber(radioValue);
+    // questions[currentQuestionIndex].userAnswer = checkedValue;
+    // console.log("is it a number now?", checkedValue)
+
+    questions[currentQuestionIndex].userAnswer = radioValue;
+    // console.log("radioValue", checkedValue);
 
   }
 
   if (questions[currentQuestionIndex].type == "input") {
     console.log("it is input!")
+
+    // document.getElementById('next_button').style.display = "none";
     let inputValue = answer.querySelector("input").value;
     console.log("inputValue", inputValue)
     questions[currentQuestionIndex].userAnswer = inputValue;
+
+
   }
 
 
   answer.textContent = "";
+
   let currentEl = nextItem();
   questionTitle.textContent = currentEl.question;
   questionText.textContent = currentEl.txt;
   answer.appendChild(questions[currentQuestionIndex].answerQ());
   console.log("current element", currentEl.id);
 
+
   insertSavedAnswers(currentEl);
 
   ifLastElement(currentEl);
   disabledIfEmpty();
+
 }
 
 
@@ -218,6 +227,7 @@ function nextElement() {
 
 function prevElement() {
   if (questions[currentQuestionIndex].id == 1) {
+    console.log("currentID", questions[currentQuestionIndex].id)
     document.querySelector("#prev_button").style.display = "none";
   }
   answer.textContent = "";
@@ -232,11 +242,16 @@ function prevElement() {
 
   ifLastElement(currentEl);
   console.log("question", currentEl)
+  document.getElementById('next_button').disabled = false;
 
 }
 
-function insertSavedAnswers(currentEl) {
+function insertSavedAnswers(currentEl, radioValue) {
   if (questions[currentQuestionIndex].userAnswer) {
+    // if (questions[currentQuestionIndex].userAnswer !== Number) {
+    //   console.log("answer is not a number!")
+    //   turnToValues(radioValue);
+    // }
 
     if (questions[currentQuestionIndex].type == "input") {
       answer.querySelector("input").value = currentEl.userAnswer;
@@ -248,7 +263,7 @@ function insertSavedAnswers(currentEl) {
       let allRadios = answer.querySelectorAll("input");
       let radioArr = Array.prototype.slice.call(allRadios);
       for (let u = 0; u < radioArr.length; u++) {
-        console.log("allRadios", radioArr[u].value);
+        // console.log("allRadios", radioArr[u].value);
         if (radioArr[u].value == questions[currentQuestionIndex].userAnswer) {
           console.log("radio value check", radioArr[u].value)
           radioArr[u].checked = true;
@@ -271,7 +286,7 @@ function ifLastElement(currentEl) {
     //not dynamic, turn to dynamic
     console.log("it is 9")
     let factorsRadio = document.getElementsByName("factors");
-    // var factorsArray = Array.prototype.slice.call(factorsRadio);
+    // let factorsArray = Array.prototype.slice.call(factorsRadio);
     factorsRadio[0].addEventListener("click", function () {
       console.log("works");
       let input = answer.querySelector("input");
@@ -336,15 +351,24 @@ function getRadioCheckedValue(radio_name) {
 }
 
 function disabledIfEmpty() {
+  document.getElementById('next_button').disabled = true;
+
   console.log("questions[currentQuestionIndex].type", questions[currentQuestionIndex].type)
   if (questions[currentQuestionIndex].type == "input") {
-    if (answer.querySelector("input").value.length) {
-      document.getElementById('next_button').disabled = false;
-    } else {
-      console.log("it is disabled!");
-      document.getElementById('next_button').disabled = true;
-    }
+    console.log("it is input and it is disabled!")
+    answer.querySelector("input").addEventListener("keyup", function () {
+      if (answer.querySelector("input").value.length) {
+        document.getElementById('next_button').disabled = false;
+      } else {
+        console.log("it is disabled!");
+        document.getElementById('next_button').disabled = true;
+      }
+    })
+
+    //   })
+    // })
   }
+
   if (questions[currentQuestionIndex].type == "radio") {
     console.log("disable it is radio")
     document.getElementById('next_button').disabled = true;
@@ -361,7 +385,10 @@ function disabledIfEmpty() {
     })
   }
   // }
-
+  if (questions[currentQuestionIndex].userAnswer) {
+    console.log("userAnswer", questions[currentQuestionIndex].userAnswer)
+    document.getElementById('next_button').disabled = false;
+  }
 
 }
 
@@ -400,33 +427,40 @@ function generateRadioInputs(nameStr) {
   return form;
 }
 
-function turnToNumber(radioValue) {
+function turnToNumber() {
+
   if (questions[currentQuestionIndex].userAnswer != Number) {
-    switch (radioValue) {
+    switch (questions[currentQuestionIndex].userAnswer) {
       case "Slower Growth":
-        radioValue = 115;
+        questions[currentQuestionIndex].userAnswer = 115;
         break;
       case "Average Growth":
-        radioValue = 130;
+        questions[currentQuestionIndex].userAnswer = 130;
         break;
       case "Above Average Growth":
-        radioValue = 300;
+        questions[currentQuestionIndex].userAnswer = 300;
         break;
       case "Amazing Growth":
-        radioValue = 450;
+        questions[currentQuestionIndex].userAnswer = 450;
         break;
     }
   }
-  return radioValue;
+  console.log("answer in switch", questions[currentQuestionIndex].userAnswer)
+  return questions[currentQuestionIndex].userAnswer;
 }
 
-function collectAllAnswers() {
+
+
+function collectAllAnswers(radioValue) {
 
   let allOneUserAnswers = [];
   for (let i = 0; i < questions.length; i++) {
-    let userAnswer = Number(questions[i].userAnswer);
+
+    // let userAnswer = Number(questions[i].userAnswer);
+    let userAnswer = questions[i].userAnswer;
     allOneUserAnswers.push(userAnswer);
   }
+
   return allOneUserAnswers;
   // console.log("userAnswer", allOneUserAnswers);
 }
@@ -434,6 +468,8 @@ function collectAllAnswers() {
 //Calculation part
 function calculateResult(array) {
   let answer1 = array[0] * 12;
+  // let answerModified = turnToNumber();
+  // console.log("answerModified", answerModified)
   let answer2 = ((answer1 * array[1]) / 100) + answer1;
   console.log("answer2", answer2)
   let terminalValue = answer2 * 2;
@@ -465,13 +501,31 @@ function calculateResult(array) {
 function init() {
   insertIntoDOM();
   document.getElementById("submit").addEventListener("click", function () {
+
     let allOneUserAnswers = collectAllAnswers();
     console.log("userAnswer", allOneUserAnswers);
+
     let finalResult = calculateResult(allOneUserAnswers);
     console.log("final result function", finalResult)
   })
+
+
+  // const allInputFields = answer.querySelectorAll("input");
+  // allInputFields.forEach(singleInput => {
+  //   singleInput.addEventListener("keyup", function () {
+  //     disabledIfEmpty();
+  //   })
+  // })
+
   answer.querySelector("input").addEventListener("keyup", function () {
-    disabledIfEmpty();
+    console.log("eventlistener from init!")
+    if (answer.querySelector("input").value.length) {
+      document.getElementById('next_button').disabled = false;
+    } else {
+      console.log("it is disabled!");
+      document.getElementById('next_button').disabled = true;
+    }
   })
+
 
 }
