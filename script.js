@@ -147,7 +147,7 @@ let questions = [
 
 
 function insertIntoDOM() {
-  // disabledIfEmpty();
+  timeline();
   if (questions[currentQuestionIndex].id == 1) {
     document.querySelector("#prev_button").style.display = "none";
 
@@ -220,6 +220,7 @@ function nextElement() {
 
   ifLastElement(currentEl);
   disabledIfEmpty();
+  timeline();
 
 }
 
@@ -244,7 +245,7 @@ function prevElement() {
   ifLastElement(currentEl);
   console.log("question", currentEl)
   document.getElementById('next_button').disabled = false;
-
+  timeline();
 }
 
 function insertSavedAnswers(currentEl, radioValue) {
@@ -429,7 +430,7 @@ function generateRadioInputs(nameStr) {
   return form;
 }
 
-function turnToNumber() {
+function turnToNumber(currentQuestionIndex) {
 
   if (questions[currentQuestionIndex].userAnswer != Number) {
     switch (questions[currentQuestionIndex].userAnswer) {
@@ -453,7 +454,7 @@ function turnToNumber() {
 
 
 
-function collectAllAnswers(radioValue) {
+function collectAllAnswers() {
 
   let allOneUserAnswers = [];
   for (let i = 0; i < questions.length; i++) {
@@ -470,9 +471,9 @@ function collectAllAnswers(radioValue) {
 //Calculation part
 function calculateResult(array) {
   let answer1 = array[0] * 12;
-  // let answerModified = turnToNumber();
-  // console.log("answerModified", answerModified)
-  let answer2 = ((answer1 * array[1]) / 100) + answer1;
+  let answerModified = turnToNumber(1);
+  console.log("answerModified", answerModified)
+  let answer2 = ((answer1 * answerModified) / 100) + answer1;
   console.log("answer2", answer2)
   let terminalValue = answer2 * 2;
   console.log("treminalValue", terminalValue)
@@ -497,6 +498,15 @@ function calculateResult(array) {
 }
 
 
+function timeline() {
+  let timelineInput = document.querySelector("#timeline");
+  let allQuestionsDigit = questions.length;
+  // console.log("allQuestionsDigit", allQuestionsDigit);
+  let currentQuestionDigit = questions[currentQuestionIndex].id;
+  console.log("currentQuestionDigit", currentQuestionDigit)
+  timelineInput.textContent = currentQuestionDigit + "/" + allQuestionsDigit;
+  return timelineInput.textContent;
+}
 
 
 
@@ -511,13 +521,6 @@ function init() {
     console.log("final result function", finalResult)
   })
 
-
-  // const allInputFields = answer.querySelectorAll("input");
-  // allInputFields.forEach(singleInput => {
-  //   singleInput.addEventListener("keyup", function () {
-  //     disabledIfEmpty();
-  //   })
-  // })
 
   answer.querySelector("input").addEventListener("keyup", function () {
     console.log("eventlistener from init!")

@@ -59,3 +59,10 @@ input[type=submit]{
   width:7em;
   height:2em;
 }
+
+#timeline{
+  font-size: 1.5em;
+  margin-top: -1em;
+  float: right;
+  color: white;
+}
