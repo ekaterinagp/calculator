@@ -1,8 +1,8 @@
 .main{
-  width:40%;
+  width:70%;
   height:50%;
   padding:3%;
-  background-color: grey;
+  /* background-color: grey; */
   /* opacity:0.5; */
 }
 
@@ -37,7 +37,7 @@ display: -webkit-box;
 } */
 
 form p{
-display:inline-block;
+display:block;
 }
 
 .submit{
@@ -81,7 +81,7 @@ input[type=submit]{
 }
 
 .slider {
-  position: absolute;
+  /* position: absolute; */
   cursor: pointer;
   top: 0;
   left: 0;
@@ -118,3 +118,41 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
+input[type="number"]{
+  border-radius: 55%;
+  width: 20em;
+  height: 20em;
+}
+
+.has-float-label {
+  display: block;
+  position: relative;
+}
+
+.has-float-label label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  cursor: text;
+  font-size: 75%;
+  opacity: 1;
+  transition: all .2s;
+}
+
+.has-float-label input {
+  font-size: inherit;
+  padding-top: 1em;
+  margin-bottom: 2px;
+  border: 0;
+  border-radius: 0;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.has-float-label input::-webkit-input-placeholder, .has-float-label select::-webkit-input-placeholder {
+  opacity: 1;
+  transition: all .2s;
+}
+
+#next_button{
+  float: right;
+}

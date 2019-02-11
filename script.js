@@ -17,7 +17,10 @@ let questions = [
     type: "input",
     answerQ: function () {
       let theInput = document.createElement("input");
+      let theLabel = document.createElement("label");
+      theLabel.setAttribute("for", "income")
       theInput.setAttribute("type", "number");
+      theInput.setAttribute("placeholder", "Type your income here")
       return theInput;
     },
     userAnswer: null
@@ -26,25 +29,40 @@ let questions = [
     id: 2,
     question: "Expectation",
     txt: "What kind of growth do you expect to reach in 5 years?",
-    type: "radio",
+    type: "range",
     answerQ: function () {
-      let values = ["Slower Growth", "Average Growth", "Above Average Growth", "Amazing"]
       let form = document.createElement("form");
-      form.setAttribute("id", "expectation")
-      values.forEach(function (value) {
-        let theInput = document.createElement("input");
-        let theBreak = document.createElement("br");
-        theInput.setAttribute('type', "radio");
-        theInput.setAttribute("name", "expectation")
-        theInput.setAttribute("value", value)
-        let nameInput = document.createElement("p");
-        nameInput.textContent = value;
+      let theInput = document.createElement("input");
+      let description = document.createElement("p");
+      description.setAttribute("id", "descriptionOfGrowth")
+      theInput.setAttribute("type", "range");
+      theInput.setAttribute("min", "1");
+      theInput.setAttribute("max", "100");
+      theInput.setAttribute("value", "0");
+      theInput.classList.add("slider");
+      // theInput.id.add("growthRange");
+      console.log("form created 2")
 
-        form.appendChild(theInput);
-        form.appendChild(nameInput);
-        form.appendChild(theBreak);
+      form.appendChild(theInput);
+      form.appendChild(description);
+      // let values = ["Slower Growth", "Average Growth", "Above Average Growth", "Amazing"]
+      // let form = document.createElement("form");
+      // form.setAttribute("id", "expectation")
+      // values.forEach(function (value) {
+      //   let theInput = document.createElement("input");
+      //   let theBreak = document.createElement("br");
+      //   theInput.setAttribute('type', "radio");
+      //   theInput.setAttribute("name", "expectation")
+      //   theInput.setAttribute("value", value)
+      //   let nameInput = document.createElement("p");
+      //   nameInput.textContent = value;
 
-      })
+      //   form.appendChild(theInput);
+      //   form.appendChild(nameInput);
+      //   form.appendChild(theBreak);
+
+      // })
+
       return form;
     },
     userAnswer: null
@@ -161,7 +179,7 @@ function insertIntoDOM() {
   questionTitle.textContent = questions[currentQuestionIndex].question;
   questionText.textContent = questions[currentQuestionIndex].txt;
   answer.appendChild(questions[currentQuestionIndex].answerQ());
-  console.log("it is displayed")
+  // console.log("it is displayed")
 
 
 
@@ -182,14 +200,16 @@ function insertIntoDOM() {
 
 function nextElement() {
 
+
+
   document.querySelector("#prev_button").style.display = "inline-block";
   if (questions[currentQuestionIndex].type == "radio") {
 
     console.log("it is radio!");
     let input = answer.querySelector("input");
-    console.log("form", input);
+    // console.log("form", input);
     let radioName = input.getAttribute("name");
-    console.log("radio_name", radioName);
+    // console.log("radio_name", radioName);
     let radioValue = getRadioCheckedValue(radioName);
     // let checkedValue = turnToNumber(radioValue);
     // questions[currentQuestionIndex].userAnswer = checkedValue;
@@ -205,21 +225,22 @@ function nextElement() {
 
     // document.getElementById('next_button').style.display = "none";
     let inputValue = answer.querySelector("input").value;
-    console.log("inputValue", inputValue)
+    // console.log("inputValue", inputValue)
     questions[currentQuestionIndex].userAnswer = inputValue;
 
 
   }
 
-
   answer.textContent = "";
+
 
   let currentEl = nextItem();
   questionTitle.textContent = currentEl.question;
   questionText.textContent = currentEl.txt;
   answer.appendChild(questions[currentQuestionIndex].answerQ());
   console.log("current element", currentEl.id);
-
+  let context = canvas.getContext('2d');
+  context.clearRect(0, 0, canvas.width, canvas.height);
 
   insertSavedAnswers(currentEl);
 
@@ -227,6 +248,19 @@ function nextElement() {
   disabledIfEmpty();
   timeline();
 
+  if (questions[currentQuestionIndex].type == "range") {
+    console.log("question number 2 for get Value")
+
+    let slider = document.querySelector('input[type="range"]');
+    console.log("slider", slider)
+    disabledIfEmpty();
+    slider.addEventListener("change", function () {
+      console.log("eventlistener for getValue")
+      getValue();
+
+    })
+
+  }
 }
 
 
@@ -251,6 +285,12 @@ function prevElement() {
   console.log("question", currentEl)
   document.getElementById('next_button').disabled = false;
   timeline();
+  let slider = document.querySelector('input[type=range]');
+  slider.addEventListener("change", function () {
+    console.log("eventlistener for getValue")
+    getValue();
+
+  })
 }
 
 function insertSavedAnswers(currentEl, radioValue) {
@@ -277,7 +317,17 @@ function insertSavedAnswers(currentEl, radioValue) {
         }
       }
     }
+    if (questions[currentQuestionIndex].type == "range") {
+      console.log("get user answer", questions[currentQuestionIndex].userAnswer)
+      buildChart(questions[currentQuestionIndex].userAnswer)
+      let slider = document.querySelector('input[type=range]');
+      slider.value = questions[currentQuestionIndex].userAnswer;
+      getValue();
+      // let theInput = document.querySelector("input");
+      // theInput.setAttribute("value", questions[currentQuestionIndex].userAnswer)
+    }
   }
+
 }
 
 function ifLastElement(currentEl) {
@@ -390,6 +440,19 @@ function disabledIfEmpty() {
       }
 
     })
+  }
+  if (questions[currentQuestionIndex].type == "range") {
+    console.log("it is range")
+    console.log("value of input range", answer.querySelector("input").value)
+    if (answer.querySelector("input").value == 1) {
+      console.log("value of input range", answer.querySelector("input").value)
+      document.getElementById('next_button').disabled = true;
+
+    }
+    // else {
+    //   document.getElementById('next_button').disabled = false;
+    //   console.log("value of input range", answer.querySelector("input").value)
+    // }
   }
   // }
   if (questions[currentQuestionIndex].userAnswer) {
@@ -509,6 +572,7 @@ function timeline() {
   // console.log("allQuestionsDigit", allQuestionsDigit);
   let currentQuestionDigit = questions[currentQuestionIndex].id;
   console.log("currentQuestionDigit", currentQuestionDigit)
+
   timelineInput.textContent = currentQuestionDigit + "/" + allQuestionsDigit;
   return timelineInput.textContent;
 }
@@ -546,6 +610,163 @@ function init() {
       document.getElementById('next_button').disabled = true;
     }
   })
-
+  // slider.addEventListener("click", function () {
+  //   getValue();
+  // })
 
 }
+
+//creat charts
+
+
+Chart.defaults.global.legend.display = false;
+// Chart.defaults.global.animationSteps = 600;
+let dataSetAdequate = [0, 25, 50, 75, 95, 115];
+let dataSetAverage = [0, 50, 90, 100, 120, 140];
+let dataSetAboveAverage = [0, 100, 150, 200, 250, 300];
+let dataSetAmazing = [0, 120, 200, 300, 400, 450]
+let descriptionOfGrowth = document.querySelector("#descriptionGrowth");
+let slider = document.querySelector('input[type=range]');
+
+function getValue() {
+  console.log("function runs getvalue")
+  let newValue = 0;
+  let elem = document.querySelector('input[type="range"]');
+
+  let clicked = false;
+  elem.addEventListener("click", function () {
+    console.log("clicked")
+    newValue = elem.value;
+    clicked = true;
+    console.log("newValue", newValue)
+    buildChart(newValue);
+    questions[currentQuestionIndex].userAnswer = newValue;
+    console.log("new user value", questions[currentQuestionIndex].userAnswer)
+    // return newValue;
+    elem.value = newValue;
+  })
+
+}
+
+function buildChart(value) {
+  let slider = document.querySelector('input[type=range]');
+  let descriptionOfGrowth = document.querySelector("#descriptionOfGrowth");
+  console.log("lets see what new value is")
+  if (value <= 25) {
+    console.log("value is <25", value)
+    createChart(
+      'canvas',
+      'line',
+      ['Now', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+      dataSetAdequate, 'rgba(241, 90, 34, 1)'
+    );
+    // slider.classList.remove = ".slider::-webkit-slider-thumb";
+    slider.style.backgroundColor = "rgba(241, 90, 34, .5)";
+    descriptionOfGrowth.textContent = "I expect adequate growth";
+
+  } else if (value > 25 && value <= 50) {
+    console.log("value is <50", value)
+    createChart(
+      'canvas',
+      'line',
+      ['Now', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+      dataSetAverage, 'rgba(245, 230, 83, 1)'
+    );
+    slider.style.backgroundColor = "rgba(245, 230, 83, .5)";
+    descriptionOfGrowth.textContent = "I expect average growth";
+  } else if (value > 50 && value <= 75) {
+    console.log("value is <75", value)
+    createChart(
+      'canvas',
+      'line',
+      ['Now', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+
+      dataSetAboveAverage, 'rgba(3, 201, 169, 1)'
+    );
+    slider.style.backgroundColor = "rgba(3, 201, 169, .5)";
+    descriptionOfGrowth.textContent = "I expect very good growth";
+  } else {
+    console.log("value is <100", value)
+    createChart(
+      'canvas',
+      'line',
+      ['Now', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+      dataSetAmazing, 'rgba(0, 230, 64, 1)'
+    );
+    slider.style.backgroundColor = "rgba(0, 230, 64, .5)";
+    descriptionOfGrowth.textContent = "I expect amazing growth";
+  }
+  document.getElementById('next_button').disabled = false;
+}
+
+
+
+function createChart(get_wrapper, type_of_chart, labels_of_chart, data_of_charts, background_color) {
+  console.log("chart is created", data_of_charts)
+  var ctx = document.getElementById(get_wrapper).getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: type_of_chart,
+    data: {
+      labels: labels_of_chart,
+      datasets: [{
+        label: "Average",
+        data: [0, 60, 100, 110, 130, 150],
+        backgroundColor: 'rgba(63,	152,	255,.3)	',
+        // borderColor: 'rgba(19, 247, 228,1)',
+        borderWidth: 2,
+        // pointBackgroundColor: 'rgba(19, 247, 228,1)',
+        // pointBorderColor: 'rgba(19, 247, 228,1)',
+        // pointBorderWidth: 5,
+      }, {
+        label: "Original data",
+        data: data_of_charts,
+        animationSteps: 6000,
+        // easing: 'easeInOutElastic',
+        backgroundColor: background_color,
+        // borderColor: 'rgba(19, 247, 228,1)',
+        borderWidth: 2,
+        // pointBackgroundColor: 'rgba(19, 247, 228,1)',
+        // pointBorderColor: 'rgba(19, 247, 228,1)',
+        pointBorderWidth: 0,
+      }
+      ]
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          gridLines: {
+            drawBorder: false,
+            display: false
+          }
+        }],
+        yAxes: [{
+          gridLines: {
+            drawBorder: false,
+            display: false
+          },
+          ticks: {
+            // display: false,
+            max: 450,
+            min: 0,
+            stepSize: 150
+          }
+        }]
+      },
+      animation: {
+        duration: 2500,
+        xAxis: true,
+        yAxis: true,
+        easing: 'easeInOutElastic'
+      },
+      tooltips: {
+        callbacks: {
+          label: function (t, d) {
+            var xLabel = d.datasets[t.datasetIndex].label;
+            var yLabel = d.datasets[t.datasetIndex].data[t.index];
+            return xLabel + ': %' + yLabel;
+          }
+        }
+      }
+    }
+  });
+};
