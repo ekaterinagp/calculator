@@ -13,7 +13,7 @@ let questions = [
   {
     id: 1,
     question: "Monthly income",
-    txt: "How much do you averagely earn per month?",
+    txt: "What is your average monthly income?",
     type: "input",
     answerQ: function () {
       let theInput = document.createElement("input");
@@ -120,17 +120,22 @@ let questions = [
     answerQ: function () {
       let values = ["yes", "no"];
       let form = document.createElement("form");
+      // let span = document.createElement("span");
       values.forEach(function (value) {
         let theInput = document.createElement("input");
+        // theInput.setAttribute('type', "radio");
         theInput.setAttribute('type', "radio");
         theInput.setAttribute("name", "factors");
         theInput.setAttribute("value", value)
-        theInput.setAttribute("class", "factors")
+        // span.setAttribute("class", "slider");
+        // label.setAttribute("class", "switch")
         let nameInput = document.createElement("p");
         nameInput.textContent = value;
 
         form.appendChild(theInput);
+        // label.appendChild(span);
         form.appendChild(nameInput);
+
         console.log("theInput", theInput)
       })
       return form;
@@ -508,6 +513,16 @@ function timeline() {
   return timelineInput.textContent;
 }
 
+function saveUserData() {
+  let formSignUp = document.querySelector("#signUp");
+  l
+  let userData = {
+    name: "",
+    company: "",
+    email: "",
+    phone: ""
+  }
+}
 
 
 function init() {
