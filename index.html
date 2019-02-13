@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="style.css">
   <script src="lib/Chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
   <title>Calculator</title>
 </head>
 
@@ -31,7 +32,7 @@
       <h1 id="question">Question</h1>
       <h2 id="questionText">Text of the question</h2>
       <div id="answer"></div>
-      <div class="illustration"><canvas id="canvas" width="400" height="200"></canvas></div>
+      <div id="chartPlaceHolder"></div>
       <div>
         <button id="prev_button" class="buttons">Previous</button>
         <button id="next_button" class="buttons" disabled>Next</button>

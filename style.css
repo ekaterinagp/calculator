@@ -1,11 +1,30 @@
 .main{
-  width:70%;
-  height:50%;
-  padding:3%;
-  /* background-color: grey; */
-  /* opacity:0.5; */
+  
+  width: 95%;
+  height: auto;
+  padding: 3%;
+  text-align: center;
 }
 
+
+
+@font-face {
+  font-family:'Gotham_Black';
+  src: url('/fonts/Gotham-Black.otf');
+}
+
+@font-face {
+  font-family:'Gotham_Book';
+  src: url('/fonts/GothamBook.ttf');
+}
+
+h2{
+  font-family:'Gotham_Book';
+}
+
+h1{
+  font-family:'Gotham_Black';
+}
 .box{
   width: 95%;
   height: 100%;
@@ -17,11 +36,19 @@
   padding: 14px 40px;
   background-color: green;
   color:white;
+  font-family:'Gotham_Black';
+  float:left;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-family:'Gotham_Book';
 }
 
 #answer{
-  width:70%;
-  height:50%;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  
 }
 
 .hidden{
@@ -37,7 +64,8 @@ display: -webkit-box;
 } */
 
 form p{
-display:block;
+display:inline-block;
+font-family: "Gotham_Book";
 }
 
 .submit{
@@ -64,7 +92,7 @@ input[type=submit]{
   font-size: 1.5em;
   margin-top: -1em;
   float: right;
-  color: white;
+  color: black;
 }
 
 .switch {
@@ -119,9 +147,11 @@ input:checked + .slider:before {
 }
 
 input[type="number"]{
-  border-radius: 55%;
-  width: 20em;
-  height: 20em;
+  /* border-radius: 55%;
+  width: 15em;
+  height: 15em; */
+  border: 1px solid;
+  text-align: center;
 }
 
 .has-float-label {
@@ -155,4 +185,30 @@ input[type="number"]{
 
 #next_button{
   float: right;
+}
+
+.inputBtn{
+  width: 395px;
+    padding: 2em;
+    margin: auto;
+  /* padding: 1rem; */
+  text-transform: uppercase;
+  color: #464343;
+  /* background-color: $; */
+  border: none;
+  border-radius: 3px;
+  box-shadow: 1px 1px 10px rgba(50,50,50,.4);
+  transition: .3s all ease;
+  /* letter-spacing: .1rem; */
+  font-size: .85rem;
+  position: relative;
+  top: 0;
+  right: 0;
+  padding-left: 2.5rem;
+  /* appearance: button; */
+  
+}
+
+.classColor{
+  background-color: green;
 }
