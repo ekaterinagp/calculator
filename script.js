@@ -85,25 +85,56 @@ let questions = [
   {
     id: 3,
     question: "Team and Leader",
-    txt: "How strong is entrepreneur and a team?",
+    txt: "How strong is an entrepreneur and a team?",
     type: "radio",
     answerQ: function () {
-      let values = ["Fresh out of school and working towards a solution", "Minimum of 3 years of work experience each", "Minimum of 7 years of experience in your specific field each", "Subject matter experts with published thoughts on your industry"];
+      let values = [{
+        title: "Fresh out of school and working towards a solution",
+        img: "graduate.png"
+      },
+      {
+        title: "Minimum of 3 years of work experience each",
+        img: "employer.png"
+      },
+      {
+        title: "Minimum of 7 years of experience in your specific field each",
+        img: "middle.png"
+      },
+      {
+        title: "Subject matter experts with published thoughts on your industry",
+        img: "einstein.png"
+      }
+      ];
       let form = document.createElement("form");
       form.setAttribute("id", "team");
       values.forEach(function (value) {
+        let divWrapper = document.createElement("div");
+        let label = document.createElement("label");
         let theInput = document.createElement("input");
         let theBreak = document.createElement("br");
+        divWrapper.setAttribute("class", "wrapper");
+        label.setAttribute("class", "labelClass");
         theInput.setAttribute('type', "radio");
         theInput.setAttribute("name", "team");
-        theInput.setAttribute("value", value)
+        theInput.setAttribute("value", value.title)
         let nameInput = document.createElement("p");
-        nameInput.style.display = "inline-block";
-        nameInput.textContent = value;
+        let img = document.createElement("img");
+        nameInput.style.display = "inline-grid";
+        nameInput.setAttribute("class", "btnRadio");
+        nameInput.textContent = value.title;
 
-        form.appendChild(theInput);
-        form.appendChild(nameInput);
-        form.appendChild(theBreak);
+        img.setAttribute("class", "imgSize");
+        img.setAttribute("src", "img/" + value.img);
+
+        nameInput.appendChild(img)
+        form.appendChild(divWrapper);
+        label.appendChild(theInput);
+        label.appendChild(nameInput);
+        divWrapper.appendChild(label);
+        divWrapper.appendChild(theBreak);
+
+
+
       })
       return form;
     },
@@ -119,25 +150,51 @@ let questions = [
   {
     id: 4,
     question: "Market Opportunity",
-    txt: "How big is the market opportunity? (100% is average)",
+    txt: "How big is the market opportunity?",
     type: "radio",
     answerQ: function () {
-      let values = ["Sustainable", "Growing", "Spectacular", "Almost limitless"];
+      let values = [{
+        title: "Sustainable",
+        img: "sustainable.png",
+      }, {
+        title: "Growing",
+        img: "growing.png"
+      },
+      {
+        title: "Spectacular",
+        img: "spec.png"
+      },
+      {
+        title: "Almost limitless",
+        img: "limitless.png"
+      }];
       let form = document.createElement("form");
       form.setAttribute("id", "market");
       values.forEach(function (value) {
+        let divWrapper = document.createElement("div");
+        let label = document.createElement("label");
         let theInput = document.createElement("input");
         let theBreak = document.createElement("br");
+        divWrapper.setAttribute("class", "wrapper");
+        label.setAttribute("class", "labelClass");
         theInput.setAttribute('type', "radio");
-        theInput.setAttribute("name", "team");
-        theInput.setAttribute("value", value)
+        theInput.setAttribute("name", "market");
+        theInput.setAttribute("value", value.title)
         let nameInput = document.createElement("p");
-        nameInput.style.display = "inline-block";
-        nameInput.textContent = value;
+        let img = document.createElement("img");
+        nameInput.style.display = "inline-grid";
+        nameInput.setAttribute("class", "btnRadio");
+        nameInput.textContent = value.title;
 
-        form.appendChild(theInput);
-        form.appendChild(nameInput);
-        form.appendChild(theBreak);
+        img.setAttribute("class", "imgSize");
+        img.setAttribute("src", "img/" + value.img);
+
+        nameInput.appendChild(img)
+        form.appendChild(divWrapper);
+        label.appendChild(theInput);
+        label.appendChild(nameInput);
+        divWrapper.appendChild(label);
+        divWrapper.appendChild(theBreak);
       })
       return form;
     },
@@ -154,7 +211,7 @@ let questions = [
   {
     id: 5,
     question: "Innovation",
-    txt: "How innovative is the product/technology? (100% is average)",
+    txt: "How innovative is the product/technology?",
     type: "radio",
     answerQ: function () {
       return generateRadioInputs("innovation");
@@ -164,7 +221,7 @@ let questions = [
   {
     id: 6,
     question: "Competitors",
-    txt: "How competitive is environment? (100% is average)",
+    txt: "How competitive is environment?",
     type: "radio",
     answerQ: function () {
       return generateRadioInputs("competition");
@@ -174,7 +231,7 @@ let questions = [
   {
     id: 7,
     question: "Strength",
-    txt: "How strong is marketing plan/sales/partnerships? (100% is average)",
+    txt: "How strong is marketing plan/sales/partnerships?",
     type: "radio",
     answerQ: function () {
       return generateRadioInputs("strength");
@@ -227,6 +284,26 @@ let questions = [
   }
 
 ]
+
+function eventlistenerForTeam() {
+  let teamForm = document.querySelector("#team");
+  teamForm.addEventListener("click", function () {
+    let buttonValue = getButtonValue("team");
+    console.log("button value", buttonValue);
+  })
+
+
+}
+
+
+
+function getValueForRadioButtons() {
+
+  let input = answer.querySelectorAll("input");
+  console.log("form input", input);
+  // let radioName = input.getAttribute("name");
+  // console.log("radioName buttons", radioName);
+}
 
 
 
@@ -364,11 +441,11 @@ function nextElement() {
   }
   if (questions[currentQuestionIndex].type == "button") {
     console.log("it is button")
-    let allButtons = document.querySelectorAll(".inputBtn");
+    let allButtons = document.querySelectorAll(".btnRadio");
     console.log("allbuttons", allButtons)
     allButtons.forEach(button => {
       button.addEventListener("click", function () {
-        console.log("button clicked", button.value)
+        console.log("button clicked", button.previousSibling.value)
         questions[currentQuestionIndex].userAnswer = button.value;
         button.classList.toggle("classColor");
         document.getElementsByName("team").disabled = "true";
@@ -376,8 +453,11 @@ function nextElement() {
 
       })
     })
-    // let buttonValue = getButtonValue(team);
-    // console.log("button value", buttonValue);
+    // document.addEventListener("click", function () {
+    //   let buttonValue = getButtonValue("team");
+    //   console.log("button value", buttonValue);
+    // })
+
   }
 }
 
@@ -523,14 +603,19 @@ function ifLastElement(currentEl) {
 
 }
 
-// function getButtonValue(name) {
-//   let allBtn = document.elements[name];
-//   for (let u = 0; u < allBtn.length; u++) {
-//     if (allBtn[u].clicked) {
-//       return allBtn[u].value;
-//     }
-//   }
-// }
+function getButtonValue(name) {
+  console.log("all buttons name", name)
+  let allBtn = document.getElementsByName(name);
+  console.log("allBtn", allBtn)
+  allBtn = Array.prototype.slice.call(allBtn);
+  console.log("allBtn array", allBtn)
+  for (let u = 0; u < allBtn.length; u++) {
+    if (allBtn[u].clicked) {
+      console.log("clicked button", allBtn[u].clicked)
+      return allBtn[u].value;
+    }
+  }
+}
 
 function getRadioCheckedValue(radio_name) {
   let oRadio = document.forms[0].elements[radio_name];
@@ -573,7 +658,13 @@ function disabledIfEmpty() {
       for (let i = 0; i < allRadios.length; i++) {
         if (allRadios[i].checked == true) {
           document.getElementById('next_button').disabled = false;
-          getValueForRadio();
+          // if (questions[currentQuestionIndex].id == 3) {
+          //   getValueForRadio();
+          // }
+          // if (questions[currentQuestionIndex].id == 4) {
+          //   getValueForRadioMarket();
+          // }
+
         }
       }
 
@@ -1008,56 +1099,130 @@ function createBarChart(value, placeHolder) {
   });
 }
 
-function getValueForRadio() {
-  let input = answer.querySelector("input");
-  let radioName = input.getAttribute("name");
-  let radioValue = getRadioCheckedValue(radioName);
-  console.log("radioValue for chart", radioValue);
-  let newValue = radioValue;
-  console.log("newradioValue for chart", newValue);
-  if (newValue == "Fresh out of school and working towards a solution") {
-    newValue = 25;
-  } else if (newValue == "Minimum of 3 years of work experience each") {
-    newValue = 50;
-  } else if (newValue == "Minimum of 7 years of experience in your specific field each") {
-    newValue = 75
-  } else {
-    newValue = 100;
-  }
-  createPieChart(newValue, 'teamChart');
-}
+// function getValueForRadio() {
+//   let input = answer.querySelector("input");
+//   let radioName = input.getAttribute("name");
+//   let radioValue = getRadioCheckedValue(radioName);
+//   console.log("radioValue for chart", radioValue);
+//   let newValue = radioValue;
+//   console.log("newradioValue for chart", newValue);
+//   if (newValue == "Fresh out of school and working towards a solution") {
+//     newValue = 25;
+//   } else if (newValue == "Minimum of 3 years of work experience each") {
+//     newValue = 50;
+//   } else if (newValue == "Minimum of 7 years of experience in your specific field each") {
+//     newValue = 75
+//   } else {
+//     newValue = 100;
+//   }
+//   createPieChart(newValue, 'teamChart');
+// }
 
-function createPieChart(value, placeHolder) {
-  console.log("value piechart", value)
-  // let dataValue = [value, 100 - value];
-  let pieChartCanvas = document.getElementById(placeHolder);
-  let pieChart = new Chart(pieChartCanvas, {
-    type: 'polarArea',
-    data: {
-      labels: ["Your team ", "Ideal team"],
-      datasets: [
-        {
-          fill: true,
-          backgroundColor: [
-            '#2E8B57',
-            '#7FFF00'
-          ],
-          data: [value, 100],
-          label: ["Your team", "Ideal Team"]
-
-
-        }
-      ]
-    }, options: {
-      tooltips: {
-        enabled: false,
-      },
-      legend: {
-        display: true
-      },
-    }
+// function createPieChart(value, placeHolder) {
+//   console.log("value piechart", value)
+//   // let dataValue = [value, 100 - value];
+//   let pieChartCanvas = document.getElementById(placeHolder);
+//   let pieChart = new Chart(pieChartCanvas, {
+//     type: 'polarArea',
+//     data: {
+//       labels: ["Your team ", "Ideal team"],
+//       datasets: [
+//         {
+//           fill: true,
+//           backgroundColor: [
+//             '#2E8B57',
+//             '#7FFF00'
+//           ],
+//           data: [value, 100],
+//           label: ["Your team", "Ideal Team"]
 
 
-  });
+//         }
+//       ]
+//     }, options: {
+//       tooltips: {
+//         enabled: false,
+//       },
+//       legend: {
+//         display: true
+//       },
+//     }
 
-}
+
+//   });
+
+// }
+
+// function getValueForRadioMarket() {
+//   let input = answer.querySelector("input");
+//   let radioName = input.getAttribute("name");
+//   let radioValue = getRadioCheckedValue(radioName);
+//   console.log("radioValue for chart", radioValue);
+//   let newValue = radioValue;
+//   console.log("newradioValue for chart", newValue);
+//   if (newValue == "Sustainable") {
+//     newValue = 10;
+//   } else if (newValue == "Growing") {
+//     newValue = 50;
+//   } else if (newValue == "Spectacular") {
+//     newValue = 100
+//   } else {
+//     newValue = 150;
+//   }
+//   createBarChartMarket(newValue, 'marketChart');
+// }
+
+// function createBarChartMarket(value, placeholderStr) {
+//   let barChartMarketCanvas = document.getElementById(placeholderStr);
+//   let barMarketChart = new Chart(barChartMarketCanvas, {
+//     type: 'horizontalBar',
+//     data: {
+//       labels: ["Market"],
+//       datasets: [
+//         {
+//           label: "Your market opprotunity",
+//           data: [value],
+//           backgroundColor: 'blue',
+//         },
+//         {
+//           label: "Average market opportunity",
+//           data: [100],
+//           backgroundColor: '#EEEEEE',
+//         },
+//         {
+//           label: "Limitless market opportunity",
+//           data: [150],
+//           backgroundColor: 'green',
+//         }],
+//     }, options: {
+//       legend: {
+//         display: true
+//       },
+//       tooltips: {
+//         enabled: true
+//       },
+//       scales: {
+//         xAxes: [{
+//           display: true,
+//           stacked: false,
+//           ticks: {
+//             beginAtZero: true,
+//             stepSize: 10
+
+//           }
+//         }],
+//         yAxes: [{
+//           display: true,
+//           stacked: false,
+//           ticks: {
+//             beginAtZero: true,
+//             stepSize: 10
+
+//           }
+//         }],
+//       }
+//     }
+
+//   });
+// }
+
