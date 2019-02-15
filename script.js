@@ -214,7 +214,60 @@ let questions = [
     txt: "How innovative is the product/technology?",
     type: "radio",
     answerQ: function () {
-      return generateRadioInputs("innovation");
+      let values = [{
+        title: "There are many similar products/technologies",
+        img: "many.png"
+      },
+      {
+        title: "There are few similar products/technologies",
+        img: "several.png"
+      },
+      {
+        title: "There are only 1-3 similar products/technologies",
+        img: "none.png"
+      },
+      {
+        title: "It is unique product/technologies",
+        img: "unique.png"
+      }
+      ];
+      let form = document.createElement("form");
+      form.setAttribute("id", "uniqueness");
+      values.forEach(function (value) {
+        let divWrapper = document.createElement("div");
+        let label = document.createElement("label");
+        let theInput = document.createElement("input");
+        let theBreak = document.createElement("br");
+        divWrapper.setAttribute("class", "wrapper");
+        label.setAttribute("class", "labelClass");
+        theInput.setAttribute('type', "radio");
+        theInput.setAttribute("name", "uniqueness");
+        theInput.setAttribute("value", value.title)
+        let nameInput = document.createElement("p");
+        let img = document.createElement("img");
+        nameInput.style.display = "inline-grid";
+        nameInput.setAttribute("class", "btnRadio");
+        nameInput.textContent = value.title;
+        img.setAttribute("class", "imgSize");
+        img.setAttribute("src", "img/" + value.img);
+        nameInput.appendChild(img)
+        form.appendChild(divWrapper);
+        label.appendChild(theInput);
+        label.appendChild(nameInput);
+        divWrapper.appendChild(label);
+        divWrapper.appendChild(theBreak);
+
+
+
+      })
+      return form;
+    },
+    canvasForChart: function () {
+      let theCanvas = document.createElement("canvas");
+      theCanvas.setAttribute("width", 400);
+      theCanvas.setAttribute("height", 200);
+      theCanvas.setAttribute("id", "uniqueChart");
+      return theCanvas;
     },
     userAnswer: null
   },
@@ -224,7 +277,54 @@ let questions = [
     txt: "How competitive is environment?",
     type: "radio",
     answerQ: function () {
-      return generateRadioInputs("competition");
+      let values = [{
+        title: "Crowded space",
+        img: "crowded.png",
+      }, {
+        title: "Competitive",
+        img: "competitive.png"
+      },
+      {
+        title: "Single competitor",
+        img: "single.png"
+      },
+      {
+        title: "Blue ocean",
+        img: "blue.png"
+      }];
+      let form = document.createElement("form");
+      form.setAttribute("id", "competition");
+      values.forEach(function (value) {
+        let divWrapper = document.createElement("div");
+        let label = document.createElement("label");
+        let theInput = document.createElement("input");
+        let theBreak = document.createElement("br");
+        divWrapper.setAttribute("class", "wrapper");
+        label.setAttribute("class", "labelClass");
+        theInput.setAttribute('type', "radio");
+        theInput.setAttribute("name", "competition");
+        theInput.setAttribute("value", value.title)
+        let nameInput = document.createElement("p");
+        let img = document.createElement("img");
+        nameInput.style.display = "inline-grid";
+        nameInput.setAttribute("class", "btnRadio");
+        nameInput.textContent = value.title;
+        img.setAttribute("class", "imgSize");
+        img.setAttribute("src", "img/" + value.img);
+        nameInput.appendChild(img)
+        form.appendChild(divWrapper);
+        label.appendChild(theInput);
+        label.appendChild(nameInput);
+        divWrapper.appendChild(label);
+        divWrapper.appendChild(theBreak);
+      })
+      return form;
+    }, canvasForChart: function () {
+      let theCanvas = document.createElement("canvas");
+      theCanvas.setAttribute("width", 400);
+      theCanvas.setAttribute("height", 200);
+      theCanvas.setAttribute("id", "competitionChart");
+      return theCanvas;
     },
     userAnswer: null
   },
@@ -234,7 +334,55 @@ let questions = [
     txt: "How strong is marketing plan/sales/partnerships?",
     type: "radio",
     answerQ: function () {
-      return generateRadioInputs("strength");
+      let values = [{
+        title: "Good",
+        img: "first.png",
+      }, {
+        title: "Solid",
+        img: "second.png"
+      },
+      {
+        title: "Strong",
+        img: "third.png"
+      },
+      {
+        title: "Perfect",
+        img: "fourth.png"
+      }];
+      let form = document.createElement("form");
+      form.setAttribute("id", "strength");
+      values.forEach(function (value) {
+        let divWrapper = document.createElement("div");
+        let label = document.createElement("label");
+        let theInput = document.createElement("input");
+        let theBreak = document.createElement("br");
+        divWrapper.setAttribute("class", "wrapper");
+        label.setAttribute("class", "labelClass");
+        theInput.setAttribute('type', "radio");
+        theInput.setAttribute("name", "strength");
+        theInput.setAttribute("value", value.title)
+        let nameInput = document.createElement("p");
+        let img = document.createElement("img");
+        nameInput.style.display = "inline-grid";
+        nameInput.setAttribute("class", "btnRadio");
+        nameInput.textContent = value.title;
+
+        img.setAttribute("class", "imgSize");
+        img.setAttribute("src", "img/" + value.img);
+        nameInput.appendChild(img)
+        form.appendChild(divWrapper);
+        label.appendChild(theInput);
+        label.appendChild(nameInput);
+        divWrapper.appendChild(label);
+        divWrapper.appendChild(theBreak);
+      })
+      return form;
+    }, canvasForChart: function () {
+      let theCanvas = document.createElement("canvas");
+      theCanvas.setAttribute("width", 400);
+      theCanvas.setAttribute("height", 200);
+      theCanvas.setAttribute("id", "marketChart");
+      return theCanvas;
     },
     userAnswer: null
   },
@@ -319,6 +467,7 @@ function insertIntoDOM() {
   questionText.textContent = questions[currentQuestionIndex].txt;
 
   answer.appendChild(questions[currentQuestionIndex].answerQ());
+
   wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
   // console.log("it is displayed")
   TweenMax.from(('#incomeNumber'), 1, { css: { scale: .05, opacity: 0, rotation: 180 }, ease: Quad.easeInOut }), 0, -400;
@@ -412,6 +561,7 @@ function nextElement() {
   questionTitle.textContent = currentEl.question;
   questionText.textContent = currentEl.txt;
   answer.appendChild(questions[currentQuestionIndex].answerQ());
+
   wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
   console.log("current element", currentEl.id);
   // if (questions[currentQuestionIndex] !== 2) {

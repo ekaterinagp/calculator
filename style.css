@@ -69,7 +69,7 @@ font-family: "Gotham_Book";
 
 }
 
-#team, #market {
+#team, #market, #uniqueness, #competition, #strength{
  display: grid;
 grid-template-columns: 2fr 2fr;
 text-align: end;
@@ -86,7 +86,7 @@ grid-gap:1em;
 }
 
 .wrapper .btnRadio:hover{
-  background-color: #464343;
+  background-color: #969494;
 }
 
 .btnRadio{
@@ -97,10 +97,10 @@ grid-gap:1em;
     align-items: center;
     grid-template-columns: 3fr 1fr;
     cursor: pointer;
-    width: 40%;
+    width: 55%;
 }
 
-#team label{
+#team label, #market label{
  
   /* float: left; */
   width: 45%;
@@ -112,24 +112,29 @@ grid-gap:1em;
        
 }
 
-#team label p {
+/* #team label p {
   text-align: center;
   font-size: 20px;
   /* padding: 13px 0px; */
-  display: block;
+  /* display: block;
 }
 
 #team label input {
   position:absolute;
   top:-20px;
-}
+} */ 
 
-#team input:checked + p {
-  background-color:#404040;
+/* #team input:checked + p {
+  background-color:#6c9972;
+  color:#F7F7F7;
+} */
+
+#team input:checked + p, #market input:checked + p, #uniqueness input:checked + p, #competition input:checked + p, #strength input:checked + p {
+  background-color:#6c9972;
   color:#F7F7F7;
 }
 
-input[name=team], input[name=market]{
+input[name=team], input[name=market], input[name=uniqueness], input[name=competition], input[name=strength]{
   display:none;
 }
 
@@ -138,6 +143,12 @@ input[name=team], input[name=market]{
 }
 .submit{
   background-color: green;
+}
+
+*:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 #popUp{
@@ -215,11 +226,10 @@ input:checked + .slider:before {
 }
 
 input[type="number"]{
-  /* border-radius: 55%;
-  width: 15em;
-  height: 15em; */
-  border: 1px solid;
+  border: 0;
+  border-bottom: 1px solid;
   text-align: center;
+  width: 30%;
 }
 
 .has-float-label {
