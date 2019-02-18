@@ -393,8 +393,18 @@ let questions = [
     type: "input",
     answerQ: function () {
       let theInput = document.createElement("input");
+      let theLabel = document.createElement("label");
+      theLabel.setAttribute("for", "investment")
       theInput.setAttribute("type", "number");
+      theInput.setAttribute("id", "addInvestment");
+      theInput.setAttribute("placeholder", "Type your number here")
       return theInput;
+    }, canvasForChart: function () {
+      let theCanvas = document.createElement("canvas");
+      theCanvas.setAttribute("width", 400);
+      theCanvas.setAttribute("height", 200);
+      theCanvas.setAttribute("id", "investmentChart");
+      return theCanvas;
     },
     userAnswer: null
   },
@@ -402,56 +412,46 @@ let questions = [
   {
     id: 9,
     question: "Positive factors",
-    txt: "Do you have any other factor that affect or may affect your income in future? (for example, great reviews from early customers)",
+    txt: "Do you have any positive factor(s) that affect or may affect your income in future?",
     type: "radio",
     answerQ: function () {
       let values = ["yes", "no"];
       let form = document.createElement("form");
-      // let span = document.createElement("span");
+
+
       values.forEach(function (value) {
+        let theLabel = document.createElement("label");
         let theInput = document.createElement("input");
-        // theInput.setAttribute('type', "radio");
+        let span = document.createElement("span");
         theInput.setAttribute('type', "radio");
         theInput.setAttribute("name", "factors");
-        theInput.setAttribute("value", value)
-        // span.setAttribute("class", "slider");
-        // label.setAttribute("class", "switch")
+        theInput.setAttribute("value", value);
+        span.setAttribute("class", "checkmark");
+        theLabel.setAttribute("class", "container");
         let nameInput = document.createElement("p");
         nameInput.textContent = value;
 
-        form.appendChild(theInput);
-        // label.appendChild(span);
-        form.appendChild(nameInput);
+        theLabel.appendChild(theInput);
+        theLabel.appendChild(span);
 
+        theLabel.appendChild(nameInput);
+        form.appendChild(theLabel);
         console.log("theInput", theInput)
       })
       return form;
 
+    }, canvasForChart: function () {
+      let theCanvas = document.createElement("canvas");
+      theCanvas.setAttribute("width", 400);
+      theCanvas.setAttribute("height", 200);
+      theCanvas.setAttribute("id", "factorsChart");
+      return theCanvas;
     },
     userAnswer: null
   }
 
 ]
 
-function eventlistenerForTeam() {
-  let teamForm = document.querySelector("#team");
-  teamForm.addEventListener("click", function () {
-    let buttonValue = getButtonValue("team");
-    console.log("button value", buttonValue);
-  })
-
-
-}
-
-
-
-function getValueForRadioButtons() {
-
-  let input = answer.querySelectorAll("input");
-  console.log("form input", input);
-  // let radioName = input.getAttribute("name");
-  // console.log("radioName buttons", radioName);
-}
 
 
 
@@ -569,7 +569,19 @@ function nextElement() {
   //   context.clearRect(0, 0, canvas.width, canvas.height);
   // }
 
-
+  if (questions[currentQuestionIndex].id == 8) {
+    console.log("it is 8!")
+    answer.querySelector("#addInvestment").addEventListener("blur", function () {
+      console.log("eventlistener from init for investements")
+      if (answer.querySelector("#addInvestment").value.length) {
+        document.getElementById('next_button').disabled = false;
+        getValueForInvestment();
+      } else {
+        console.log("it is disabled from investements");
+        document.getElementById('next_button').disabled = true;
+      }
+    })
+  }
   insertSavedAnswers(currentEl);
 
   ifLastElement(currentEl);
@@ -642,6 +654,7 @@ function prevElement() {
   document.getElementById('next_button').disabled = false;
   timeline();
   if (questions[currentQuestionIndex].type == "range") {
+    wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
     let slider = document.querySelector('input[type=range]');
     slider.addEventListener("change", function () {
       console.log("eventlistener for getValue")
@@ -649,6 +662,24 @@ function prevElement() {
 
     })
   }
+  if (questions[currentQuestionIndex].id == 1) {
+
+    wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
+    getValueForBarChart();
+  }
+
+  if (questions[currentQuestionIndex].id == 8) {
+
+    wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
+    getValueForInvestment();
+  }
+  // if (questions[currentQuestionIndex].id == 2) {
+
+  //   wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
+  //   // console.log("questions[currentQuestionIndex].canvasForChart()", questions[currentQuestionIndex].canvasForChart())
+  //   // getValue();
+  // }
+
 }
 
 function insertSavedAnswers(currentEl, radioValue) {
@@ -713,6 +744,7 @@ function ifLastElement(currentEl) {
       if (radioValue == "yes") {
         radioValue = 100
         questions[currentQuestionIndex].userAnswer = radioValue;
+        createChartForFactors();
       }
       console.log("radioValue", radioValue);
       this.checked = true;
@@ -735,6 +767,7 @@ function ifLastElement(currentEl) {
       if (radioValue == "no") {
         radioValue = 0
         questions[currentQuestionIndex].userAnswer = radioValue;
+        createChartForOtherFactors();
       }
       console.log("radioValue", radioValue);
       this.checked = true;
@@ -1018,11 +1051,16 @@ function init() {
     if (answer.querySelector("input").value.length) {
       document.getElementById('next_button').disabled = false;
       getValueForBarChart();
+
+
     } else {
       console.log("it is disabled!");
       document.getElementById('next_button').disabled = true;
     }
   })
+
+
+
 
 
   // slider.addEventListener("click", function () {
@@ -1118,7 +1156,7 @@ function buildChart(value) {
 
 function createChart(get_wrapper, type_of_chart, labels_of_chart, data_of_charts, background_color) {
   console.log("chart is created", data_of_charts)
-  var ctx = document.getElementById(get_wrapper).getContext('2d');
+  let ctx = document.getElementById(get_wrapper).getContext('2d');
   var myChart = new Chart(ctx, {
     type: type_of_chart,
     data: {
@@ -1195,6 +1233,17 @@ function getValueForBarChart() {
   createBarChart(theValue, 'incomeChart');
 }
 
+function getValueForInvestment() {
+  console.log("it is #8")
+  if (questions[currentQuestionIndex].id == 8) {
+    let inputToCheck = document.querySelector("#addInvestment");
+    let theValue = inputToCheck.value;
+    theValue = Number(theValue);
+    createInvestmentChart(theValue, 'investmentChart');
+  }
+
+}
+
 function createBarChart(value, placeHolder) {
   let barChartIncomeCanvas = document.getElementById(placeHolder);
 
@@ -1246,6 +1295,144 @@ function createBarChart(value, placeHolder) {
     }
 
 
+  });
+}
+
+function createInvestmentChart(value, placeHolder) {
+  let barChartIncomeCanvas = document.getElementById(placeHolder);
+
+  let barChart = new Chart(barChartIncomeCanvas, {
+    type: 'bar',
+    data: {
+      labels: ["Additional investments"],
+      datasets: [
+        {
+          label: 'Additional investements',
+          data: [value],
+          backgroundColor: 'blue',
+        },
+        {
+          label: 'Your yearly income',
+          data: [questions[1].userAnswer * 12],
+          backgroundColor: 'green',
+        }
+      ],
+    }, options: {
+      legend: {
+        display: true
+      },
+      tooltips: {
+        enabled: true
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          stacked: false,
+          ticks: {
+            beginAtZero: true,
+            stepSize: 10000,
+          }
+        }],
+        yAxes: [{
+          display: true,
+          stacked: false,
+          ticks: {
+            beginAtZero: true,
+            stepSize: 10000,
+          }
+        }],
+      }
+    }
+
+
+  });
+}
+
+function createChartForFactors() {
+
+  new Chart(document.getElementById("factorsChart"), {
+    type: 'bar',
+    data: {
+      labels: ["Good reviews", "Strong Partners", "Stabel revenue", "Destribution channels", "Traction"],
+      datasets: [
+        {
+
+          backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+          data: [50, 45, 60, 55, 49]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Positive factors'
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          stacked: false,
+          ticks: {
+            beginAtZero: true,
+            stepSize: 10,
+            suggestedMax: 100,
+          }
+        }],
+        yAxes: [{
+          display: true,
+          stacked: false,
+          ticks: {
+            beginAtZero: true,
+            stepSize: 10,
+            display: false
+          }
+        }],
+      }
+    }
+  });
+}
+
+function createChartForOtherFactors() {
+
+  new Chart(document.getElementById("factorsChart"), {
+    type: 'bar',
+    data: {
+      labels: ["Poorely performing sector", "Poor managing team", "Defective product", "Lack of financial planning", "Low margins"],
+      datasets: [
+        {
+
+          backgroundColor: ["#FFA500", "#FFDEAD", "#FF4500", "#CD853F", "#BC8F8F"],
+          data: [50, 45, 60, 55, 49]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Negative factors'
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          stacked: false,
+          ticks: {
+            beginAtZero: true,
+            stepSize: 15,
+            suggestedMax: 100,
+          }
+        }],
+        yAxes: [{
+          display: true,
+          stacked: false,
+          ticks: {
+            beginAtZero: true,
+            stepSize: 10,
+            display: false
+          }
+        }],
+      }
+    }
   });
 }
 
