@@ -1,18 +1,17 @@
 "use strict";
 
-window.addEventListener('load', function () {
+window.addEventListener('load', function() {
   init();
 })
 
 
 
-let questions = [
-  {
+let questions = [{
     id: 1,
     question: "Monthly income",
     txt: "What is your average monthly income?",
     type: "input",
-    answerQ: function () {
+    answerQ: function() {
       let theInput = document.createElement("input");
       let theLabel = document.createElement("label");
       theLabel.setAttribute("for", "income")
@@ -21,7 +20,7 @@ let questions = [
       theInput.setAttribute("placeholder", "Type your income here")
       return theInput;
     },
-    canvasForChart: function () {
+    canvasForChart: function() {
       let theCanvas = document.createElement("canvas");
       // theCanvas.setAttribute("width", 400);
       // theCanvas.setAttribute("height", 200);
@@ -35,7 +34,7 @@ let questions = [
     question: "Expectation",
     txt: "What kind of growth do you expect to reach in 5 years?",
     type: "range",
-    answerQ: function () {
+    answerQ: function() {
       let form = document.createElement("form");
       let theInput = document.createElement("input");
       let description = document.createElement("p");
@@ -69,7 +68,8 @@ let questions = [
       // })
 
       return form;
-    }, canvasForChart: function () {
+    },
+    canvasForChart: function() {
       let theCanvas = document.createElement("canvas");
       theCanvas.setAttribute("width", 400);
       theCanvas.setAttribute("height", 200);
@@ -83,27 +83,27 @@ let questions = [
     question: "Team and Leader",
     txt: "How strong is an entrepreneur and a team?",
     type: "radio",
-    answerQ: function () {
+    answerQ: function() {
       let values = [{
-        title: "Fresh out of school and working towards a solution",
-        img: "graduate.png"
-      },
-      {
-        title: "Minimum of 3 years of work experience each",
-        img: "employer.png"
-      },
-      {
-        title: "Minimum of 7 years of experience in your specific field each",
-        img: "middle.png"
-      },
-      {
-        title: "Subject matter experts with published thoughts on your industry",
-        img: "einstein.png"
-      }
+          title: "Fresh out of school and working towards a solution",
+          img: "graduate.png"
+        },
+        {
+          title: "Minimum of 3 years of work experience each",
+          img: "employer.png"
+        },
+        {
+          title: "Minimum of 7 years of experience in your specific field each",
+          img: "middle.png"
+        },
+        {
+          title: "Subject matter experts with published thoughts on your industry",
+          img: "einstein.png"
+        }
       ];
       let form = document.createElement("form");
       form.setAttribute("id", "team");
-      values.forEach(function (value) {
+      values.forEach(function(value) {
         let divWrapper = document.createElement("div");
         let label = document.createElement("label");
         let theInput = document.createElement("input");
@@ -143,25 +143,26 @@ let questions = [
     question: "Market Opportunity",
     txt: "How big is the market opportunity?",
     type: "radio",
-    answerQ: function () {
+    answerQ: function() {
       let values = [{
-        title: "Sustainable",
-        img: "sustainable.png",
-      }, {
-        title: "Growing",
-        img: "growing.png"
-      },
-      {
-        title: "Spectacular",
-        img: "spec.png"
-      },
-      {
-        title: "Almost limitless",
-        img: "limitless.png"
-      }];
+          title: "Sustainable",
+          img: "sustainable.png",
+        }, {
+          title: "Growing",
+          img: "growing.png"
+        },
+        {
+          title: "Spectacular",
+          img: "spec.png"
+        },
+        {
+          title: "Almost limitless",
+          img: "limitless.png"
+        }
+      ];
       let form = document.createElement("form");
       form.setAttribute("id", "market");
-      values.forEach(function (value) {
+      values.forEach(function(value) {
         let divWrapper = document.createElement("div");
         let label = document.createElement("label");
         let theInput = document.createElement("input");
@@ -198,27 +199,27 @@ let questions = [
     question: "Innovation",
     txt: "How innovative is the product/technology?",
     type: "radio",
-    answerQ: function () {
+    answerQ: function() {
       let values = [{
-        title: "There are many similar products/technologies",
-        img: "many.png"
-      },
-      {
-        title: "There are few similar products/technologies",
-        img: "several.png"
-      },
-      {
-        title: "There are only 1-3 similar products/technologies",
-        img: "none.png"
-      },
-      {
-        title: "It is unique product/technologies",
-        img: "unique.png"
-      }
+          title: "There are many similar products/technologies",
+          img: "many.png"
+        },
+        {
+          title: "There are few similar products/technologies",
+          img: "several.png"
+        },
+        {
+          title: "There are only 1-3 similar products/technologies",
+          img: "none.png"
+        },
+        {
+          title: "It is unique product/technologies",
+          img: "unique.png"
+        }
       ];
       let form = document.createElement("form");
       form.setAttribute("id", "uniqueness");
-      values.forEach(function (value) {
+      values.forEach(function(value) {
         let divWrapper = document.createElement("div");
         let label = document.createElement("label");
         let theInput = document.createElement("input");
@@ -255,25 +256,26 @@ let questions = [
     question: "Competitors",
     txt: "How competitive is environment?",
     type: "radio",
-    answerQ: function () {
+    answerQ: function() {
       let values = [{
-        title: "Crowded space",
-        img: "crowded.png",
-      }, {
-        title: "Competitive",
-        img: "competitive.png"
-      },
-      {
-        title: "Single competitor",
-        img: "single.png"
-      },
-      {
-        title: "Blue ocean",
-        img: "blue.png"
-      }];
+          title: "Crowded space",
+          img: "crowded.png",
+        }, {
+          title: "Competitive",
+          img: "competitive.png"
+        },
+        {
+          title: "Single competitor",
+          img: "single.png"
+        },
+        {
+          title: "Blue ocean",
+          img: "blue.png"
+        }
+      ];
       let form = document.createElement("form");
       form.setAttribute("id", "competition");
-      values.forEach(function (value) {
+      values.forEach(function(value) {
         let divWrapper = document.createElement("div");
         let label = document.createElement("label");
         let theInput = document.createElement("input");
@@ -307,25 +309,26 @@ let questions = [
     question: "Strength",
     txt: "How strong is marketing plan/sales/partnerships?",
     type: "radio",
-    answerQ: function () {
+    answerQ: function() {
       let values = [{
-        title: "Good",
-        img: "first.png",
-      }, {
-        title: "Solid",
-        img: "second.png"
-      },
-      {
-        title: "Strong",
-        img: "third.png"
-      },
-      {
-        title: "Perfect",
-        img: "fourth.png"
-      }];
+          title: "Good",
+          img: "first.png",
+        }, {
+          title: "Solid",
+          img: "second.png"
+        },
+        {
+          title: "Strong",
+          img: "third.png"
+        },
+        {
+          title: "Perfect",
+          img: "fourth.png"
+        }
+      ];
       let form = document.createElement("form");
       form.setAttribute("id", "strength");
-      values.forEach(function (value) {
+      values.forEach(function(value) {
         let divWrapper = document.createElement("div");
         let label = document.createElement("label");
         let theInput = document.createElement("input");
@@ -360,7 +363,7 @@ let questions = [
     question: "Additional investements",
     txt: "How much more investments do you need?",
     type: "input",
-    answerQ: function () {
+    answerQ: function() {
       let theInput = document.createElement("input");
       let theLabel = document.createElement("label");
       theLabel.setAttribute("for", "investment")
@@ -368,7 +371,8 @@ let questions = [
       theInput.setAttribute("id", "addInvestment");
       theInput.setAttribute("placeholder", "Type your number here")
       return theInput;
-    }, canvasForChart: function () {
+    },
+    canvasForChart: function() {
       let theCanvas = document.createElement("canvas");
       theCanvas.setAttribute("width", 400);
       theCanvas.setAttribute("height", 200);
@@ -383,12 +387,12 @@ let questions = [
     question: "Positive factors",
     txt: "Do you have any positive factor(s) that affect or may affect your income in future?",
     type: "radio",
-    answerQ: function () {
+    answerQ: function() {
       let values = ["yes", "no"];
       let form = document.createElement("form");
 
 
-      values.forEach(function (value) {
+      values.forEach(function(value) {
         let theLabel = document.createElement("label");
         let theInput = document.createElement("input");
         let span = document.createElement("span");
@@ -409,7 +413,8 @@ let questions = [
       })
       return form;
 
-    }, canvasForChart: function () {
+    },
+    canvasForChart: function() {
       let theCanvas = document.createElement("canvas");
       theCanvas.setAttribute("width", 400);
       theCanvas.setAttribute("height", 200);
@@ -445,19 +450,26 @@ function insertIntoDOM() {
 
   wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
 
-  TweenMax.from(('#incomeNumber'), 1, { css: { scale: .05, opacity: 0, rotation: 180 }, ease: Quad.easeInOut }), 0, -400;
+  TweenMax.from(('#incomeNumber'), 1, {
+    css: {
+      scale: .05,
+      opacity: 0,
+      rotation: 180
+    },
+    ease: Quad.easeInOut
+  }), 0, -400;
 
 
 
   document.getElementById('prev_button').addEventListener(
     'click',
-    function () {
+    function() {
       prevElement();
     }
   );
   document.getElementById('next_button').addEventListener(
     'click',
-    function () {
+    function() {
 
       nextElement();
     }
@@ -503,7 +515,7 @@ function nextElement() {
 
   if (questions[currentQuestionIndex].id == 8) {
     console.log("it is 8!")
-    answer.querySelector("#addInvestment").addEventListener("blur", function () {
+    answer.querySelector("#addInvestment").addEventListener("blur", function() {
       console.log("eventlistener from init for investements")
       if (answer.querySelector("#addInvestment").value.length) {
         document.getElementById('next_button').disabled = false;
@@ -515,13 +527,13 @@ function nextElement() {
     })
   }
   //DOES NOT WORK
-  if (questions[currentQuestionIndex].id == 9 && questions[currentQuestionIndex].id !== null) {
-    if (questions[currentQuestionIndex].userAnswer == 100) {
-      createChartForFactors();
-    } else {
-      createChartForOtherFactors();
-    }
-  }
+  // if (questions[currentQuestionIndex].id == 9 && questions[currentQuestionIndex].id !== null) {
+  //   if (questions[currentQuestionIndex].userAnswer == 100) {
+  //     createChartForFactors();
+  //   } else {
+  //     createChartForOtherFactors();
+  //   }
+  // }
   insertSavedAnswers(currentEl);
   disabledIfEmpty();
   timeline();
@@ -532,13 +544,15 @@ function nextElement() {
     let slider = document.querySelector('input[type="range"]');
     console.log("slider", slider)
     disabledIfEmpty();
-    slider.addEventListener("change", function () {
+    slider.addEventListener("change", function() {
       console.log("eventlistener for getValue")
       getValue();
 
     })
 
   }
+
+  ifLastElement(currentEl);
 
 }
 
@@ -557,33 +571,30 @@ function prevElement() {
     console.log("currentID", questions[currentQuestionIndex].id)
     document.querySelector("#prev_button").style.display = "none";
   }
-  insertSavedAnswers(currentEl);
-
 
   console.log("question", currentEl)
   document.getElementById('next_button').disabled = false;
   timeline();
+  console.log("questions[currentQuestionIndex]", questions[currentQuestionIndex]);
   if (questions[currentQuestionIndex].type == "range") {
     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
     let slider = document.querySelector('input[type=range]');
-    slider.addEventListener("change", function () {
+    slider.addEventListener("change", function() {
       console.log("eventlistener for getValue")
       getValue();
 
     })
   }
   if (questions[currentQuestionIndex].id == 1) {
-
     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
     getValueForBarChart();
   }
 
   if (questions[currentQuestionIndex].id == 8) {
-
     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
     getValueForInvestment();
   }
-
+  insertSavedAnswers(currentEl);
   ifLastElement(currentEl);
 }
 
@@ -627,7 +638,15 @@ function insertSavedAnswers(currentEl) {
           }
         }
       } else {
-        console.log("it is the last one")
+        console.log("it is the last one");
+        if (questions[currentQuestionIndex].userAnswer || questions[currentQuestionIndex].userAnswer === 0) {
+          if (questions[currentQuestionIndex].userAnswer == 100) {
+            createChartForFactors();
+          } else {
+            createChartForOtherFactors();
+          }
+        }
+
       }
     }
 
@@ -651,12 +670,11 @@ function ifLastElement(currentEl) {
     document.getElementById("submit").style.display = "inline-block";
   }
 
-
   if (currentEl.id == questions.length) {
 
-    console.log("it is 9")
+    console.log("it is 9");
     let factorsRadio = document.getElementsByName("factors");
-    factorsRadio[0].addEventListener("click", function () {
+    factorsRadio[0].addEventListener("click", function() {
       console.log("works");
       let input = answer.querySelector("input");
       console.log("form", input);
@@ -665,7 +683,7 @@ function ifLastElement(currentEl) {
       let radioValue = getRadioCheckedValue(radioName);
 
       if (radioValue == "yes") {
-        radioValue = 100
+        radioValue = 100;
         questions[currentQuestionIndex].userAnswer = radioValue;
         createChartForFactors();
       }
@@ -678,7 +696,7 @@ function ifLastElement(currentEl) {
       document.getElementById("submit").style.display = "inline-block";
 
     })
-    factorsRadio[1].addEventListener("click", function () {
+    factorsRadio[1].addEventListener("click", function() {
       console.log("works");
       let input = answer.querySelector("input");
       console.log("form", input);
@@ -688,7 +706,7 @@ function ifLastElement(currentEl) {
 
 
       if (radioValue == "no") {
-        radioValue = 0
+        radioValue = 0;
         questions[currentQuestionIndex].userAnswer = radioValue;
         createChartForOtherFactors();
       }
@@ -698,7 +716,7 @@ function ifLastElement(currentEl) {
       document.getElementById('next_button').style.display = "none";
 
       document.getElementById("submit").style.display = "inline-block";
-    })
+    });
 
   } else {
     insertSavedAnswers(currentEl);
@@ -726,21 +744,21 @@ function disabledIfEmpty() {
   console.log("questions[currentQuestionIndex].type", questions[currentQuestionIndex].type)
   if (questions[currentQuestionIndex].type == "input") {
     console.log("it is input and it is disabled!")
-    answer.querySelector("input").addEventListener("keyup", function () {
+    answer.querySelector("input").addEventListener("keyup", function() {
       if (answer.querySelector("input").value.length) {
         document.getElementById('next_button').disabled = false;
       } else {
         console.log("it is disabled!");
         document.getElementById('next_button').disabled = true;
       }
-    })
+    });
   }
   if (questions[currentQuestionIndex].type == "radio") {
     console.log("disable it is radio")
     document.getElementById('next_button').disabled = true;
     // console.log("allRadios", allRadios)
     // for (let i = 0; i < allRadios.length; i++) {
-    document.querySelector("form").addEventListener("click", function () {
+    document.querySelector("form").addEventListener("click", function() {
       let allRadios = document.querySelectorAll("input");
       for (let i = 0; i < allRadios.length; i++) {
         if (allRadios[i].checked == true) {
@@ -767,7 +785,7 @@ function disabledIfEmpty() {
 
 
 //CONVERT, COLLECT AND CALCULATE HERE
-//REWRITE 
+//REWRITE
 function turnToNumber(currentQuestionIndex) {
 
   if (questions[currentQuestionIndex].userAnswer != Number) {
@@ -853,7 +871,7 @@ function timeline() {
 function init() {
   insertIntoDOM();
 
-  document.getElementById("submit").addEventListener("click", function () {
+  document.getElementById("submit").addEventListener("click", function() {
     document.querySelector("#popUp").style.display = "block";
     let allOneUserAnswers = collectAllAnswers();
     console.log("userAnswer", allOneUserAnswers);
@@ -863,7 +881,7 @@ function init() {
   })
 
 
-  answer.querySelector("input").addEventListener("blur", function () {
+  answer.querySelector("input").addEventListener("blur", function() {
     console.log("eventlistener from init!")
     if (answer.querySelector("input").value.length) {
       document.getElementById('next_button').disabled = false;
@@ -895,7 +913,7 @@ function getValue() {
   let elem = document.querySelector('input[type="range"]');
 
   let clicked = false;
-  elem.addEventListener("click", function () {
+  elem.addEventListener("click", function() {
     console.log("clicked")
     newValue = elem.value;
     clicked = true;
@@ -989,8 +1007,7 @@ function createChart(get_wrapper, type_of_chart, labels_of_chart, data_of_charts
         // pointBackgroundColor: 'rgba(19, 247, 228,1)',
         // pointBorderColor: 'rgba(19, 247, 228,1)',
         pointBorderWidth: 0,
-      }
-      ]
+      }]
     },
     options: {
       scales: {
@@ -1021,7 +1038,7 @@ function createChart(get_wrapper, type_of_chart, labels_of_chart, data_of_charts
       },
       tooltips: {
         callbacks: {
-          label: function (t, d) {
+          label: function(t, d) {
             var xLabel = d.datasets[t.datasetIndex].label;
             var yLabel = d.datasets[t.datasetIndex].data[t.index];
             return xLabel + ': %' + yLabel;
@@ -1059,8 +1076,7 @@ function createBarChart(value, placeHolder) {
     type: 'bar',
     data: {
       labels: ["Income"],
-      datasets: [
-        {
+      datasets: [{
           label: 'Your income',
           data: [value],
           backgroundColor: 'blue',
@@ -1074,8 +1090,10 @@ function createBarChart(value, placeHolder) {
           label: 'Max income',
           data: [100000],
           backgroundColor: '#EEEEEE',
-        }],
-    }, options: {
+        }
+      ],
+    },
+    options: {
       legend: {
         display: true
       },
@@ -1114,8 +1132,7 @@ function createInvestmentChart(value, placeHolder) {
     type: 'bar',
     data: {
       labels: ["Additional investments"],
-      datasets: [
-        {
+      datasets: [{
           label: 'Additional investements',
           data: [value],
           backgroundColor: 'blue',
@@ -1126,7 +1143,8 @@ function createInvestmentChart(value, placeHolder) {
           backgroundColor: 'green',
         }
       ],
-    }, options: {
+    },
+    options: {
       legend: {
         display: true
       },
@@ -1163,16 +1181,16 @@ function createChartForFactors() {
     type: 'bar',
     data: {
       labels: ["Good reviews", "Strong Partners", "Stabel revenue", "Destribution channels", "Traction"],
-      datasets: [
-        {
+      datasets: [{
 
-          backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
-          data: [50, 45, 60, 55, 49]
-        }
-      ]
+        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+        data: [50, 45, 60, 55, 49]
+      }]
     },
     options: {
-      legend: { display: false },
+      legend: {
+        display: false
+      },
       title: {
         display: true,
         text: 'Positive factors'
@@ -1207,16 +1225,16 @@ function createChartForOtherFactors() {
     type: 'bar',
     data: {
       labels: ["Poorely performing sector", "Poor managing team", "Defective product", "Lack of financial planning", "Low margins"],
-      datasets: [
-        {
+      datasets: [{
 
-          backgroundColor: ["#FFA500", "#FFDEAD", "#FF4500", "#CD853F", "#BC8F8F"],
-          data: [50, 45, 60, 55, 49]
-        }
-      ]
+        backgroundColor: ["#FFA500", "#FFDEAD", "#FF4500", "#CD853F", "#BC8F8F"],
+        data: [50, 45, 60, 55, 49]
+      }]
     },
     options: {
-      legend: { display: false },
+      legend: {
+        display: false
+      },
       title: {
         display: true,
         text: 'Negative factors'
@@ -1246,5 +1264,3 @@ function createChartForOtherFactors() {
 }
 
 ////GET VALUE AND CREATE CHARTS END
-
-
