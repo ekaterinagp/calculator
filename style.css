@@ -26,8 +26,7 @@ h1{
   font-family:'Gotham_Black';
 }
 .box{
-  width: 95%;
-  height: 100%;
+  text-align: -webkit-center;
   background-color: white;
   color:black;
 }
@@ -43,6 +42,19 @@ h1{
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   font-family:'Gotham_Book';
 }
+
+#prevNext{
+  
+    padding-top: 4em;
+}
+
+#chartPlaceHolder{
+  text-align: -webkit-center;
+  width: 75vw;
+  height: 40vh;
+}
+
+
 
 #answer{
   width: 100%;

@@ -4,11 +4,7 @@ window.addEventListener('load', function () {
   init();
 })
 
-const questionTitle = document.querySelector("#question");
-const questionText = document.querySelector("#questionText");
-const answer = document.querySelector("#answer");
-const wrapForCanvas = document.querySelector("#chartPlaceHolder");
-let currentQuestionIndex = 0;
+
 
 let questions = [
   {
@@ -27,8 +23,8 @@ let questions = [
     },
     canvasForChart: function () {
       let theCanvas = document.createElement("canvas");
-      theCanvas.setAttribute("width", 400);
-      theCanvas.setAttribute("height", 200);
+      // theCanvas.setAttribute("width", 400);
+      // theCanvas.setAttribute("height", 200);
       theCanvas.setAttribute("id", "incomeChart");
       return theCanvas;
     },
@@ -138,13 +134,8 @@ let questions = [
       })
       return form;
     },
-    canvasForChart: function () {
-      let theCanvas = document.createElement("canvas");
-      theCanvas.setAttribute("width", 400);
-      theCanvas.setAttribute("height", 200);
-      theCanvas.setAttribute("id", "teamChart");
-      return theCanvas;
-    },
+    canvasForChart: null,
+
     userAnswer: null
   },
   {
@@ -199,13 +190,7 @@ let questions = [
       return form;
     },
 
-    canvasForChart: function () {
-      let theCanvas = document.createElement("canvas");
-      theCanvas.setAttribute("width", 400);
-      theCanvas.setAttribute("height", 200);
-      theCanvas.setAttribute("id", "marketChart");
-      return theCanvas;
-    },
+    canvasForChart: null,
     userAnswer: null
   },
   {
@@ -262,13 +247,7 @@ let questions = [
       })
       return form;
     },
-    canvasForChart: function () {
-      let theCanvas = document.createElement("canvas");
-      theCanvas.setAttribute("width", 400);
-      theCanvas.setAttribute("height", 200);
-      theCanvas.setAttribute("id", "uniqueChart");
-      return theCanvas;
-    },
+    canvasForChart: null,
     userAnswer: null
   },
   {
@@ -319,13 +298,8 @@ let questions = [
         divWrapper.appendChild(theBreak);
       })
       return form;
-    }, canvasForChart: function () {
-      let theCanvas = document.createElement("canvas");
-      theCanvas.setAttribute("width", 400);
-      theCanvas.setAttribute("height", 200);
-      theCanvas.setAttribute("id", "competitionChart");
-      return theCanvas;
     },
+    canvasForChart: null,
     userAnswer: null
   },
   {
@@ -377,13 +351,8 @@ let questions = [
         divWrapper.appendChild(theBreak);
       })
       return form;
-    }, canvasForChart: function () {
-      let theCanvas = document.createElement("canvas");
-      theCanvas.setAttribute("width", 400);
-      theCanvas.setAttribute("height", 200);
-      theCanvas.setAttribute("id", "marketChart");
-      return theCanvas;
     },
+    canvasForChart: null,
     userAnswer: null
   },
   {
@@ -452,6 +421,12 @@ let questions = [
 
 ]
 
+const questionTitle = document.querySelector("#question");
+const questionText = document.querySelector("#questionText");
+const answer = document.querySelector("#answer");
+const wrapForCanvas = document.querySelector("#chartPlaceHolder");
+let currentQuestionIndex = 0;
+
 
 
 
@@ -469,18 +444,9 @@ function insertIntoDOM() {
   answer.appendChild(questions[currentQuestionIndex].answerQ());
 
   wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
-  // console.log("it is displayed")
+
   TweenMax.from(('#incomeNumber'), 1, { css: { scale: .05, opacity: 0, rotation: 180 }, ease: Quad.easeInOut }), 0, -400;
 
-  // TweenMax.fromTo(("#incomeNumber"), 1.5,
-  //   {
-  //     x: -1200,
-  //     y: 0,
-  //   }, {
-  //     x: 0,
-  //     y: 0,
-  //     delay: 2,
-  //   }, { css: { rotation: 180 } }, 1);
 
 
   document.getElementById('prev_button').addEventListener(
@@ -498,22 +464,6 @@ function insertIntoDOM() {
   );
 }
 
-// function checkValueInput() {
-//   console.log("checkValue runs")
-//   let inputToCheck = document.querySelector("#incomeNumber");
-//   if (inputToCheck.value > 100000) {
-//     inputToCheck.style.backgroundColor = "lime";
-//     TweenMax.to(inputToCheck, 2, { rotation: 360, scale: 1.1 });
-//   } else if (inputToCheck.value > 10000) {
-//     console.log("more than 10000");
-//     inputToCheck.style.backgroundColor = "green";
-//     TweenMax.to(inputToCheck, 2, { rotation: 360, scale: 2 });
-//   }
-//   else {
-//     inputToCheck.style.backgroundColor = "orange";
-//     TweenMax.to(inputToCheck, 2, { rotation: 360, scale: 0.9 });
-//   }
-// }
 
 
 function nextElement() {
@@ -522,52 +472,34 @@ function nextElement() {
 
   document.querySelector("#prev_button").style.display = "inline-block";
   if (questions[currentQuestionIndex].type == "radio") {
-
-    console.log("it is radio!");
     let input = answer.querySelector("input");
-    // console.log("form", input);
     let radioName = input.getAttribute("name");
-    // console.log("radio_name", radioName);
     let radioValue = getRadioCheckedValue(radioName);
-    // let checkedValue = turnToNumber(radioValue);
-    // questions[currentQuestionIndex].userAnswer = checkedValue;
-    // console.log("is it a number now?", checkedValue)
-
     questions[currentQuestionIndex].userAnswer = radioValue;
-    // console.log("radioValue", checkedValue);
-
   }
 
   if (questions[currentQuestionIndex].type == "input") {
-    console.log("it is input!")
-
-    // document.getElementById('next_button').style.display = "none";
+    console.log("it is input!");
     let inputValue = answer.querySelector("input").value;
     // console.log("inputValue", inputValue)
     questions[currentQuestionIndex].userAnswer = inputValue;
-    // let context = canvas.getContext('2d');
-    // context.clearRect(0, 0, canvas.width, canvas.height);
-
   }
-
-
   answer.textContent = "";
   wrapForCanvas.innerHTML = "";
-  // let a = questions[currentQuestionIndex - 1].canvasForChart;
-  // a.hidden();
 
   let currentEl = nextItem();
 
   questionTitle.textContent = currentEl.question;
   questionText.textContent = currentEl.txt;
   answer.appendChild(questions[currentQuestionIndex].answerQ());
+  if (questions[currentQuestionIndex].canvasForChart !== null) {
+    wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
+    document.querySelector("#chartPlaceHolder").style.height = "40vh";
+  } else {
+    document.querySelector("#chartPlaceHolder").style.height = "0px";
+  }
 
-  wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
   console.log("current element", currentEl.id);
-  // if (questions[currentQuestionIndex] !== 2) {
-  //   let context = canvas.getContext('2d');
-  //   context.clearRect(0, 0, canvas.width, canvas.height);
-  // }
 
   if (questions[currentQuestionIndex].id == 8) {
     console.log("it is 8!")
@@ -582,9 +514,15 @@ function nextElement() {
       }
     })
   }
+  //DOES NOT WORK
+  if (questions[currentQuestionIndex].id == 9 && questions[currentQuestionIndex].id !== null) {
+    if (questions[currentQuestionIndex].userAnswer == 100) {
+      createChartForFactors();
+    } else {
+      createChartForOtherFactors();
+    }
+  }
   insertSavedAnswers(currentEl);
-
-  ifLastElement(currentEl);
   disabledIfEmpty();
   timeline();
 
@@ -601,37 +539,9 @@ function nextElement() {
     })
 
   }
-  if (questions[currentQuestionIndex].type == "button") {
-    console.log("it is button")
-    let allButtons = document.querySelectorAll(".btnRadio");
-    console.log("allbuttons", allButtons)
-    allButtons.forEach(button => {
-      button.addEventListener("click", function () {
-        console.log("button clicked", button.previousSibling.value)
-        questions[currentQuestionIndex].userAnswer = button.value;
-        button.classList.toggle("classColor");
-        document.getElementsByName("team").disabled = "true";
-        console.log("questions[currentQuestionIndex].userAnswer", questions[currentQuestionIndex].userAnswer)
 
-      })
-    })
-    // document.addEventListener("click", function () {
-    //   let buttonValue = getButtonValue("team");
-    //   console.log("button value", buttonValue);
-    // })
-
-  }
 }
 
-
-
-// function hideChart(idStr) {
-//   console.log("has to be hidden");
-//   let canvas = document.getElementById(idStr);
-//   console.log("canvas", canvas)
-//   canvas.style.display = "none";
-
-// }
 
 function prevElement() {
 
@@ -649,7 +559,7 @@ function prevElement() {
   }
   insertSavedAnswers(currentEl);
 
-  ifLastElement(currentEl);
+
   console.log("question", currentEl)
   document.getElementById('next_button').disabled = false;
   timeline();
@@ -673,47 +583,61 @@ function prevElement() {
     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
     getValueForInvestment();
   }
-  // if (questions[currentQuestionIndex].id == 2) {
 
-  //   wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
-  //   // console.log("questions[currentQuestionIndex].canvasForChart()", questions[currentQuestionIndex].canvasForChart())
-  //   // getValue();
-  // }
-
+  ifLastElement(currentEl);
 }
 
-function insertSavedAnswers(currentEl, radioValue) {
+function nextItem() {
+
+  if (currentQuestionIndex + 1 < questions.length) {
+    currentQuestionIndex++;
+  }
+  return questions[currentQuestionIndex];
+}
+
+function prevItem() {
+  if (currentQuestionIndex - 1 < 0) {
+    currentQuestionIndex = 0;
+  } else {
+    currentQuestionIndex--;
+  }
+  return questions[currentQuestionIndex];
+}
+
+
+function insertSavedAnswers(currentEl) {
   if (questions[currentQuestionIndex].userAnswer) {
-    // if (questions[currentQuestionIndex].userAnswer !== Number) {
-    //   console.log("answer is not a number!")
-    //   turnToValues(radioValue);
-    // }
+
 
     if (questions[currentQuestionIndex].type == "input") {
       answer.querySelector("input").value = currentEl.userAnswer;
     }
 
     if (questions[currentQuestionIndex].type == "radio") {
-      console.log("it is radio type! prev")
-      console.log("UserAnswer", questions[currentQuestionIndex].userAnswer);
-      let allRadios = answer.querySelectorAll("input");
-      let radioArr = Array.prototype.slice.call(allRadios);
-      for (let u = 0; u < radioArr.length; u++) {
-        // console.log("allRadios", radioArr[u].value);
-        if (radioArr[u].value == questions[currentQuestionIndex].userAnswer) {
-          console.log("radio value check", radioArr[u].value)
-          radioArr[u].checked = true;
+      if (questions[currentQuestionIndex].id !== 9) {
+        console.log("it is radio type! and not 9")
+        console.log("UserAnswer", questions[currentQuestionIndex].userAnswer);
+        let allRadios = answer.querySelectorAll("input");
+        let radioArr = Array.prototype.slice.call(allRadios);
+        for (let u = 0; u < radioArr.length; u++) {
+          // console.log("allRadios", radioArr[u].value);
+          if (radioArr[u].value == questions[currentQuestionIndex].userAnswer) {
+            console.log("radio value check", radioArr[u].value)
+            radioArr[u].checked = true;
+          }
         }
+      } else {
+        console.log("it is the last one")
       }
     }
+
+
     if (questions[currentQuestionIndex].type == "range") {
       console.log("get user answer", questions[currentQuestionIndex].userAnswer)
       buildChart(questions[currentQuestionIndex].userAnswer)
       let slider = document.querySelector('input[type=range]');
       slider.value = questions[currentQuestionIndex].userAnswer;
       getValue();
-      // let theInput = document.querySelector("input");
-      // theInput.setAttribute("value", questions[currentQuestionIndex].userAnswer)
     }
   }
 
@@ -729,10 +653,9 @@ function ifLastElement(currentEl) {
 
 
   if (currentEl.id == questions.length) {
-    //not dynamic, turn to dynamic
+
     console.log("it is 9")
     let factorsRadio = document.getElementsByName("factors");
-    // let factorsArray = Array.prototype.slice.call(factorsRadio);
     factorsRadio[0].addEventListener("click", function () {
       console.log("works");
       let input = answer.querySelector("input");
@@ -751,7 +674,7 @@ function ifLastElement(currentEl) {
 
 
       document.getElementById('next_button').style.display = "none";
-      //add total validation before submit appears 
+
       document.getElementById("submit").style.display = "inline-block";
 
     })
@@ -773,7 +696,7 @@ function ifLastElement(currentEl) {
       this.checked = true;
 
       document.getElementById('next_button').style.display = "none";
-      //ADD FULL VALIDATION HERE
+
       document.getElementById("submit").style.display = "inline-block";
     })
 
@@ -782,23 +705,8 @@ function ifLastElement(currentEl) {
     document.getElementById('next_button').style.display = "inline-block";
     document.getElementById("submit").style.display = "none";
   }
-
-
 }
 
-function getButtonValue(name) {
-  console.log("all buttons name", name)
-  let allBtn = document.getElementsByName(name);
-  console.log("allBtn", allBtn)
-  allBtn = Array.prototype.slice.call(allBtn);
-  console.log("allBtn array", allBtn)
-  for (let u = 0; u < allBtn.length; u++) {
-    if (allBtn[u].clicked) {
-      console.log("clicked button", allBtn[u].clicked)
-      return allBtn[u].value;
-    }
-  }
-}
 
 function getRadioCheckedValue(radio_name) {
   let oRadio = document.forms[0].elements[radio_name];
@@ -826,11 +734,7 @@ function disabledIfEmpty() {
         document.getElementById('next_button').disabled = true;
       }
     })
-
-    //   })
-    // })
   }
-
   if (questions[currentQuestionIndex].type == "radio") {
     console.log("disable it is radio")
     document.getElementById('next_button').disabled = true;
@@ -841,16 +745,8 @@ function disabledIfEmpty() {
       for (let i = 0; i < allRadios.length; i++) {
         if (allRadios[i].checked == true) {
           document.getElementById('next_button').disabled = false;
-          // if (questions[currentQuestionIndex].id == 3) {
-          //   getValueForRadio();
-          // }
-          // if (questions[currentQuestionIndex].id == 4) {
-          //   getValueForRadioMarket();
-          // }
-
         }
       }
-
     })
   }
   if (questions[currentQuestionIndex].type == "range") {
@@ -859,85 +755,19 @@ function disabledIfEmpty() {
     if (answer.querySelector("input").value == 1) {
       console.log("value of input range", answer.querySelector("input").value)
       document.getElementById('next_button').disabled = true;
-
     }
-    // else {
-    //   document.getElementById('next_button').disabled = false;
-    //   console.log("value of input range", answer.querySelector("input").value)
-    // }
   }
-  // }
+
   if (questions[currentQuestionIndex].userAnswer) {
     console.log("userAnswer", questions[currentQuestionIndex].userAnswer)
     document.getElementById('next_button').disabled = false;
   }
-
 }
 
-function nextItem() {
-
-  if (currentQuestionIndex + 1 < questions.length) {
-    currentQuestionIndex++;
-  }
-  return questions[currentQuestionIndex];
-}
-
-function prevItem() {
-  if (currentQuestionIndex - 1 < 0) {
-    currentQuestionIndex = 0;
-  } else {
-    currentQuestionIndex--;
-  }
-  return questions[currentQuestionIndex];
-}
-
-// function generateButtonInputs() {
-//   let values = ["Fresh out of school and working towards a solution", "Minimum of 3 years of work experience each", "Minimum of 7 years of experience in your specific field each", "Subject matter experts with published thoughts on your industry"];
-//   let form = document.createElement("form");
-//   form.setAttribute("id", "team");
-//   values.forEach(function (value) {
-//     let theButton = document.createElement("input");
-//     theButton.setAttribute("value", value);
-//     theButton.setAttribute("name", "team");
-//     theButton.setAttribute("type", "radio");
-//     theButton.classList.add("inputBtn");
-//     theButton.innerHTML = value;
-//     form.appendChild(theButton);
-//   })
-//   return form;
-// }
-
-// function generateValues() {
-//   let values = [];
-//   if (questions[currentQuestionIndex].id == 3) {
-//     let values = ["Fresh out of school and working towards a solution", "Minimum of 3 years of work experience each", "Minimum of 7 years of experience in your specific field each", "Subject matter experts with published thoughts on your industry"];
-//   } else {
-//     let values = ["0", "50", "100", "150"];
-//   }
-//   return values;
-// }
-
-function generateRadioInputs(nameStr) {
 
 
-  let values = ["0", "50", "100", "150"];
-  let form = document.createElement("form");
-  form.setAttribute("id", nameStr)
-  values.forEach(function (value) {
-    let theInput = document.createElement("input");
-    theInput.setAttribute('type', "radio");
-    theInput.setAttribute("name", nameStr);
-    theInput.setAttribute("value", value)
-    let nameInput = document.createElement("p");
-
-    nameInput.textContent = value;
-
-    form.appendChild(theInput);
-    form.appendChild(nameInput);
-  })
-  return form;
-}
-
+//CONVERT, COLLECT AND CALCULATE HERE
+//REWRITE 
 function turnToNumber(currentQuestionIndex) {
 
   if (questions[currentQuestionIndex].userAnswer != Number) {
@@ -1004,7 +834,7 @@ function calculateResult(array) {
   console.log("sumOfFactors", sumOfFactors)
   return finalResult;
 }
-
+//END OF CALCULATION
 
 function timeline() {
   let timelineInput = document.querySelector("#timeline");
@@ -1018,23 +848,10 @@ function timeline() {
 }
 
 
-// To save user data 
-// function saveUserData() {
-//   let formSignUp = document.querySelector("#signUp");
-//   l
-//   let userData = {
-//     name: "",
-//     company: "",
-//     email: "",
-//     phone: ""
-//   }
-// }
 
 
 function init() {
-
   insertIntoDOM();
-
 
   document.getElementById("submit").addEventListener("click", function () {
     document.querySelector("#popUp").style.display = "block";
@@ -1058,18 +875,9 @@ function init() {
       document.getElementById('next_button').disabled = true;
     }
   })
-
-
-
-
-
-  // slider.addEventListener("click", function () {
-  //   getValue();
-  // })
-
 }
 
-//creat charts
+//GET VALUE AND CREATE CHARTS
 
 
 Chart.defaults.global.legend.display = false;
@@ -1289,6 +1097,7 @@ function createBarChart(value, placeHolder) {
           ticks: {
             beginAtZero: true,
             stepSize: 10000,
+            display: false
           }
         }],
       }
@@ -1436,130 +1245,6 @@ function createChartForOtherFactors() {
   });
 }
 
-// function getValueForRadio() {
-//   let input = answer.querySelector("input");
-//   let radioName = input.getAttribute("name");
-//   let radioValue = getRadioCheckedValue(radioName);
-//   console.log("radioValue for chart", radioValue);
-//   let newValue = radioValue;
-//   console.log("newradioValue for chart", newValue);
-//   if (newValue == "Fresh out of school and working towards a solution") {
-//     newValue = 25;
-//   } else if (newValue == "Minimum of 3 years of work experience each") {
-//     newValue = 50;
-//   } else if (newValue == "Minimum of 7 years of experience in your specific field each") {
-//     newValue = 75
-//   } else {
-//     newValue = 100;
-//   }
-//   createPieChart(newValue, 'teamChart');
-// }
+////GET VALUE AND CREATE CHARTS END
 
-// function createPieChart(value, placeHolder) {
-//   console.log("value piechart", value)
-//   // let dataValue = [value, 100 - value];
-//   let pieChartCanvas = document.getElementById(placeHolder);
-//   let pieChart = new Chart(pieChartCanvas, {
-//     type: 'polarArea',
-//     data: {
-//       labels: ["Your team ", "Ideal team"],
-//       datasets: [
-//         {
-//           fill: true,
-//           backgroundColor: [
-//             '#2E8B57',
-//             '#7FFF00'
-//           ],
-//           data: [value, 100],
-//           label: ["Your team", "Ideal Team"]
-
-
-//         }
-//       ]
-//     }, options: {
-//       tooltips: {
-//         enabled: false,
-//       },
-//       legend: {
-//         display: true
-//       },
-//     }
-
-
-//   });
-
-// }
-
-// function getValueForRadioMarket() {
-//   let input = answer.querySelector("input");
-//   let radioName = input.getAttribute("name");
-//   let radioValue = getRadioCheckedValue(radioName);
-//   console.log("radioValue for chart", radioValue);
-//   let newValue = radioValue;
-//   console.log("newradioValue for chart", newValue);
-//   if (newValue == "Sustainable") {
-//     newValue = 10;
-//   } else if (newValue == "Growing") {
-//     newValue = 50;
-//   } else if (newValue == "Spectacular") {
-//     newValue = 100
-//   } else {
-//     newValue = 150;
-//   }
-//   createBarChartMarket(newValue, 'marketChart');
-// }
-
-// function createBarChartMarket(value, placeholderStr) {
-//   let barChartMarketCanvas = document.getElementById(placeholderStr);
-//   let barMarketChart = new Chart(barChartMarketCanvas, {
-//     type: 'horizontalBar',
-//     data: {
-//       labels: ["Market"],
-//       datasets: [
-//         {
-//           label: "Your market opprotunity",
-//           data: [value],
-//           backgroundColor: 'blue',
-//         },
-//         {
-//           label: "Average market opportunity",
-//           data: [100],
-//           backgroundColor: '#EEEEEE',
-//         },
-//         {
-//           label: "Limitless market opportunity",
-//           data: [150],
-//           backgroundColor: 'green',
-//         }],
-//     }, options: {
-//       legend: {
-//         display: true
-//       },
-//       tooltips: {
-//         enabled: true
-//       },
-//       scales: {
-//         xAxes: [{
-//           display: true,
-//           stacked: false,
-//           ticks: {
-//             beginAtZero: true,
-//             stepSize: 10
-
-//           }
-//         }],
-//         yAxes: [{
-//           display: true,
-//           stacked: false,
-//           ticks: {
-//             beginAtZero: true,
-//             stepSize: 10
-
-//           }
-//         }],
-//       }
-//     }
-
-//   });
-// }
 
