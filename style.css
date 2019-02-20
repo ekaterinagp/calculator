@@ -54,6 +54,10 @@ h1{
   height: 40vh;
 }
 
+#otherChart{
+display:none;
+}
+
 
 
 #answer{
@@ -174,6 +178,19 @@ grid-gap:1em;
     width: 55%;
 }
 
+.btnRadioTwoOptions{
+  -webkit-appearance: button;
+    padding: 1em;
+    display: inline-grid;
+    justify-items: center;
+    align-items: center;
+    cursor: pointer;
+    width: 30%;
+}
+
+#factorsTwoOptions{
+  
+}
 #team label, #market label{
  
   /* float: left; */
