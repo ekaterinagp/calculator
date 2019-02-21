@@ -220,7 +220,7 @@ grid-gap:1em;
   color:#F7F7F7;
 } */
 
-#team input:checked + p, #market input:checked + p, #uniqueness input:checked + p, #competition input:checked + p, #strength input:checked + p {
+#team input:checked + p, #market input:checked + p, #uniqueness input:checked + p, #competition input:checked + p, #strength input:checked + p, #factorsTwoOptions input:checked + p {
   background-color:#6c9972;
   color:#F7F7F7;
 }
@@ -378,6 +378,13 @@ input[type="number"]{
   
 }
 
-.classColor{
-  background-color: green;
+#comparison{
+float: right;
+border: 1px solid black;
+padding:1em;
+position:absolute;
+}
+
+.hide{
+  visibility:hidden;
 }

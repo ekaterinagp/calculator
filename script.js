@@ -136,7 +136,8 @@ let questions = [{
   },
   canvasForChart: null,
 
-  userAnswer: null
+  userAnswer: null,
+  userAnswerIndex: null
 },
 {
   id: 4,
@@ -192,7 +193,8 @@ let questions = [{
   },
 
   canvasForChart: null,
-  userAnswer: null
+  userAnswer: null,
+  userAnswerIndex: null
 },
 {
   id: 5,
@@ -249,7 +251,8 @@ let questions = [{
     return form;
   },
   canvasForChart: null,
-  userAnswer: null
+  userAnswer: null,
+  userAnswerIndex: null
 },
 {
   id: 6,
@@ -302,7 +305,8 @@ let questions = [{
     return form;
   },
   canvasForChart: null,
-  userAnswer: null
+  userAnswer: null,
+  userAnswerIndex: null
 },
 {
   id: 7,
@@ -356,7 +360,8 @@ let questions = [{
     return form;
   },
   canvasForChart: null,
-  userAnswer: null
+  userAnswer: null,
+  userAnswerIndex: null
 },
 {
   id: 8,
@@ -418,14 +423,18 @@ let questions = [{
   },
   canvasForChart: function () {
     let theCanvas = document.createElement("canvas");
-    // let theSecond = document.createElement("canvas");
-    // theSecond.setAttribute("width", 400);
-    // theSecond.setAttribute("height", 200);
+    let theSecond = document.createElement("canvas");
+    theSecond.setAttribute("width", 400);
+    theSecond.setAttribute("height", 200);
     theCanvas.setAttribute("width", 400);
     theCanvas.setAttribute("height", 200);
     theCanvas.setAttribute("id", "factorsChart");
-    // theSecond.setAttribute("id", "otherChart");
-    return theCanvas;
+    theSecond.setAttribute("id", "otherChart");
+    //create second canvas and return 2 canvas as an object
+    return {
+      theCanvas: theCanvas,
+      theSecond: theSecond
+    }
   },
   userAnswer: null
 }
@@ -477,15 +486,19 @@ function insertIntoDOM() {
     'click',
     function () {
 
+
       nextElement();
     }
   );
 }
 
+// let allIndexes = [];
 
 
 function nextElement() {
   console.log("type of input", questions[currentQuestionIndex].type)
+
+  document.querySelector("#comparison").classList.add("hide");
 
 
   document.querySelector("#prev_button").style.display = "inline-block";
@@ -493,7 +506,13 @@ function nextElement() {
     let input = answer.querySelector("input");
     let radioName = input.getAttribute("name");
     let radioValue = getRadioCheckedValue(radioName);
-    questions[currentQuestionIndex].userAnswer = radioValue;
+    console.log("radiovalue and u?", radioValue)
+    questions[currentQuestionIndex].userAnswer = radioValue[0];
+    questions[currentQuestionIndex].userAnswerIndex = radioValue[1];
+    // questions[currentQuestionIndex].userAnswer = radioValue;
+    // let radioIndex = radioValue[1];
+    // allIndexes.push(radioIndex);
+    console.log("radioIndex", questions[currentQuestionIndex].userAnswerIndex);
   }
 
   if (questions[currentQuestionIndex].type == "input") {
@@ -511,7 +530,7 @@ function nextElement() {
   questionText.textContent = currentEl.txt;
   answer.appendChild(questions[currentQuestionIndex].answerQ());
 
-  if (questions[currentQuestionIndex].canvasForChart !== null) {
+  if (questions[currentQuestionIndex].canvasForChart !== null && questions[currentQuestionIndex].id !== 9) {
     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
     document.querySelector("#chartPlaceHolder").style.height = "40vh";
   } else {
@@ -529,6 +548,7 @@ function nextElement() {
       if (answer.querySelector("#addInvestment").value.length) {
         document.getElementById('next_button').disabled = false;
         getValueForInvestment();
+        document.querySelector("#comparison").classList.remove("hide");
       } else {
         console.log("it is disabled from investements");
         document.getElementById('next_button').disabled = true;
@@ -560,7 +580,10 @@ function nextElement() {
 
 
 function prevElement() {
-
+  if (questions[currentQuestionIndex].id !== 9) {
+    document.querySelector("#next_button").textContent = "Next";
+  }
+  document.querySelector("#comparison").classList.add("hide");
   answer.textContent = "";
   wrapForCanvas.innerHTML = "";
 
@@ -594,6 +617,7 @@ function prevElement() {
 
   if (questions[currentQuestionIndex].id == 8) {
     console.log("it is 8 and it needs to create a chart")
+    document.querySelector("#comparison").classList.remove("hide");
     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
     let valueForChart = questions[currentQuestionIndex].userAnswer;
     createInvestmentChart(valueForChart, 'investmentChart');
@@ -623,6 +647,9 @@ function prevItem() {
 
 
 function insertSavedAnswers(currentEl) {
+  if (questions[currentQuestionIndex].id !== 9) {
+    document.querySelector("#next_button").textContent = "Next";
+  }
   if (questions[currentQuestionIndex].userAnswer) {
 
 
@@ -645,10 +672,15 @@ function insertSavedAnswers(currentEl) {
         }
       } else {
         console.log("it is the last one");
-        if (questions[currentQuestionIndex].userAnswer || questions[currentQuestionIndex].userAnswer === 0) {
+
+        if (questions[currentQuestionIndex].userAnswer || questions[currentQuestionIndex].userAnswer == 0) {
+
           if (questions[currentQuestionIndex].userAnswer == 100) {
+            document.querySelector("input[value=yes]").checked = true;
             createChartForFactors();
           } else {
+            console.log("it is else and answer 0 at last one");
+            document.querySelector("input[value=no]").checked = true;
             createChartForOtherFactors();
           }
         }
@@ -669,6 +701,9 @@ function insertSavedAnswers(currentEl) {
 }
 
 function ifLastElement(currentEl) {
+  let canvasForLast = questions[8].canvasForChart();
+  let firstCanvas = canvasForLast.theCanvas;
+  let secondCanvas = canvasForLast.theSecond;
 
   if (questions[currentQuestionIndex].userAnswer) {
     document.getElementById('next_button').style.display = "none";
@@ -677,10 +712,11 @@ function ifLastElement(currentEl) {
   }
 
   if (currentEl.id == questions.length) {
-
+    document.querySelector("#next_button").textContent = "Submit";
     console.log("it is 9");
     let factorsRadio = document.getElementsByName("factors");
     factorsRadio[0].addEventListener("click", function () {
+      document.querySelector("#chartPlaceHolder").innerHTML = "";
       console.log("works");
       let input = answer.querySelector("input");
       console.log("form", input);
@@ -688,10 +724,19 @@ function ifLastElement(currentEl) {
       console.log("radio_name", radioName);
       let radioValue = getRadioCheckedValue(radioName);
 
-      if (radioValue == "yes") {
+      if (radioValue[0] == "yes") {
         radioValue = 100;
         questions[currentQuestionIndex].userAnswer = radioValue;
-        createChartForFactors();
+        //send placeholder as a parameter?
+        //hide the other one, as both are created by default
+
+        createChartForFactors(firstCanvas);
+
+
+        document.querySelector("#factorsChart").style.display = "block";
+        if (document.querySelector("#otherChart")) {
+          document.querySelector("#otherChart").style.display = "none";
+        }
       }
       console.log("radioValue", radioValue);
       this.checked = true;
@@ -704,6 +749,7 @@ function ifLastElement(currentEl) {
     })
     factorsRadio[1].addEventListener("click", function () {
       console.log("works");
+      document.querySelector("#chartPlaceHolder").innerHTML = "";
       let input = answer.querySelector("input");
       console.log("form", input);
       let radioName = input.getAttribute("name");
@@ -711,11 +757,18 @@ function ifLastElement(currentEl) {
       let radioValue = getRadioCheckedValue(radioName);
 
 
-      if (radioValue == "no") {
-        radioValue = 0;
+      if (radioValue[0] == "no") {
+        radioValue = "0";
         questions[currentQuestionIndex].userAnswer = radioValue;
-        createChartForOtherFactors();
+
+        createChartForOtherFactors(secondCanvas);
+        document.querySelector("#otherChart").style.display = "block";
+        if (document.querySelector("#factorsChart")) {
+          document.querySelector("#factorsChart").style.display = "none";
+        }
+
       }
+
       console.log("radioValue", radioValue);
       this.checked = true;
 
@@ -737,10 +790,12 @@ function getRadioCheckedValue(radio_name) {
 
   for (let u = 0; u < oRadio.length; u++) {
     if (oRadio[u].checked) {
-      return oRadio[u].value;
+      console.log("u index", u);
+      return [oRadio[u].value, u];
+      // return oRadio[u].value;
     }
   }
-
+  console.log("radio value returned?", oRadio[u].value)
   return '';
 }
 
@@ -791,26 +846,33 @@ function disabledIfEmpty() {
 
 
 //CONVERT, COLLECT AND CALCULATE HERE
-//REWRITE
+
 function turnToNumber(currentQuestionIndex) {
 
-  if (questions[currentQuestionIndex].userAnswer != Number) {
-    switch (questions[currentQuestionIndex].userAnswer) {
-      case "Slower Growth":
-        questions[currentQuestionIndex].userAnswer = 115;
-        break;
-      case "Average Growth":
-        questions[currentQuestionIndex].userAnswer = 130;
-        break;
-      case "Above Average Growth":
-        questions[currentQuestionIndex].userAnswer = 300;
-        break;
-      case "Amazing Growth":
-        questions[currentQuestionIndex].userAnswer = 450;
-        break;
-    }
+  if (questions[currentQuestionIndex].userAnswer <= 25) {
+    questions[currentQuestionIndex].userAnswer = 115;
+  } else if (questions[currentQuestionIndex].userAnswer > 25 && questions[currentQuestionIndex].userAnswer <= 50) {
+    questions[currentQuestionIndex].userAnswer = 130;
+  } else if (questions[currentQuestionIndex].userAnswer > 50 && questions[currentQuestionIndex].userAnswer <= 75) {
+    questions[currentQuestionIndex].userAnswer = 300;
+  } else if (questions[currentQuestionIndex].userAnswer > 75 && questions[currentQuestionIndex].userAnswer <= 100) {
+    questions[currentQuestionIndex].userAnswer = 450;
   }
+
   console.log("answer in switch", questions[currentQuestionIndex].userAnswer)
+  return questions[currentQuestionIndex].userAnswer;
+}
+
+function turnIndexToNumber(currentQuestionIndex) {
+  if (questions[currentQuestionIndex].userAnswerIndex == 0) {
+    questions[currentQuestionIndex].userAnswer = 0;
+  } else if (questions[currentQuestionIndex].userAnswerIndex == 1) {
+    questions[currentQuestionIndex].userAnswer = 50;
+  } else if (questions[currentQuestionIndex].userAnswerIndex == 2) {
+    questions[currentQuestionIndex].userAnswer = 100;
+  } else {
+    questions[currentQuestionIndex].userAnswer = 150;
+  }
   return questions[currentQuestionIndex].userAnswer;
 }
 
@@ -830,6 +892,8 @@ function collectAllAnswers() {
   // console.log("userAnswer", allOneUserAnswers);
 }
 
+
+
 //Calculation part
 function calculateResult(array) {
   let answer1 = array[0] * 12;
@@ -843,19 +907,25 @@ function calculateResult(array) {
   console.log("postMV", postMV)
   let preMV = postMV - array[0];
   console.log("preMV", preMV)
-  let answer3 = array[2] * 30 / 10000;
-  let answer4 = array[3] * 25 / 10000;
-  let answer5 = array[4] * 15 / 10000;
-  let answer6 = array[5] * 10 / 10000;
-  let answer7 = array[6] * 10 / 10000;
-  //figure out how to make it prettier
-  let answer81 = (array[7] * 100) / array[0];
+  let answerThreeModified = turnIndexToNumber(2);
+  let answer3 = answerThreeModified * 30 / 10000;
+  console.log("answer3", answer3);
+  let answerFourModified = turnIndexToNumber(3);
+  let answer4 = answerFourModified * 25 / 10000;
+  let answerFiveModified = turnIndexToNumber(4);
+  let answer5 = answerFiveModified * 15 / 10000;
+  let answerSixModified = turnIndexToNumber(5);
+  let answer6 = answerSixModified * 10 / 10000;
+  let answerSeventhModified = turnIndexToNumber(6);
+  let answer7 = answerSeventhModified * 10 / 10000;
+  // //figure out how to make it prettier
+  let answer81 = (answerSeventhModified * 100) / array[0];
   let answer8 = (answer81 * 5) / 10000;
   let answer9 = array[8] * 5 / 10000;
   let sumOfFactors = answer3 + answer4 + answer5 + answer6 + answer7 + answer8 + answer9;
   let preFinalResult = sumOfFactors * preMV;
   let finalResult = parseFloat(preFinalResult.toFixed(2))
-  console.log("sumOfFactors", sumOfFactors)
+  // console.log("sumOfFactors", sumOfFactors)
   return finalResult;
 }
 //END OF CALCULATION
@@ -967,6 +1037,7 @@ function buildChart(value) {
     );
     slider.style.backgroundColor = "rgba(245, 230, 83, .5)";
     descriptionOfGrowth.textContent = "I expect average growth";
+
   } else if (value > 50 && value <= 75) {
     console.log("value is <75", value)
     createChart(
@@ -978,6 +1049,7 @@ function buildChart(value) {
     );
     slider.style.backgroundColor = "rgba(3, 201, 169, .5)";
     descriptionOfGrowth.textContent = "I expect very good growth";
+
   } else {
     console.log("value is <100", value)
     createChart(
@@ -988,6 +1060,7 @@ function buildChart(value) {
     );
     slider.style.backgroundColor = "rgba(0, 230, 64, .5)";
     descriptionOfGrowth.textContent = "I expect amazing growth";
+
   }
   document.getElementById('next_button').disabled = false;
 }
@@ -1191,8 +1264,12 @@ function createInvestmentChart(value, placeHolder) {
 }
 
 function createChartForFactors() {
-  // document.getElementById("otherChart").style.display = "block";
-  new Chart(document.getElementById("factorsChart"), {
+  let canvasForLast = questions[8].canvasForChart();
+  let firstCanvas = canvasForLast.theCanvas;
+  // let secondCanvas = canvasForLast.theSecond;
+  wrapForCanvas.appendChild(firstCanvas);
+  document.querySelector("#chartPlaceHolder").style.height = "40vh";
+  new Chart(firstCanvas, {
     type: 'bar',
     data: {
       labels: ["Good reviews", "Strong Partners", "Stabel revenue", "Destribution channels", "Traction"],
@@ -1235,7 +1312,11 @@ function createChartForFactors() {
 }
 
 function createChartForOtherFactors() {
-  new Chart(document.getElementById("factorsChart"), {
+  let canvasForLast = questions[8].canvasForChart();
+  let secondCanvas = canvasForLast.theSecond;
+  wrapForCanvas.appendChild(secondCanvas);
+  document.querySelector("#chartPlaceHolder").style.height = "40vh";
+  new Chart(secondCanvas, {
     type: 'bar',
     data: {
       labels: ["Poorely performing sector", "Poor managing team", "Defective product", "Lack of financial planning", "Low margins"],
