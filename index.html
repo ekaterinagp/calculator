@@ -1,53 +1,55 @@
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="lib/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+    <title>Calculator</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="style.css">
-  <script src="lib/Chart.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
-  <title>Calculator</title>
-</head>
+  <body>
+    <div id="popUp">
+      <div id="signUp">
+        <div>
+          <label for="name">Name</label> <input type="text" name="name" />
+        </div>
 
-<body>
-  <div id="popUp">
-    <div id="signUp">
-      <div><label for="name">Name</label>
-        <input type="text" name="name"></div>
-      <div><label for="companyName">Company name</label>
-        <input type="text" name="company"></div>
-      <div><label for="email" name="email">Email</label>
-        <input type="email"></div>
-      <div><label for="phone" name="phone">Phone</label><input type="tel"></div>
+        <div>
+          <label for="companyName">Company name</label>
+          <input type="text" name="company" />
+        </div>
 
-    </div>
-    <input type="submit" value="Submit">
-  </div>
+        <div>
+          <label for="email" name="email">Email</label> <input type="email" />
+        </div>
 
-  <div id="comparison" class="hide">
-    <p>Investements you need is</p>
-    <p id="number">number in %</p>
-  </div>
-
-  <div class="main">
-    <h1 id="timeline"></h1>
-    <div class="box">
-      <h1 id="question">Question</h1>
-      <h2 id="questionText">Text of the question</h2>
-      <div id="answer"></div>
-      <div id="chartPlaceHolder">
-
+        <div>
+          <label for="phone" name="phone">Phone</label><input type="tel" />
+        </div>
       </div>
-      <div id="prevNext">
-        <button id="prev_button" class="buttons">Previous</button>
-        <button id="next_button" class="buttons" disabled>Next</button>
-        <button id="submit" class="buttons hidden submit">Submit</button>
-      </div>
+      <input type="submit" value="Submit" />
     </div>
 
-  </div>
-</body>
-<script src="script.js"></script>
+    <div id="comparison" class="hide">
+      <p id="number">number in %</p>
+    </div>
 
+    <div class="main">
+      <h1 id="timeline"></h1>
+      <div class="box">
+        <h1 id="question">Question</h1>
+        <h2 id="questionText">Text of the question</h2>
+        <div id="answer"></div>
+        <div id="chartPlaceHolder"></div>
+        <div id="prevNext">
+          <button id="prev_button" class="buttons">Previous</button>
+          <button id="next_button" class="buttons" disabled>Next</button>
+          <button id="submit" class="buttons hidden submit">Submit</button>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
 </html>

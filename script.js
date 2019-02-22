@@ -481,14 +481,7 @@ function insertIntoDOM() {
   });
 }
 
-// let allIndexes = [];
-
-function nextElement() {
-  // console.log("type of input", questions[currentQuestionIndex].type)
-
-  document.querySelector("#comparison").classList.add("hide");
-  document.querySelector("#prev_button").style.display = "inline-block";
-
+function typeRadio() {
   if (questions[currentQuestionIndex].type == "radio") {
     let input = answer.querySelector("input");
     let radioName = input.getAttribute("name");
@@ -499,13 +492,127 @@ function nextElement() {
 
     console.log("radioIndex", questions[currentQuestionIndex].userAnswerIndex);
   }
+}
 
+function typeRange() {
+  if (questions[currentQuestionIndex].type == "range") {
+    console.log("question number 2 for get Value");
+
+    let slider = document.querySelector('input[type="range"]');
+    console.log("slider", slider);
+    disabledIfEmpty();
+    slider.addEventListener("change", function() {
+      console.log("eventlistener for getValue");
+      getValue();
+    });
+  }
+}
+
+function typeRageChart() {
+  if (questions[currentQuestionIndex].type == "range") {
+    wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
+    let slider = document.querySelector("input[type=range]");
+    slider.addEventListener("change", function() {
+      // console.log("eventlistener for getValue");
+      getValue();
+    });
+  }
+}
+
+function chartforEight() {
+  if (questions[currentQuestionIndex].id == 8) {
+    console.log("it is 8 and it needs to create a chart");
+    document.querySelector("#comparison").classList.remove("hide");
+    wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
+    let valueForChart = questions[currentQuestionIndex].userAnswer;
+    createInvestmentChart(valueForChart, "investmentChart");
+
+    // getValueForInvestment();
+  }
+}
+
+function valueForEight() {
+  if (questions[currentQuestionIndex].id == 8) {
+    console.log("it is 8!");
+    answer.querySelector("#addInvestment").addEventListener("blur", function() {
+      // console.log("eventlistener from init for investements");
+      if (answer.querySelector("#addInvestment").value.length) {
+        document.getElementById("next_button").disabled = false;
+        getValueForInvestment();
+
+        document.querySelector("#comparison").classList.remove("hide");
+        let inputComparison = incomeVSinvestments();
+      } else {
+        document.getElementById("next_button").disabled = true;
+      }
+    });
+  }
+}
+
+function typeInput() {
   if (questions[currentQuestionIndex].type == "input") {
     console.log("it is input!");
     let inputValue = answer.querySelector("input").value;
     // console.log("inputValue", inputValue)
     questions[currentQuestionIndex].userAnswer = inputValue;
   }
+}
+
+function inputAnswerInsert() {
+  if (questions[currentQuestionIndex].type == "input") {
+    answer.querySelector("input").value =
+      questions[currentQuestionIndex].userAnswer;
+    if (questions[currentQuestionIndex].id == 8) {
+      getValueForInvestment();
+      document.querySelector("#comparison").classList.remove("hide");
+      let inputComparison = incomeVSinvestments();
+    }
+  }
+}
+
+function radioAnswerInsert() {
+  if (questions[currentQuestionIndex].type == "radio") {
+    if (questions[currentQuestionIndex].id !== 9) {
+      console.log("it is radio type! and not 9");
+      console.log("UserAnswer", questions[currentQuestionIndex].userAnswer);
+      let allRadios = answer.querySelectorAll("input");
+      let radioArr = Array.prototype.slice.call(allRadios);
+      for (let u = 0; u < radioArr.length; u++) {
+        // console.log("allRadios", radioArr[u].value);
+        if (radioArr[u].value == questions[currentQuestionIndex].userAnswer) {
+          console.log("radio value check", radioArr[u].value);
+          radioArr[u].checked = true;
+        }
+      }
+    } else {
+      console.log("it is the last one");
+
+      if (
+        questions[currentQuestionIndex].userAnswer ||
+        questions[currentQuestionIndex].userAnswer == 0
+      ) {
+        if (questions[currentQuestionIndex].userAnswer == 100) {
+          document.querySelector("input[value=yes]").checked = true;
+          createChartForFactors();
+        } else {
+          console.log("it is else and answer 0 at last one");
+          document.querySelector("input[value=no]").checked = true;
+          createChartForOtherFactors();
+        }
+      }
+    }
+  }
+}
+
+function nextElement() {
+  // console.log("type of input", questions[currentQuestionIndex].type)
+
+  document.querySelector("#comparison").classList.add("hide");
+  document.querySelector("#prev_button").style.display = "inline-block";
+
+  typeRadio();
+  typeInput();
+
   answer.textContent = "";
   wrapForCanvas.innerHTML = "";
 
@@ -525,49 +632,19 @@ function nextElement() {
     document.querySelector("#chartPlaceHolder").style.height = "0px";
   }
 
-  console.log("current element", currentEl.id);
-
-  if (questions[currentQuestionIndex].id == 8) {
-    console.log("it is 8!");
-    answer.querySelector("#addInvestment").addEventListener("blur", function() {
-      console.log("eventlistener from init for investements");
-      if (answer.querySelector("#addInvestment").value.length) {
-        document.getElementById("next_button").disabled = false;
-        getValueForInvestment();
-        // valueForI = questions[currentQuestionIndex].userAnswer;
-        document.querySelector("#comparison").classList.remove("hide");
-        let inputComparison = incomeVSinvestments();
-        console.log("input comparison", inputComparison);
-      } else {
-        console.log("it is disabled from investements");
-        document.getElementById("next_button").disabled = true;
-      }
-    });
-  }
-
+  // console.log("current element", currentEl.id);
+  valueForEight();
   insertSavedAnswers(currentEl);
   disabledIfEmpty();
   timeline();
-
-  if (questions[currentQuestionIndex].type == "range") {
-    console.log("question number 2 for get Value");
-
-    let slider = document.querySelector('input[type="range"]');
-    console.log("slider", slider);
-    disabledIfEmpty();
-    slider.addEventListener("change", function() {
-      console.log("eventlistener for getValue");
-      getValue();
-    });
-  }
-
+  typeRange();
   ifLastElement(currentEl);
 }
 
 function prevElement() {
-  if (questions[currentQuestionIndex].id !== 9) {
+  if (questions[currentQuestionIndex].id !== 9)
     document.querySelector("#next_button").textContent = "Next";
-  }
+
   document.querySelector("#comparison").classList.add("hide");
   answer.textContent = "";
   wrapForCanvas.innerHTML = "";
@@ -577,40 +654,23 @@ function prevElement() {
   questionText.textContent = currentEl.txt;
 
   answer.appendChild(questions[currentQuestionIndex].answerQ());
-  if (questions[currentQuestionIndex].id == 1) {
-    console.log("currentID", questions[currentQuestionIndex].id);
+  if (questions[currentQuestionIndex].id == 1)
     document.querySelector("#prev_button").style.display = "none";
-  }
 
-  console.log("question", currentEl);
+  // console.log("question", currentEl);
   document.getElementById("next_button").disabled = false;
   timeline();
-  console.log(
-    "questions[currentQuestionIndex]",
-    questions[currentQuestionIndex]
-  );
-  if (questions[currentQuestionIndex].type == "range") {
-    wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
-    let slider = document.querySelector("input[type=range]");
-    slider.addEventListener("change", function() {
-      console.log("eventlistener for getValue");
-      getValue();
-    });
-  }
+  // console.log(
+  //   "questions[currentQuestionIndex]",
+  //   questions[currentQuestionIndex]
+  // );
+
   if (questions[currentQuestionIndex].id == 1) {
     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
     getValueForBarChart();
   }
-
-  if (questions[currentQuestionIndex].id == 8) {
-    console.log("it is 8 and it needs to create a chart");
-    document.querySelector("#comparison").classList.remove("hide");
-    wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
-    let valueForChart = questions[currentQuestionIndex].userAnswer;
-    createInvestmentChart(valueForChart, "investmentChart");
-
-    // getValueForInvestment();
-  }
+  typeRageChart();
+  chartforEight();
   insertSavedAnswers(currentEl);
   ifLastElement(currentEl);
 }
@@ -631,46 +691,13 @@ function prevItem() {
   return questions[currentQuestionIndex];
 }
 
-function insertSavedAnswers(currentEl) {
+function insertSavedAnswers() {
   if (questions[currentQuestionIndex].id !== 9) {
     document.querySelector("#next_button").textContent = "Next";
   }
   if (questions[currentQuestionIndex].userAnswer) {
-    if (questions[currentQuestionIndex].type == "input") {
-      answer.querySelector("input").value = currentEl.userAnswer;
-    }
-
-    if (questions[currentQuestionIndex].type == "radio") {
-      if (questions[currentQuestionIndex].id !== 9) {
-        console.log("it is radio type! and not 9");
-        console.log("UserAnswer", questions[currentQuestionIndex].userAnswer);
-        let allRadios = answer.querySelectorAll("input");
-        let radioArr = Array.prototype.slice.call(allRadios);
-        for (let u = 0; u < radioArr.length; u++) {
-          // console.log("allRadios", radioArr[u].value);
-          if (radioArr[u].value == questions[currentQuestionIndex].userAnswer) {
-            console.log("radio value check", radioArr[u].value);
-            radioArr[u].checked = true;
-          }
-        }
-      } else {
-        console.log("it is the last one");
-
-        if (
-          questions[currentQuestionIndex].userAnswer ||
-          questions[currentQuestionIndex].userAnswer == 0
-        ) {
-          if (questions[currentQuestionIndex].userAnswer == 100) {
-            document.querySelector("input[value=yes]").checked = true;
-            createChartForFactors();
-          } else {
-            console.log("it is else and answer 0 at last one");
-            document.querySelector("input[value=no]").checked = true;
-            createChartForOtherFactors();
-          }
-        }
-      }
-    }
+    inputAnswerInsert();
+    radioAnswerInsert();
 
     if (questions[currentQuestionIndex].type == "range") {
       console.log(
@@ -948,13 +975,6 @@ function init() {
       document.getElementById("next_button").disabled = true;
     }
   });
-  // if (questions[currentQuestionIndex].id == 9) {
-  //   let twoCanvasForLast = questions[9].canvasForChart();
-  //   let firstCanvas = twoCanvasForLast[0];
-  //   let secondCanvas = twoCanvasForLast[1];
-  //   console.log("2 1 canvas", firstCanvas);
-  //   console.log("2 2 canvas", secondCanvas)
-  // }
 }
 
 //GET VALUE AND CREATE CHARTS
@@ -1231,7 +1251,7 @@ function createInvestmentChart(value, placeHolder) {
       scales: {
         xAxes: [
           {
-            display: true,
+            display: false,
             stacked: true,
             ticks: {
               beginAtZero: true,
@@ -1241,7 +1261,7 @@ function createInvestmentChart(value, placeHolder) {
         ],
         yAxes: [
           {
-            display: true,
+            display: false,
             stacked: true,
             ticks: {
               beginAtZero: true,
@@ -1395,5 +1415,10 @@ function incomeVSinvestments() {
   console.log("percantageFrom", percantageFrom);
   percantageFrom = parseFloat(percantageFrom.toFixed(2));
   document.querySelector("#number").textContent =
-    percantageFrom + "%" + " " + "of your yearly income";
+    "Investments you need is" +
+    " " +
+    percantageFrom +
+    "%" +
+    " " +
+    "of your yearly income";
 }
