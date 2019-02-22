@@ -191,31 +191,9 @@ form p {
 
 #team label,
 #market label {
-  /* float: left; */
   width: 45%;
-  /* margin: 4px; */
-  /* background-color: #EFEFEF; */
   border-radius: 4px;
-  /* border: 1px solid #D0D0D0; */
-  /* overflow: auto; */
 }
-
-/* #team label p {
-  text-align: center;
-  font-size: 20px;
-  /* padding: 13px 0px; */
-/* display: block;
-}
-
-#team label input {
-  position:absolute;
-  top:-20px;
-} */
-
-/* #team input:checked + p {
-  background-color:#6c9972;
-  color:#F7F7F7;
-} */
 
 #team input:checked + p,
 #market input:checked + p,
@@ -256,8 +234,6 @@ input[name="strength"] {
   display: none;
   position: absolute;
   padding: 1em;
-
-  /* grid-template-rows: 2em 2em 2em 2em; */
 }
 
 input[type="submit"] {
@@ -285,8 +261,7 @@ input[type="submit"] {
   height: 0;
 }
 
-.slider {
-  /* position: absolute; */
+/* .slider {
   cursor: pointer;
   top: 0;
   left: 0;
@@ -321,6 +296,103 @@ input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
+} */
+
+input[type="range"] {
+  width: 300px;
+}
+/*###################################*/
+/*###########Responsive Range########*/
+/*###################################*/
+/*##############Core Style###########*/
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+/*#############Thumb##############*/
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 36px;
+  width: 36px;
+  background: #555;
+  cursor: pointer;
+  margin-top: -12px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 36px;
+  width: 36px;
+  background: #555;
+  cursor: pointer;
+}
+
+input[type="range"]::-ms-thumb {
+  height: 36px;
+  width: 36px;
+  background: #555;
+  cursor: pointer;
+}
+/*#############Track##############*/
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 12px;
+  cursor: pointer;
+  background: #ccc;
+}
+
+input[type="range"]:active::-webkit-slider-runnable-track {
+  background: #d6d6d6;
+}
+
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 12px;
+  cursor: pointer;
+  background: #ccc;
+}
+
+input[type="range"]::-ms-track {
+  width: 100%;
+  height: 12px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+input[type="range"]::-ms-fill-lower {
+  background: #ccc;
+}
+
+input[type="range"]:focus::-ms-fill-lower {
+  background: #ddd;
+}
+
+input[type="range"]::-ms-fill-upper {
+  background: #ccc;
+}
+
+input[type="range"]:focus::-ms-fill-upper {
+  background: #ddd;
 }
 
 input[type="number"] {
@@ -328,36 +400,6 @@ input[type="number"] {
   border-bottom: 1px solid;
   text-align: center;
   width: 30%;
-}
-
-.has-float-label {
-  display: block;
-  position: relative;
-}
-
-.has-float-label label {
-  position: absolute;
-  left: 0;
-  top: 0;
-  cursor: text;
-  font-size: 75%;
-  opacity: 1;
-  transition: all 0.2s;
-}
-
-.has-float-label input {
-  font-size: inherit;
-  padding-top: 1em;
-  margin-bottom: 2px;
-  border: 0;
-  border-radius: 0;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-}
-
-.has-float-label input::-webkit-input-placeholder,
-.has-float-label select::-webkit-input-placeholder {
-  opacity: 1;
-  transition: all 0.2s;
 }
 
 #next_button {
