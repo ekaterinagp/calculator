@@ -570,6 +570,15 @@ function inputAnswerInsert() {
   }
 }
 
+function rangeAnswerInsert() {
+  if (questions[currentQuestionIndex].type == "range") {
+    buildChart(questions[currentQuestionIndex].userAnswer);
+    let slider = document.querySelector("input[type=range]");
+    slider.value = questions[currentQuestionIndex].userAnswer;
+    getValue();
+  }
+}
+
 function radioAnswerInsert() {
   if (questions[currentQuestionIndex].type == "radio") {
     if (questions[currentQuestionIndex].id !== 9) {
@@ -601,6 +610,51 @@ function radioAnswerInsert() {
         }
       }
     }
+  }
+}
+
+function disableForInput() {
+  if (questions[currentQuestionIndex].type == "input") {
+    console.log("it is input and it is disabled!");
+    answer.querySelector("input").addEventListener("keyup", function() {
+      if (answer.querySelector("input").value.length) {
+        document.getElementById("next_button").disabled = false;
+      } else {
+        console.log("it is disabled!");
+        document.getElementById("next_button").disabled = true;
+      }
+    });
+  }
+}
+
+function disableForRadio() {
+  if (questions[currentQuestionIndex].type == "radio") {
+    console.log("disable it is radio");
+    document.getElementById("next_button").disabled = true;
+    // console.log("allRadios", allRadios)
+    // for (let i = 0; i < allRadios.length; i++) {
+    document.querySelector("form").addEventListener("click", function() {
+      let allRadios = document.querySelectorAll("input");
+      for (let i = 0; i < allRadios.length; i++) {
+        if (allRadios[i].checked == true) {
+          document.getElementById("next_button").disabled = false;
+        }
+      }
+    });
+  }
+}
+
+function disableForRange() {
+  if (questions[currentQuestionIndex].type == "range") {
+    console.log("it is range");
+    console.log("value of input range", answer.querySelector("input").value);
+    // if (answer.querySelector("input").value == 1) {
+    //   console.log("value of input range", answer.querySelector("input").value)
+    //   document.getElementById('next_button').disabled = true;
+    // }
+
+    if (answer.querySelector("input").value == 1)
+      document.getElementById("next_button").disabled = true;
   }
 }
 
@@ -698,17 +752,7 @@ function insertSavedAnswers() {
   if (questions[currentQuestionIndex].userAnswer) {
     inputAnswerInsert();
     radioAnswerInsert();
-
-    if (questions[currentQuestionIndex].type == "range") {
-      console.log(
-        "get user answer",
-        questions[currentQuestionIndex].userAnswer
-      );
-      buildChart(questions[currentQuestionIndex].userAnswer);
-      let slider = document.querySelector("input[type=range]");
-      slider.value = questions[currentQuestionIndex].userAnswer;
-      getValue();
-    }
+    rangeAnswerInsert();
   }
 }
 
@@ -739,11 +783,7 @@ function ifLastElement(currentEl) {
       if (radioValue[0] == "yes") {
         radioValue = 100;
         questions[currentQuestionIndex].userAnswer = radioValue;
-        //send placeholder as a parameter?
-        //hide the other one, as both are created by default
-
         createChartForFactors(firstCanvas);
-
         document.querySelector("#factorsChart").style.display = "block";
         if (document.querySelector("#otherChart")) {
           document.querySelector("#otherChart").style.display = "none";
@@ -797,10 +837,9 @@ function getRadioCheckedValue(radio_name) {
     if (oRadio[u].checked) {
       console.log("u index", u);
       return [oRadio[u].value, u];
-      // return oRadio[u].value;
     }
   }
-  console.log("radio value returned?", oRadio[u].value);
+  // console.log("radio value returned?", oRadio[u].value);
   return "";
 }
 
@@ -811,42 +850,9 @@ function disabledIfEmpty() {
     "questions[currentQuestionIndex].type",
     questions[currentQuestionIndex].type
   );
-  if (questions[currentQuestionIndex].type == "input") {
-    console.log("it is input and it is disabled!");
-    answer.querySelector("input").addEventListener("keyup", function() {
-      if (answer.querySelector("input").value.length) {
-        document.getElementById("next_button").disabled = false;
-      } else {
-        console.log("it is disabled!");
-        document.getElementById("next_button").disabled = true;
-      }
-    });
-  }
-  if (questions[currentQuestionIndex].type == "radio") {
-    console.log("disable it is radio");
-    document.getElementById("next_button").disabled = true;
-    // console.log("allRadios", allRadios)
-    // for (let i = 0; i < allRadios.length; i++) {
-    document.querySelector("form").addEventListener("click", function() {
-      let allRadios = document.querySelectorAll("input");
-      for (let i = 0; i < allRadios.length; i++) {
-        if (allRadios[i].checked == true) {
-          document.getElementById("next_button").disabled = false;
-        }
-      }
-    });
-  }
-  if (questions[currentQuestionIndex].type == "range") {
-    console.log("it is range");
-    console.log("value of input range", answer.querySelector("input").value);
-    // if (answer.querySelector("input").value == 1) {
-    //   console.log("value of input range", answer.querySelector("input").value)
-    //   document.getElementById('next_button').disabled = true;
-    // }
-
-    if (answer.querySelector("input").value == 1)
-      document.getElementById("next_button").disabled = true;
-  }
+  disableForInput();
+  disableForRadio();
+  disableForRange();
 
   if (questions[currentQuestionIndex].userAnswer) {
     console.log("userAnswer", questions[currentQuestionIndex].userAnswer);
@@ -854,7 +860,7 @@ function disabledIfEmpty() {
   }
 }
 
-//CONVERT, COLLECT AND CALCULATE HERE
+//CONVERT, COLLECT AND CALCULATE
 
 function turnToNumber(currentQuestionIndex) {
   if (questions[currentQuestionIndex].userAnswer <= 25) {

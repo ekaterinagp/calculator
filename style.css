@@ -395,7 +395,7 @@ input[type="number"] {
   position: absolute;
   font-family: "Gotham_Black";
   top: 9em;
-  left: 42em;
+  right: 2em;
   width: 150px;
 }
 
