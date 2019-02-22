@@ -32,11 +32,12 @@ h1{
 }
 
 .buttons{
+  position: absolute;
   padding: 14px 40px;
   background-color: green;
-  color:white;
-  font-family:'Gotham_Black';
-  float:left;
+  color: white;
+  font-family: 'Gotham_Black';
+  top: 90%;
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -142,7 +143,7 @@ display: -webkit-box;
 } */ 
 
 form p{
-display:inline-block;
+/* display:inline-block; */
 font-family: "Gotham_Book";
 
 }
@@ -189,8 +190,12 @@ grid-gap:1em;
 }
 
 #factorsTwoOptions{
-  display:block;
+  display: grid;
+    grid-template-columns: 2fr 2fr;
 }
+
+
+
 #team label, #market label{
  
   /* float: left; */
@@ -234,6 +239,7 @@ input[name=team], input[name=market], input[name=uniqueness], input[name=competi
 }
 .submit{
   background-color: green;
+  right: 0;
 }
 
 *:focus {
@@ -353,7 +359,7 @@ input[type="number"]{
 }
 
 #next_button{
-  float: right;
+  right: 0;
 }
 
 .inputBtn{
@@ -379,12 +385,20 @@ input[type="number"]{
 }
 
 #comparison{
-float: right;
-border: 1px solid black;
-padding:1em;
-position:absolute;
+  border: 1px solid black;
+  padding: 1em;
+  position: absolute;
+  font-family: 'Gotham_Black';
+  top: 9em;
+  left: 42em;
+  width: 150px;
 }
 
 .hide{
   visibility:hidden;
+}
+
+#prev_button{
+  display: inline-block;
+  left: 0;
 }
