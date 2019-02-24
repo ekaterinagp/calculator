@@ -462,16 +462,16 @@ function insertIntoDOM() {
 
   wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
 
-  TweenMax.from("#incomeNumber", 1, {
-    css: {
-      scale: 0.05,
-      opacity: 0,
-      rotation: 180
-    },
-    ease: Quad.easeInOut
-  }),
-    0,
-    -400;
+  // TweenMax.from("#incomeNumber", 1, {
+  //   css: {
+  //     scale: 0.05,
+  //     opacity: 0,
+  //     rotation: 180
+  //   },
+  //   ease: Quad.easeInOut
+  // }),
+  //   0,
+  //   -400;
 
   document.getElementById("prev_button").addEventListener("click", function() {
     prevElement();
@@ -1122,7 +1122,7 @@ function createChart(
               display: false
             },
             ticks: {
-              // display: false,
+              display: false,
               max: 450,
               min: 0,
               stepSize: 150
@@ -1131,10 +1131,10 @@ function createChart(
         ]
       },
       animation: {
-        duration: 2500,
+        duration: 1000,
         xAxis: true,
         yAxis: true,
-        easing: "easeInOutElastic"
+        easing: "easeInOutCubic"
       },
       tooltips: {
         callbacks: {
