@@ -449,11 +449,7 @@ const wrapForCanvas = document.querySelector("#chartPlaceHolder");
 let currentQuestionIndex = 0;
 
 function insertIntoDOM() {
-  timeline();
-
-  if (questions[currentQuestionIndex].id == 1) {
-    document.querySelector("#prev_button").style.display = "none";
-  }
+  document.querySelector("#prev_button").style.display = "none";
 
   questionTitle.textContent = questions[currentQuestionIndex].question;
   questionText.textContent = questions[currentQuestionIndex].txt;
@@ -690,7 +686,7 @@ function nextElement() {
   valueForEight();
   insertSavedAnswers(currentEl);
   disabledIfEmpty();
-  timeline();
+  timeline(questions);
   typeRange();
   ifLastElement(currentEl);
 }
@@ -713,7 +709,7 @@ function prevElement() {
 
   // console.log("question", currentEl);
   document.getElementById("next_button").disabled = false;
-  timeline();
+  timeline(questions);
   // console.log(
   //   "questions[currentQuestionIndex]",
   //   questions[currentQuestionIndex]
@@ -948,7 +944,7 @@ function calculateResult(array) {
 }
 //END OF CALCULATION
 
-function timeline() {
+function timeline(questions) {
   let timelineInput = document.querySelector("#timeline");
   let allQuestionsDigit = questions.length;
   // console.log("allQuestionsDigit", allQuestionsDigit);
@@ -956,10 +952,10 @@ function timeline() {
   console.log("currentQuestionDigit", currentQuestionDigit);
 
   timelineInput.textContent = currentQuestionDigit + "/" + allQuestionsDigit;
-  return timelineInput.textContent;
 }
 
 function init() {
+  timeline(questions);
   insertIntoDOM();
 
   document.getElementById("submit").addEventListener("click", function() {
