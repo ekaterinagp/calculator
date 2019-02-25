@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+canvas {
+  position: absolute;
+  top: 14em;
+}
 @font-face {
   font-family: "Gotham_Black";
   src: url("/fonts/Gotham-Black.otf");
@@ -48,8 +52,8 @@ h1 {
 
 #chartPlaceHolder {
   text-align: -webkit-center;
-  width: 75vw;
-  height: 40vh;
+  width: 60vw;
+  height: 20vh;
 }
 
 #otherChart {
@@ -314,14 +318,10 @@ input:checked + .slider:before {
 input[type="range"] {
   width: 300px;
 }
-/*###################################*/
-/*###########Responsive Range########*/
-/*###################################*/
-/*##############Core Style###########*/
 
 input[type="range"] {
   -webkit-appearance: none;
-  width: 100%;
+  width: 50%;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -453,6 +453,8 @@ input[type="number"] {
   right: 50%;
   background-color: white;
   width: 150px;
+  opacity: 0.5;
+  z-index: 10;
 }
 
 .hide {
@@ -520,4 +522,9 @@ input[type="number"] {
   border: 0.125em solid #fff;
   border-top-style: none;
   border-right-style: none;
+}
+
+#factorsChart,
+#otherChart {
+  top: 20em;
 }
