@@ -73,6 +73,8 @@ let questions = [
       theCanvas.setAttribute("width", 400);
       theCanvas.setAttribute("height", 200);
       theCanvas.setAttribute("id", "growthChart");
+      theCanvas.setAttribute("position", "absolute");
+      theCanvas.setAttribute("top", "0");
       return theCanvas;
     },
     userAnswer: null
@@ -723,6 +725,7 @@ function prevElement() {
   chartforEight();
   insertSavedAnswers(currentEl);
   ifLastElement(currentEl);
+  getValueForBarChart();
 }
 
 function nextItem() {
