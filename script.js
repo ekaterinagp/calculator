@@ -717,15 +717,23 @@ function prevElement() {
   //   questions[currentQuestionIndex]
   // );
 
-  if (questions[currentQuestionIndex].id == 1) {
-    wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
-    getValueForBarChart();
-  }
   typeRageChart();
+  valueForEight();
   chartforEight();
   insertSavedAnswers(currentEl);
   ifLastElement(currentEl);
-  getValueForBarChart();
+  if (questions[currentQuestionIndex].id == 1) {
+    wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
+    getValueForBarChart();
+    answer.querySelector("input").addEventListener("blur", function() {
+      getValueForBarChart();
+    });
+  }
+  if (questions[currentQuestionIndex].id == 8) {
+    answer.querySelector("#addInvestment").addEventListener("blur", function() {
+      getValueForInvestment();
+    });
+  }
 }
 
 function nextItem() {

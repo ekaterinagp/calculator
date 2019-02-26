@@ -239,6 +239,7 @@ input[name="strength"] {
   display: none;
   position: absolute;
   padding: 1em;
+  z-index: 10;
 }
 
 #signup {
