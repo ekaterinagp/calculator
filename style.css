@@ -176,6 +176,7 @@ form p {
   grid-template-columns: 3fr 1fr;
   cursor: pointer;
   width: 55%;
+  height: 20%;
 }
 
 .btnRadioTwoOptions {
@@ -219,6 +220,7 @@ input[name="strength"] {
 
 .imgSize {
   width: 5em;
+  height: 10em;
 }
 .submit {
   background-color: green;
