@@ -173,7 +173,7 @@ form p {
   display: inline-grid;
   justify-items: center;
   align-items: center;
-  grid-template-columns: 3fr 1fr;
+  /* grid-template-columns: 3fr 1fr; */
   cursor: pointer;
   width: 55%;
   height: 20%;
@@ -219,8 +219,8 @@ input[name="strength"] {
 }
 
 .imgSize {
-  width: 5em;
-  height: 10em;
+  width: 15em;
+  height: 15em;
 }
 .submit {
   background-color: green;

@@ -71,20 +71,20 @@ let questions = [
       let values = [
         {
           title: "Fresh out of school and working towards a solution",
-          img: "graduate.svg"
+          img: "a1.svg"
         },
         {
           title: "Minimum of 3 years of work experience each",
-          img: "young.svg"
+          img: "b1.svg"
         },
         {
           title: "Minimum of 7 years of experience in your specific field each",
-          img: "exper.svg"
+          img: "c1.svg"
         },
         {
           title:
             "Subject matter experts with published thoughts on your industry",
-          img: "old.svg"
+          img: "d1.svg"
         }
       ];
       let form = document.createElement("form");
@@ -131,19 +131,19 @@ let questions = [
       let values = [
         {
           title: "Sustainable",
-          img: "first.svg"
+          img: "a3.svg"
         },
         {
           title: "Growing",
-          img: "second.svg"
+          img: "b3.svg"
         },
         {
           title: "Spectacular",
-          img: "third.svg"
+          img: "c3.svg"
         },
         {
           title: "Almost limitless",
-          img: "fourth.svg"
+          img: "d3.svg"
         }
       ];
       let form = document.createElement("form");
@@ -190,19 +190,19 @@ let questions = [
       let values = [
         {
           title: "There are many similar products/technologies",
-          img: "bike.svg"
+          img: "a2.svg"
         },
         {
           title: "There are few similar products/technologies",
-          img: "scooter.svg"
+          img: "b2.svg"
         },
         {
           title: "There are only 1-3 similar products/technologies",
-          img: "car.svg"
+          img: "c2.svg"
         },
         {
           title: "It is unique product/technologies",
-          img: "rock.svg"
+          img: "d2.svg"
         }
       ];
       let form = document.createElement("form");
@@ -246,19 +246,19 @@ let questions = [
       let values = [
         {
           title: "Crowded space",
-          img: "crowded.png"
+          img: "a5.svg"
         },
         {
           title: "Competitive",
-          img: "competitive.png"
+          img: "b5.svg"
         },
         {
           title: "Single competitor",
-          img: "single.png"
+          img: "c5.svg"
         },
         {
           title: "Blue ocean",
-          img: "blue.png"
+          img: "d5.svg"
         }
       ];
       let form = document.createElement("form");
@@ -302,19 +302,19 @@ let questions = [
       let values = [
         {
           title: "Good",
-          img: "begin.svg"
+          img: "a4.svg"
         },
         {
           title: "Solid",
-          img: "rare.svg"
+          img: "b4.svg"
         },
         {
           title: "Strong",
-          img: "medium.svg"
+          img: "c4.svg"
         },
         {
           title: "Perfect",
-          img: "strong.svg"
+          img: "d4.svg"
         }
       ];
       let form = document.createElement("form");
