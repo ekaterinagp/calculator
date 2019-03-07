@@ -768,6 +768,32 @@ function showAnimation(value) {
       0.01
     );
   }
+  if (value == "Almost limitless") {
+    let figure = document.createElement("img");
+    figure.setAttribute("src", "img/d34.svg");
+    figure.setAttribute("class", "bigFigure");
+    document.querySelector(".divForFigure").appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1.5,
+
+      {
+        x: 100,
+        y: 400,
+        opacity: 0.1,
+        scale: 0.3
+      },
+      {
+        x: 100,
+        y: 150,
+        // rotation: -20,
+        ease: SteppedEase.config(6),
+        opacity: 1,
+        scale: 1.5
+      },
+      0.01
+    );
+  }
 }
 
 function disableForRange() {
