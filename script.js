@@ -99,19 +99,22 @@ let questions = [
         theInput.setAttribute("type", "radio");
         theInput.setAttribute("name", "team");
         theInput.setAttribute("value", value.title);
-        let nameInput = document.createElement("p");
+        let divWrapperP = document.createElement("div");
+        let nameInput = document.createElement("div");
         let img = document.createElement("img");
-        nameInput.style.display = "inline-grid";
-        nameInput.setAttribute("class", "btnRadio");
+        nameInput.style.display = "inline";
+        divWrapperP.setAttribute("class", "btnRadio");
         nameInput.textContent = value.title;
 
         img.setAttribute("class", "imgSize");
         img.setAttribute("src", "img/" + value.img);
 
-        nameInput.appendChild(img);
+        divWrapperP.appendChild(nameInput);
+        divWrapperP.appendChild(img);
+        // nameInput.appendChild(img);
         form.appendChild(divWrapper);
         label.appendChild(theInput);
-        label.appendChild(nameInput);
+        label.appendChild(divWrapperP);
         divWrapper.appendChild(label);
         divWrapper.appendChild(theBreak);
       });
@@ -158,19 +161,22 @@ let questions = [
         theInput.setAttribute("type", "radio");
         theInput.setAttribute("name", "market");
         theInput.setAttribute("value", value.title);
-        let nameInput = document.createElement("p");
+        let divWrapperP = document.createElement("div");
+        let nameInput = document.createElement("div");
         let img = document.createElement("img");
-        nameInput.style.display = "inline-grid";
-        nameInput.setAttribute("class", "btnRadio");
+        nameInput.style.display = "inline";
+        divWrapperP.setAttribute("class", "btnRadio");
         nameInput.textContent = value.title;
 
         img.setAttribute("class", "imgSize");
         img.setAttribute("src", "img/" + value.img);
 
-        nameInput.appendChild(img);
+        divWrapperP.appendChild(nameInput);
+        divWrapperP.appendChild(img);
+        // nameInput.appendChild(img);
         form.appendChild(divWrapper);
         label.appendChild(theInput);
-        label.appendChild(nameInput);
+        label.appendChild(divWrapperP);
         divWrapper.appendChild(label);
         divWrapper.appendChild(theBreak);
       });
@@ -217,17 +223,20 @@ let questions = [
         theInput.setAttribute("type", "radio");
         theInput.setAttribute("name", "uniqueness");
         theInput.setAttribute("value", value.title);
-        let nameInput = document.createElement("p");
+        let divWrapperP = document.createElement("div");
+        let nameInput = document.createElement("div");
         let img = document.createElement("img");
-        nameInput.style.display = "inline-grid";
-        nameInput.setAttribute("class", "btnRadio");
+        nameInput.style.display = "inline";
+        divWrapperP.setAttribute("class", "btnRadio");
         nameInput.textContent = value.title;
         img.setAttribute("class", "imgSize");
         img.setAttribute("src", "img/" + value.img);
-        nameInput.appendChild(img);
+        divWrapperP.appendChild(nameInput);
+        divWrapperP.appendChild(img);
+        // nameInput.appendChild(img);
         form.appendChild(divWrapper);
         label.appendChild(theInput);
-        label.appendChild(nameInput);
+        label.appendChild(divWrapperP);
         divWrapper.appendChild(label);
         divWrapper.appendChild(theBreak);
       });
@@ -273,17 +282,20 @@ let questions = [
         theInput.setAttribute("type", "radio");
         theInput.setAttribute("name", "competition");
         theInput.setAttribute("value", value.title);
-        let nameInput = document.createElement("p");
+        let divWrapperP = document.createElement("div");
+        let nameInput = document.createElement("div");
         let img = document.createElement("img");
-        nameInput.style.display = "inline-grid";
-        nameInput.setAttribute("class", "btnRadio");
+        nameInput.style.display = "inline";
+        divWrapperP.setAttribute("class", "btnRadio");
         nameInput.textContent = value.title;
         img.setAttribute("class", "imgSize");
         img.setAttribute("src", "img/" + value.img);
-        nameInput.appendChild(img);
+        divWrapperP.appendChild(nameInput);
+        divWrapperP.appendChild(img);
+        // nameInput.appendChild(img);
         form.appendChild(divWrapper);
         label.appendChild(theInput);
-        label.appendChild(nameInput);
+        label.appendChild(divWrapperP);
         divWrapper.appendChild(label);
         divWrapper.appendChild(theBreak);
       });
@@ -329,18 +341,21 @@ let questions = [
         theInput.setAttribute("type", "radio");
         theInput.setAttribute("name", "strength");
         theInput.setAttribute("value", value.title);
-        let nameInput = document.createElement("p");
+        let divWrapperP = document.createElement("div");
+        let nameInput = document.createElement("div");
         let img = document.createElement("img");
-        nameInput.style.display = "inline-grid";
-        nameInput.setAttribute("class", "btnRadio");
+        nameInput.style.display = "inline";
+        divWrapperP.setAttribute("class", "btnRadio");
         nameInput.textContent = value.title;
 
         img.setAttribute("class", "imgSize");
         img.setAttribute("src", "img/" + value.img);
-        nameInput.appendChild(img);
+        divWrapperP.appendChild(nameInput);
+        divWrapperP.appendChild(img);
+        // nameInput.appendChild(img);
         form.appendChild(divWrapper);
         label.appendChild(theInput);
-        label.appendChild(nameInput);
+        label.appendChild(divWrapperP);
         divWrapper.appendChild(label);
         divWrapper.appendChild(theBreak);
       });
@@ -1069,7 +1084,10 @@ function createChart(
           data: [0, 60, 100, 110, 130, 150],
           backgroundColor: "rgba(63,	152,	255,.3)	",
           // borderColor: 'rgba(19, 247, 228,1)',
-          borderWidth: 2
+          borderWidth: 2,
+          bevelWidth: 3,
+          bevelHighlightColor: "rgba(255, 255, 255, 0.75)",
+          bevelShadowColor: "rgba(0, 0, 0, 0.5)"
           // pointBackgroundColor: 'rgba(19, 247, 228,1)',
           // pointBorderColor: 'rgba(19, 247, 228,1)',
           // pointBorderWidth: 5,
@@ -1082,6 +1100,10 @@ function createChart(
           backgroundColor: background_color,
           // borderColor: 'rgba(19, 247, 228,1)',
           borderWidth: 2,
+          shadowOffsetX: 3,
+          shadowOffsetY: 3,
+          shadowBlur: 10,
+          shadowColor: "rgba(0, 0, 0, 0.5)",
           // pointBackgroundColor: 'rgba(19, 247, 228,1)',
           // pointBorderColor: 'rgba(19, 247, 228,1)',
           pointBorderWidth: 0
@@ -1162,17 +1184,36 @@ function createBarChart(value, placeHolder) {
         {
           label: "Your income",
           data: [value],
-          backgroundColor: "blue"
+          backgroundColor: "blue",
+          bevelWidth: 3,
+          bevelHighlightColor: "rgba(255, 255, 255, 0.75)",
+          bevelShadowColor: "rgba(0, 0, 0, 0.5)"
         },
         {
           label: "Average income",
           data: [50000],
-          backgroundColor: "green"
+          backgroundColor: "green",
+          shadowOffsetX: 3,
+          shadowOffsetY: 3,
+          shadowBlur: 10,
+          shadowColor: "rgba(0, 0, 0, 0.5)",
+          hoverInnerGlowWidth: 20,
+          hoverInnerGlowColor: "rgb(255, 255, 0)",
+          hoverOuterGlowWidth: 20,
+          hoverOuterGlowWidth: "rgb(255, 255, 0)"
         },
         {
           label: "Max income",
           data: [100000],
-          backgroundColor: "#EEEEEE"
+          backgroundColor: "#EEEEEE",
+          shadowOffsetX: 3,
+          shadowOffsetY: 3,
+          shadowBlur: 10,
+          shadowColor: "rgba(0, 0, 0, 0.5)",
+          hoverInnerGlowWidth: 20,
+          hoverInnerGlowColor: "rgb(255, 255, 0)",
+          hoverOuterGlowWidth: 20,
+          hoverOuterGlowWidth: "rgb(255, 255, 0)"
         }
       ]
     },

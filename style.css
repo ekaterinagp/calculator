@@ -3,6 +3,7 @@
   height: auto;
   padding: 3%;
   text-align: center;
+  font-family: "Gotham_Book";
 }
 
 canvas {
@@ -64,6 +65,8 @@ h1 {
   width: 100%;
   height: auto;
   text-align: center;
+  display: grid;
+  grid-template-columns: 4fr 2fr;
 }
 
 .hidden {
@@ -200,12 +203,12 @@ form p {
   border-radius: 4px;
 }
 
-#team input:checked + p,
-#market input:checked + p,
-#uniqueness input:checked + p,
-#competition input:checked + p,
-#strength input:checked + p,
-#factorsTwoOptions input:checked + p {
+#market input:checked + .btnRadio,
+#uniqueness input:checked + .btnRadio,
+#competition input:checked + .btnRadio,
+#strength input:checked + .btnRadio,
+#factorsTwoOptions input:checked + p,
+#team input:checked + .btnRadio {
   background-color: #6c9972;
   color: #f7f7f7;
 }
