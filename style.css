@@ -62,13 +62,17 @@ h1 {
 }
 
 #answer {
+  position: relative;
   width: 100%;
   height: auto;
   text-align: center;
+  /* display: grid;
+  grid-template-columns: 4fr 2fr; */
+}
+.addGrid {
   display: grid;
   grid-template-columns: 4fr 2fr;
 }
-
 .hidden {
   display: none;
 }
@@ -153,17 +157,17 @@ form p {
 #competition,
 #strength {
   display: grid;
-  grid-template-columns: 2fr 2fr;
+  grid-template-columns: 1fr 2fr;
   text-align: end;
   grid-gap: 1em;
 }
 
 .wrapper:nth-child(2n) {
-  text-align: start;
+  text-align: left;
 }
 
 .wrapper {
-  text-align: end;
+  text-align: start;
 }
 
 .wrapper .btnRadio:hover {
@@ -171,15 +175,16 @@ form p {
 }
 
 .btnRadio {
+  position: relative;
   -webkit-appearance: button;
-  padding: 2em;
+  padding: 1em;
   display: inline-grid;
   justify-items: center;
   align-items: center;
-  /* grid-template-columns: 3fr 1fr; */
+  grid-template-columns: 3fr 1fr;
   cursor: pointer;
-  width: 55%;
-  height: 20%;
+  height: 5em;
+  width: 20em;
 }
 
 .btnRadioTwoOptions {
@@ -222,8 +227,15 @@ input[name="strength"] {
 }
 
 .imgSize {
-  width: 15em;
-  height: 15em;
+  width: 5em;
+  /* height: 10em; */
+  position: absolute;
+  top: 40%;
+  transform: translateY(-20%);
+  /* transform: translateY(-50%); */
+  /* transform: translateY(-50%); */
+  /* left: 0; */
+  right: 0;
 }
 .submit {
   background-color: green;
@@ -533,4 +545,11 @@ input[type="number"] {
 #factorsChart,
 #otherChart {
   top: 20em;
+}
+
+.bigFigure {
+  position: absolute;
+  top: -10em;
+  width: 35em;
+  right: 0;
 }

@@ -13,9 +13,11 @@ let questions = [
     answerQ: function() {
       let theInput = document.createElement("input");
       let theLabel = document.createElement("label");
+
       theLabel.setAttribute("for", "income");
       theInput.setAttribute("type", "number");
       theInput.setAttribute("id", "incomeNumber");
+
       theInput.setAttribute("placeholder", "Type your income here");
       return theInput;
     },
@@ -44,7 +46,7 @@ let questions = [
       theInput.setAttribute("value", "0");
       theInput.classList.add("slider");
 
-      console.log("form created 2");
+      // console.log("form created 2");
 
       form.appendChild(theInput);
       form.appendChild(description);
@@ -71,29 +73,36 @@ let questions = [
       let values = [
         {
           title: "Fresh out of school and working towards a solution",
-          img: "a1.svg"
+          img: "a11.svg",
+          imgFull: "a1.svg"
         },
         {
           title: "Minimum of 3 years of work experience each",
-          img: "b1.svg"
+          img: "b11.png",
+          imgFull: "b1.svg"
         },
         {
           title: "Minimum of 7 years of experience in your specific field each",
-          img: "c1.svg"
+          img: "c11.svg",
+          imgFull: "c1.svg"
         },
         {
           title:
             "Subject matter experts with published thoughts on your industry",
-          img: "d1.svg"
+          img: "d11.svg",
+          imgFull: "d1.svg"
         }
       ];
       let form = document.createElement("form");
       form.setAttribute("id", "team");
+
       values.forEach(function(value) {
         let divWrapper = document.createElement("div");
         let label = document.createElement("label");
         let theInput = document.createElement("input");
         let theBreak = document.createElement("br");
+        let divAnswer = document.querySelector("#answer");
+        divAnswer.setAttribute("class", "addGrid");
         divWrapper.setAttribute("class", "wrapper");
         label.setAttribute("class", "labelClass");
         theInput.setAttribute("type", "radio");
@@ -113,6 +122,7 @@ let questions = [
         divWrapperP.appendChild(img);
         // nameInput.appendChild(img);
         form.appendChild(divWrapper);
+
         label.appendChild(theInput);
         label.appendChild(divWrapperP);
         divWrapper.appendChild(label);
@@ -134,19 +144,19 @@ let questions = [
       let values = [
         {
           title: "Sustainable",
-          img: "a3.svg"
+          img: "a31.svg"
         },
         {
           title: "Growing",
-          img: "b3.svg"
+          img: "b32.svg"
         },
         {
           title: "Spectacular",
-          img: "c3.svg"
+          img: "c33.svg"
         },
         {
           title: "Almost limitless",
-          img: "d3.svg"
+          img: "d34.svg"
         }
       ];
       let form = document.createElement("form");
@@ -419,7 +429,7 @@ let questions = [
         divWrapper.appendChild(label);
         divWrapper.appendChild(theBreak);
 
-        console.log("theInput", theInput);
+        // console.log("theInput", theInput);
       });
       return form;
     },
@@ -458,17 +468,6 @@ function insertIntoDOM() {
 
   wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
 
-  // TweenMax.from("#incomeNumber", 1, {
-  //   css: {
-  //     scale: 0.05,
-  //     opacity: 0,
-  //     rotation: 180
-  //   },
-  //   ease: Quad.easeInOut
-  // }),
-  //   0,
-  //   -400;
-
   document.getElementById("prev_button").addEventListener("click", function() {
     prevElement();
   });
@@ -482,23 +481,23 @@ function typeRadio() {
     let input = answer.querySelector("input");
     let radioName = input.getAttribute("name");
     let radioValue = getRadioCheckedValue(radioName);
-    console.log("radiovalue and u?", radioValue);
+    // console.log("radiovalue and u?", radioValue);
     questions[currentQuestionIndex].userAnswer = radioValue[0];
     questions[currentQuestionIndex].userAnswerIndex = radioValue[1];
 
-    console.log("radioIndex", questions[currentQuestionIndex].userAnswerIndex);
+    // console.log("radioIndex", questions[currentQuestionIndex].userAnswerIndex);
   }
 }
 
 function typeRange() {
   if (questions[currentQuestionIndex].type == "range") {
-    console.log("question number 2 for get Value");
+    // console.log("question number 2 for get Value");
 
     let slider = document.querySelector('input[type="range"]');
-    console.log("slider", slider);
+    // console.log("slider", slider);
     disabledIfEmpty();
     slider.addEventListener("change", function() {
-      console.log("eventlistener for getValue");
+      // console.log("eventlistener for getValue");
       getValue();
     });
   }
@@ -517,7 +516,7 @@ function typeRageChart() {
 
 function chartforEight() {
   if (questions[currentQuestionIndex].id == 8) {
-    console.log("it is 8 and it needs to create a chart");
+    // console.log("it is 8 and it needs to create a chart");
     document.querySelector("#comparison").classList.remove("hide");
     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
     let valueForChart = questions[currentQuestionIndex].userAnswer;
@@ -529,7 +528,7 @@ function chartforEight() {
 
 function valueForEight() {
   if (questions[currentQuestionIndex].id == 8) {
-    console.log("it is 8!");
+    // console.log("it is 8!");
     answer
       .querySelector("#addInvestment")
       .addEventListener("keyup", function() {
@@ -549,7 +548,7 @@ function valueForEight() {
 
 function typeInput() {
   if (questions[currentQuestionIndex].type == "input") {
-    console.log("it is input!");
+    // console.log("it is input!");
     let inputValue = answer.querySelector("input").value;
     // console.log("inputValue", inputValue)
     questions[currentQuestionIndex].userAnswer = inputValue;
@@ -580,19 +579,19 @@ function rangeAnswerInsert() {
 function radioAnswerInsert() {
   if (questions[currentQuestionIndex].type == "radio") {
     if (questions[currentQuestionIndex].id !== 9) {
-      console.log("it is radio type! and not 9");
-      console.log("UserAnswer", questions[currentQuestionIndex].userAnswer);
+      // console.log("it is radio type! and not 9");
+      // console.log("UserAnswer", questions[currentQuestionIndex].userAnswer);
       let allRadios = answer.querySelectorAll("input");
       let radioArr = Array.prototype.slice.call(allRadios);
       for (let u = 0; u < radioArr.length; u++) {
         // console.log("allRadios", radioArr[u].value);
         if (radioArr[u].value == questions[currentQuestionIndex].userAnswer) {
-          console.log("radio value check", radioArr[u].value);
+          // console.log("radio value check", radioArr[u].value);
           radioArr[u].checked = true;
         }
       }
     } else {
-      console.log("it is the last one");
+      // console.log("it is the last one");
 
       if (
         questions[currentQuestionIndex].userAnswer ||
@@ -602,7 +601,7 @@ function radioAnswerInsert() {
           document.querySelector("input[value=yes]").checked = true;
           createChartForFactors();
         } else {
-          console.log("it is else and answer 0 at last one");
+          // console.log("it is else and answer 0 at last one");
           document.querySelector("input[value=no]").checked = true;
           createChartForOtherFactors();
         }
@@ -613,12 +612,12 @@ function radioAnswerInsert() {
 
 function disableForInput() {
   if (questions[currentQuestionIndex].type == "input") {
-    console.log("it is input and it is disabled!");
+    // console.log("it is input and it is disabled!");
     answer.querySelector("input").addEventListener("keyup", function() {
       if (answer.querySelector("input").value.length) {
         document.getElementById("next_button").disabled = false;
       } else {
-        console.log("it is disabled!");
+        // console.log("it is disabled!");
         document.getElementById("next_button").disabled = true;
       }
     });
@@ -627,14 +626,21 @@ function disableForInput() {
 
 function disableForRadio() {
   if (questions[currentQuestionIndex].type == "radio") {
-    console.log("disable it is radio");
+    // console.log("disable it is radio");
     document.getElementById("next_button").disabled = true;
-    // console.log("allRadios", allRadios)
+
     // for (let i = 0; i < allRadios.length; i++) {
     document.querySelector("form").addEventListener("click", function() {
-      let allRadios = document.querySelectorAll("input");
+      console.log("i click!");
+      let allRadios = document.querySelectorAll("input[type=radio]");
+      // let clickedRadio = allRadios.find(radio => radio.checked == true);
+      // console.log("clickedRadio", clickedRadio.value);
+      // console.log("allRadios", allRadios);
       for (let i = 0; i < allRadios.length; i++) {
         if (allRadios[i].checked == true) {
+          let radioValue = allRadios[i].value;
+          // console.log("radio value", allRadios[i].value);
+          showAnimation(radioValue);
           document.getElementById("next_button").disabled = false;
         }
       }
@@ -642,10 +648,132 @@ function disableForRadio() {
   }
 }
 
+function showAnimation(value) {
+  // console.log("figureDiv")
+  document.querySelector(".divForFigure").innerHTML = "";
+  if (value == "Minimum of 3 years of work experience each") {
+    // document.querySelector(".figureDiv").innerHTML = "";
+    // let divForFigure = document.createElement("div");
+    // divForFigure.setAttribute("class", "figureDiv");
+    let figure = document.createElement("img");
+    figure.setAttribute("src", "img/b1.svg");
+    figure.setAttribute("class", "bigFigure");
+    // divForFigure.appendChild(figure);
+    // answer.appendChild(divForFigure);
+    document.querySelector(".divForFigure").appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1,
+      {
+        x: 300,
+        y: 30
+      },
+      {
+        x: 200,
+        y: 30,
+        rotation: -20,
+        ease: Power3.easeOut
+      },
+      0.01
+    );
+  }
+  if (value == "Fresh out of school and working towards a solution") {
+    let figure = document.createElement("img");
+    figure.setAttribute("src", "img/a1.svg");
+    figure.setAttribute("class", "bigFigure");
+    document.querySelector(".divForFigure").appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1,
+      {
+        x: 300,
+        y: 30
+      },
+      {
+        x: 200,
+        y: 30,
+        rotation: -20,
+        ease: Power3.easeOut
+      },
+      0.01
+    );
+  }
+  if (value == "Minimum of 7 years of experience in your specific field each") {
+    let figure = document.createElement("img");
+    figure.setAttribute("src", "img/c1.svg");
+    figure.setAttribute("class", "bigFigure");
+    document.querySelector(".divForFigure").appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1,
+      {
+        x: 300,
+        y: 30
+      },
+      {
+        x: 200,
+        y: 30,
+        rotation: -20,
+        ease: Power3.easeOut
+      },
+      0.01
+    );
+  }
+  if (
+    value == "Subject matter experts with published thoughts on your industry"
+  ) {
+    let figure = document.createElement("img");
+    figure.setAttribute("src", "img/d1.svg");
+    figure.setAttribute("class", "bigFigure");
+    document.querySelector(".divForFigure").appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1,
+      {
+        x: 300,
+        y: 30
+      },
+      {
+        x: 200,
+        y: 30,
+        rotation: -20,
+        ease: Power3.easeOut
+      },
+      0.01
+    );
+  }
+  if (value == "Sustainable") {
+    let figure = document.createElement("img");
+    figure.setAttribute("src", "img/a31.svg");
+    figure.setAttribute("class", "bigFigure");
+    document.querySelector(".divForFigure").appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1.5,
+
+      {
+        x: 100,
+        y: 400,
+        opacity: 0.1,
+        scale: 0.3
+      },
+      {
+        x: 100,
+        y: 150,
+        // rotation: -20,
+        ease: Circ.easeOut,
+        opacity: 1,
+        scale: 0.8
+      },
+      0.01
+    );
+  }
+}
+
 function disableForRange() {
   if (questions[currentQuestionIndex].type == "range") {
-    console.log("it is range");
-    console.log("value of input range", answer.querySelector("input").value);
+    // console.log("it is range");
+    // console.log("value of input range", answer.querySelector("input").value);
     // if (answer.querySelector("input").value == 1) {
     //   console.log("value of input range", answer.querySelector("input").value)
     //   document.getElementById('next_button').disabled = true;
@@ -673,6 +801,7 @@ function nextElement() {
   questionTitle.textContent = currentEl.question;
   questionText.textContent = currentEl.txt;
   answer.appendChild(questions[currentQuestionIndex].answerQ());
+  createDivForFigure();
 
   if (
     questions[currentQuestionIndex].canvasForChart !== null &&
@@ -752,7 +881,22 @@ function prevItem() {
   return questions[currentQuestionIndex];
 }
 
+function createDivForFigure() {
+  if (
+    questions[currentQuestionIndex].id == 3 ||
+    questions[currentQuestionIndex].id == 4 ||
+    questions[currentQuestionIndex].id == 5 ||
+    questions[currentQuestionIndex].id == 6 ||
+    questions[currentQuestionIndex].id == 7
+  ) {
+    let figureDiv = document.createElement("div");
+    figureDiv.setAttribute("class", "divForFigure");
+    answer.appendChild(figureDiv);
+  }
+}
+
 function insertSavedAnswers() {
+  createDivForFigure();
   if (questions[currentQuestionIndex].id !== 9) {
     document.querySelector("#next_button").textContent = "Next";
   }
@@ -776,15 +920,15 @@ function ifLastElement(currentEl) {
 
   if (currentEl.id == questions.length) {
     document.querySelector("#next_button").textContent = "Submit";
-    console.log("it is 9");
+    // console.log("it is 9");
     let factorsRadio = document.getElementsByName("factors");
     factorsRadio[0].addEventListener("click", function() {
       document.querySelector("#chartPlaceHolder").innerHTML = "";
-      console.log("works");
+      // console.log("works");
       let input = answer.querySelector("input");
-      console.log("form", input);
+      // console.log("form", input);
       let radioName = input.getAttribute("name");
-      console.log("radio_name", radioName);
+      // console.log("radio_name", radioName);
       let radioValue = getRadioCheckedValue(radioName);
 
       if (radioValue[0] == "yes") {
@@ -796,7 +940,7 @@ function ifLastElement(currentEl) {
           document.querySelector("#otherChart").style.display = "none";
         }
       }
-      console.log("radioValue", radioValue);
+      // console.log("radioValue", radioValue);
       this.checked = true;
 
       document.getElementById("next_button").style.display = "none";
@@ -804,12 +948,12 @@ function ifLastElement(currentEl) {
       document.getElementById("submit").style.display = "inline-block";
     });
     factorsRadio[1].addEventListener("click", function() {
-      console.log("works");
+      // console.log("works");
       document.querySelector("#chartPlaceHolder").innerHTML = "";
       let input = answer.querySelector("input");
-      console.log("form", input);
+      // console.log("form", input);
       let radioName = input.getAttribute("name");
-      console.log("radio_name", radioName);
+      // console.log("radio_name", radioName);
       let radioValue = getRadioCheckedValue(radioName);
 
       if (radioValue[0] == "no") {
@@ -823,7 +967,7 @@ function ifLastElement(currentEl) {
         }
       }
 
-      console.log("radioValue", radioValue);
+      // console.log("radioValue", radioValue);
       this.checked = true;
 
       document.getElementById("next_button").style.display = "none";
@@ -842,7 +986,7 @@ function getRadioCheckedValue(radio_name) {
 
   for (let u = 0; u < oRadio.length; u++) {
     if (oRadio[u].checked) {
-      console.log("u index", u);
+      // console.log("u index", u);
       return [oRadio[u].value, u];
     }
   }
@@ -853,16 +997,16 @@ function getRadioCheckedValue(radio_name) {
 function disabledIfEmpty() {
   document.getElementById("next_button").disabled = true;
 
-  console.log(
-    "questions[currentQuestionIndex].type",
-    questions[currentQuestionIndex].type
-  );
+  // console.log(
+  //   "questions[currentQuestionIndex].type",
+  //   questions[currentQuestionIndex].type
+  // );
   disableForInput();
   disableForRadio();
   disableForRange();
 
   if (questions[currentQuestionIndex].userAnswer) {
-    console.log("userAnswer", questions[currentQuestionIndex].userAnswer);
+    // console.log("userAnswer", questions[currentQuestionIndex].userAnswer);
     document.getElementById("next_button").disabled = false;
   }
 }
@@ -889,7 +1033,7 @@ function turnToNumber(currentQuestionIndex) {
     questions[currentQuestionIndex].userAnswer = 450;
   }
 
-  console.log("answer in switch", questions[currentQuestionIndex].userAnswer);
+  // console.log("answer in switch", questions[currentQuestionIndex].userAnswer);
   return questions[currentQuestionIndex].userAnswer;
 }
 
@@ -960,7 +1104,7 @@ function timeline(questions) {
   let allQuestionsDigit = questions.length;
   // console.log("allQuestionsDigit", allQuestionsDigit);
   let currentQuestionDigit = questions[currentQuestionIndex].id;
-  console.log("currentQuestionDigit", currentQuestionDigit);
+  // console.log("currentQuestionDigit", currentQuestionDigit);
 
   timelineInput.textContent = currentQuestionDigit + "/" + allQuestionsDigit;
 }
@@ -979,12 +1123,12 @@ function init() {
   });
 
   answer.querySelector("input").addEventListener("keyup", function() {
-    console.log("eventlistener from init!");
+    // console.log("eventlistener from init!");
     if (answer.querySelector("input").value.length) {
       document.getElementById("next_button").disabled = false;
       getValueForBarChart();
     } else {
-      console.log("it is disabled!");
+      // console.log("it is disabled!");
       document.getElementById("next_button").disabled = true;
     }
   });
@@ -1002,21 +1146,21 @@ let descriptionOfGrowth = document.querySelector("#descriptionGrowth");
 let slider = document.querySelector("input[type=range]");
 
 function getValue() {
-  console.log("function runs getvalue");
+  // console.log("function runs getvalue");
   let elem = document.querySelector('input[type="range"]');
   let newValue = elem.value;
-  console.log("newValue", newValue);
+  // console.log("newValue", newValue);
   buildChart(newValue);
   questions[currentQuestionIndex].userAnswer = newValue;
-  console.log("new user value", questions[currentQuestionIndex].userAnswer);
+  // console.log("new user value", questions[currentQuestionIndex].userAnswer);
 }
 
 function buildChart(value) {
   let slider = document.querySelector("input[type=range]");
   let descriptionOfGrowth = document.querySelector("#descriptionOfGrowth");
-  console.log("lets see what new value is");
+  // console.log("lets see what new value is");
   if (value <= 25) {
-    console.log("value is <25", value);
+    // console.log("value is <25", value);
     createChart(
       "growthChart",
       "line",
@@ -1028,7 +1172,7 @@ function buildChart(value) {
     slider.style.backgroundColor = "rgba(241, 90, 34, .5)";
     descriptionOfGrowth.textContent = "I expect adequate growth";
   } else if (value > 25 && value <= 50) {
-    console.log("value is <50", value);
+    // console.log("value is <50", value);
     createChart(
       "growthChart",
       "line",
@@ -1039,7 +1183,7 @@ function buildChart(value) {
     slider.style.backgroundColor = "rgba(245, 230, 83, .5)";
     descriptionOfGrowth.textContent = "I expect average growth";
   } else if (value > 50 && value <= 75) {
-    console.log("value is <75", value);
+    // console.log("value is <75", value);
     createChart(
       "growthChart",
       "line",
@@ -1051,7 +1195,7 @@ function buildChart(value) {
     slider.style.backgroundColor = "rgba(3, 201, 169, .5)";
     descriptionOfGrowth.textContent = "I expect very good growth";
   } else {
-    console.log("value is <100", value);
+    // console.log("value is <100", value);
     createChart(
       "growthChart",
       "line",
@@ -1072,7 +1216,7 @@ function createChart(
   data_of_charts,
   background_color
 ) {
-  console.log("chart is created", data_of_charts);
+  // console.log("chart is created", data_of_charts);
   let ctx = document.getElementById(get_wrapper).getContext("2d");
   var myChart = new Chart(ctx, {
     type: type_of_chart,
@@ -1157,13 +1301,13 @@ function createChart(
 function getValueForBarChart() {
   let inputToCheck = document.querySelector("#incomeNumber");
   let theValue = inputToCheck.value;
-  console.log("theValue", theValue);
+  // console.log("theValue", theValue);
   theValue = Number(theValue);
   createBarChart(theValue, "incomeChart");
 }
 
 function getValueForInvestment() {
-  console.log("it is #8");
+  // console.log("it is #8");
   if (questions[currentQuestionIndex].id == 8) {
     let inputToCheck = document.querySelector("#addInvestment");
     let theValue = inputToCheck.value;
