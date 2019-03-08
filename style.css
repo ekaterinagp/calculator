@@ -153,12 +153,17 @@ form p {
 
 #team,
 #market,
-#uniqueness,
-#competition,
 #strength {
   display: grid;
   grid-template-columns: 1fr 2fr;
   text-align: end;
+  grid-gap: 1em;
+}
+
+#uniqueness,
+#competition {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 1em;
 }
 
@@ -171,6 +176,11 @@ form p {
 }
 
 .wrapper .btnRadio:hover {
+  background-color: #969494;
+}
+
+.wrapper .btnRadioInline:hover,
+.wrapper .btnRadioForBig:hover {
   background-color: #969494;
 }
 
@@ -209,8 +219,8 @@ form p {
 }
 
 #market input:checked + .btnRadio,
-#uniqueness input:checked + .btnRadio,
-#competition input:checked + .btnRadio,
+#uniqueness input:checked + .btnRadioInline,
+#competition input:checked + .btnRadioInline,
 #strength input:checked + .btnRadio,
 #factorsTwoOptions input:checked + p,
 #team input:checked + .btnRadio {
@@ -549,7 +559,55 @@ input[type="number"] {
 
 .bigFigure {
   position: absolute;
-  top: -10em;
+  top: -15em;
   width: 35em;
   right: 0;
+}
+
+.bigFigureBounce {
+  position: absolute;
+  top: 0em;
+  width: 35em;
+  right: 0;
+  left: 20em;
+}
+
+.imgInline {
+  width: 8em;
+}
+
+.imgForBig {
+  width: 15em;
+}
+
+.btnRadioInline {
+  /* position: relative; */
+  -webkit-appearance: button;
+  padding: 1em;
+  /* display: inline-grid; */
+  justify-items: center;
+  align-items: center;
+  /* grid-template-columns: 3fr 1fr; */
+  cursor: pointer;
+  height: 8em;
+}
+
+.btnRadioforBig {
+  position: relative;
+  -webkit-appearance: button;
+  padding: 1em;
+  display: inline-grid;
+  justify-items: center;
+  /* align-items: center; */
+  /* grid-template-columns: 3fr 1fr; */
+  cursor: pointer;
+  /* height: 5em; */
+  width: 20em;
+}
+
+.bigFigureVehicle {
+  position: absolute;
+  top: 0em;
+  width: 15em;
+  left: -200px;
 }
