@@ -326,19 +326,19 @@ let questions = [
       let values = [
         {
           title: "Good",
-          img: "a4.svg"
+          img: "a41.svg"
         },
         {
           title: "Solid",
-          img: "b4.svg"
+          img: "b41.svg"
         },
         {
           title: "Strong",
-          img: "c4.svg"
+          img: "c41.svg"
         },
         {
           title: "Perfect",
-          img: "d4.svg"
+          img: "d41.svg"
         }
       ];
       let form = document.createElement("form");
@@ -388,16 +388,12 @@ let questions = [
       theLabel.setAttribute("for", "investment");
       theInput.setAttribute("type", "number");
       theInput.setAttribute("id", "addInvestment");
+      theInput.setAttribute("class", "round");
       theInput.setAttribute("placeholder", "Type your number here");
+
       return theInput;
     },
-    canvasForChart: function() {
-      let theCanvas = document.createElement("canvas");
-      theCanvas.setAttribute("width", 400);
-      theCanvas.setAttribute("height", 200);
-      theCanvas.setAttribute("id", "investmentChart");
-      return theCanvas;
-    },
+    canvasForChart: null,
     userAnswer: null
   },
 
@@ -522,7 +518,7 @@ function chartforEight() {
     document.querySelector("#comparison").classList.remove("hide");
     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
     let valueForChart = questions[currentQuestionIndex].userAnswer;
-    createInvestmentChart(valueForChart, "investmentChart");
+    // createInvestmentChart(valueForChart, "investmentChart");
 
     // getValueForInvestment();
   }
@@ -647,7 +643,10 @@ function disableForRadio() {
         if (allRadios[i].checked == true) {
           let radioValue = allRadios[i].value;
           console.log("radio value", allRadios[i].value);
-          showAnimation(radioValue);
+          if (questions[currentQuestionIndex].id !== 9) {
+            showAnimation(radioValue);
+          }
+
           document.getElementById("next_button").disabled = false;
         }
       }
@@ -1057,6 +1056,111 @@ function showAnimation(value) {
       0.01
     );
   }
+  if (value == "Good") {
+    let figure = document.createElement("img");
+    figure.setAttribute("src", "img/a41.svg");
+    figure.setAttribute("class", "bigFigure");
+    figure.style.top = "-10em";
+    document.querySelector(".divForFigure").appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1.5,
+
+      {
+        x: 100,
+        y: 400,
+        opacity: 0.1,
+        scale: 0.3
+      },
+      {
+        x: 100,
+        y: 150,
+        // rotation: -20,
+        ease: Circ.easeOut,
+        opacity: 1,
+        scale: 0.8
+      },
+      0.01
+    );
+  }
+  if (value == "Solid") {
+    let figure = document.createElement("img");
+    figure.setAttribute("src", "img/b41.svg");
+    figure.setAttribute("class", "bigFigure");
+    document.querySelector(".divForFigure").appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1.5,
+
+      {
+        x: 100,
+        y: 400,
+        opacity: 0.1,
+        scale: 0.3
+      },
+      {
+        x: 100,
+        y: 150,
+        // rotation: -20,
+        ease: Circ.easeOut,
+        opacity: 1,
+        scale: 1.1
+      },
+      0.01
+    );
+  }
+  if (value == "Strong") {
+    let figure = document.createElement("img");
+    figure.setAttribute("src", "img/c41.svg");
+    figure.setAttribute("class", "bigFigure");
+    document.querySelector(".divForFigure").appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1.5,
+
+      {
+        x: 100,
+        y: 400,
+        opacity: 0.1,
+        scale: 0.3
+      },
+      {
+        x: 100,
+        y: 150,
+        // rotation: -20,
+        ease: Circ.easeOut,
+        opacity: 1,
+        scale: 1.3
+      },
+      0.01
+    );
+  }
+  if (value == "Perfect") {
+    let figure = document.createElement("img");
+    figure.setAttribute("src", "img/d41.svg");
+    figure.setAttribute("class", "bigFigure");
+    document.querySelector(".divForFigure").appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1.5,
+
+      {
+        x: 100,
+        y: 400,
+        opacity: 0.1,
+        scale: 0.3
+      },
+      {
+        x: 100,
+        y: 150,
+        // rotation: -20,
+        ease: Elastic.easeOut.config(1, 0.3),
+        opacity: 1,
+        scale: 1.5
+      },
+      0.01
+    );
+  }
 }
 
 function disableForRange() {
@@ -1091,6 +1195,7 @@ function nextElement() {
   questionText.textContent = currentEl.txt;
   answer.appendChild(questions[currentQuestionIndex].answerQ());
   createDivForFigure();
+  createInputForInvestment();
 
   if (
     questions[currentQuestionIndex].canvasForChart !== null &&
@@ -1297,6 +1402,25 @@ function disabledIfEmpty() {
   if (questions[currentQuestionIndex].userAnswer) {
     // console.log("userAnswer", questions[currentQuestionIndex].userAnswer);
     document.getElementById("next_button").disabled = false;
+  }
+}
+
+function createInputForInvestment(value) {
+  if (questions[currentQuestionIndex].id == "8") {
+    let divIncome = document.createElement("div");
+    divIncome.setAttribute("class", "round");
+    // let additionalInvestement = document.createElement("div");
+    // additionalInvestement.setAttribute("class", "round");
+    // additionalInvestement.setAttribute("id", "investment");
+    // let additonalInput = document.createElement("p");
+    // additonalInput.innerHTML = value;
+    let yearlyIncome = document.createElement("p");
+    yearlyIncome.setAttribute("class", "roundInput");
+    yearlyIncome.innerHTML = questions[0].userAnswer * 12;
+    divIncome.appendChild(yearlyIncome);
+    // additionalInvestement.appendChild(additonalInput);
+    answer.appendChild(divIncome);
+    // answer.appendChild(additionalInvestement);
   }
 }
 
@@ -1602,7 +1726,7 @@ function getValueForInvestment() {
     let theValue = inputToCheck.value;
     theValue = Number(theValue);
     questions[currentQuestionIndex].userAnswer = theValue;
-    createInvestmentChart(theValue, "investmentChart");
+    createInputForInvestment(theValue);
   }
 }
 
@@ -1884,4 +2008,25 @@ function incomeVSinvestments() {
     "%" +
     " " +
     "of your yearly income";
+  if (percantageFrom < 50) {
+    console.log("smaller than 50%");
+    TweenMax.to(document.querySelector("#addInvestment"), 1, {
+      scale: 0.7
+    });
+  } else if (percantageFrom >= 50 && percantageFrom < 100) {
+    console.log("smaller than 100%");
+    TweenMax.to(document.querySelector("#addInvestment"), 1, {
+      scale: 0.9
+    });
+  } else if (percantageFrom >= 100 && percantageFrom < 200) {
+    console.log("smaller than 200%");
+    TweenMax.to(document.querySelector("#addInvestment"), 1, {
+      scale: 1.5
+    });
+  } else {
+    console.log("bigger than 200!");
+    TweenMax.to(document.querySelector("#addInvestment"), 1, {
+      scale: 2
+    });
+  }
 }
