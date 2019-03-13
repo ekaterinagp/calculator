@@ -4,14 +4,15 @@
   /* padding: 3%; */
   text-align: center;
   font-family: "Gotham_Book";
-  text-align: -webkit-center;
-  background-color: white;
-  color: black;
+  /* text-align: -webkit-center; */
+  background-color: rgb(14, 13, 13);
+  color: rgb(247, 243, 243);
+  overflow: hidden;
 }
 
 canvas {
-  position: absolute;
-  top: 14em;
+  max-width: 1000px;
+  min-height: 400px;
 }
 @font-face {
   font-family: "Gotham_Black";
@@ -30,19 +31,22 @@ h2 {
 h1 {
   font-family: "Gotham_Black";
 }
-/* .box {
+.box {
   text-align: -webkit-center;
-  background-color: white;
-  color: black;
-} */
+  background-color: rgb(12, 12, 12);
+  color: rgb(252, 247, 247);
+  width: 100%;
+  height: 100%;
+}
 
 .buttons {
-  position: absolute;
+  position: fixed;
   padding: 14px 40px;
   background-color: green;
   color: white;
   font-family: "Gotham_Black";
   top: 90%;
+  margin-top: 10px;
 }
 
 ::-webkit-input-placeholder {
@@ -51,8 +55,16 @@ h1 {
 }
 
 #prevNext {
-  padding-top: 8em;
-  position: relative;
+  left: 0;
+  background-color: rgb(0, 0, 0);
+  bottom: 0;
+  height: 10vh;
+  width: 100%;
+  position: absolute;
+  box-shadow: inset 0 0 5px 0px #fff, inset 0px 0 0px rgb(0, 0, 0),
+    inset 0px 0 0px rgb(0, 0, 0), inset 20px 0 300px rgb(0, 0, 0),
+    inset 0px 0px 0px 0px rgb(0, 0, 0), 0 0 20px #c5caaa,
+    0px -1px 0px rgb(0, 0, 0), 2px -1px 0px rgb(208, 219, 160);
 }
 
 #chartPlaceHolder {
@@ -63,6 +75,7 @@ h1 {
 
 #otherChart {
   display: none;
+  /* height: 400px; */
 }
 
 #answer {
@@ -199,6 +212,7 @@ form p {
   cursor: pointer;
   height: 5em;
   width: 20em;
+  background-color: black;
 }
 
 .btnRadioTwoOptions {
@@ -209,6 +223,7 @@ form p {
   align-items: center;
   cursor: pointer;
   width: 30%;
+  background-color: black;
 }
 
 #factorsTwoOptions {
@@ -294,7 +309,7 @@ input[type="submit"] {
   font-size: 1.5em;
   /* margin-top: -1em; */
   float: right;
-  color: black;
+  color: white;
 }
 
 .switch {
@@ -444,6 +459,8 @@ input[type="number"] {
   border: 0;
   border-bottom: 1px solid;
   text-align: center;
+  background-color: black;
+  color: white;
   /* width: 30%; */
 }
 
@@ -559,11 +576,12 @@ input[type="number"] {
 #factorsChart,
 #otherChart {
   top: 20em;
+  max-height: 400px;
 }
 
 .bigFigure {
   position: absolute;
-  top: -15em;
+  top: -10em;
   width: 35em;
   right: 0;
 }
@@ -601,6 +619,7 @@ input[type="number"] {
   /* grid-template-columns: 3fr 1fr; */
   cursor: pointer;
   height: 8em;
+  background-color: black;
 }
 
 .btnRadioforBig {
@@ -646,4 +665,5 @@ input[type="number"] {
 
 #addInvestment {
   left: 30em;
+  background-color: #b1adad;
 }

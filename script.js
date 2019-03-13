@@ -40,6 +40,7 @@ let questions = [
       let theInput = document.createElement("input");
       let description = document.createElement("p");
       description.setAttribute("id", "descriptionOfGrowth");
+      // divAnswer.removeAttribute("class", "addGrid");
       theInput.setAttribute("type", "range");
       theInput.setAttribute("min", "1");
       theInput.setAttribute("max", "100");
@@ -973,7 +974,7 @@ function showAnimation(value) {
         // rotation: -20,
         ease: Bounce.easeOut,
         opacity: 1,
-        scale: 1.3
+        scale: 1.1
       },
       0.01
     );
@@ -999,7 +1000,7 @@ function showAnimation(value) {
         // rotation: -20,
         ease: Bounce.easeOut,
         opacity: 1,
-        scale: 1.3
+        scale: 1.1
       },
       0.01
     );
@@ -1025,7 +1026,7 @@ function showAnimation(value) {
         // rotation: -20,
         ease: Bounce.easeOut,
         opacity: 1,
-        scale: 1.3
+        scale: 1.1
       },
       0.01
     );
@@ -1051,7 +1052,7 @@ function showAnimation(value) {
         // rotation: -20,
         ease: Bounce.easeOut,
         opacity: 1,
-        scale: 1.3
+        scale: 1.1
       },
       0.01
     );
@@ -1244,6 +1245,7 @@ function prevElement() {
   valueForEight();
   chartforEight();
   insertSavedAnswers(currentEl);
+
   ifLastElement(currentEl);
   if (questions[currentQuestionIndex].id == 1) {
     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
@@ -1299,6 +1301,13 @@ function insertSavedAnswers() {
     radioAnswerInsert();
     rangeAnswerInsert();
   }
+  // if (
+  //   questions[currentQuestionIndex].id == 1 ||
+  //   questions[currentQuestionIndex].id == 2
+  // ) {
+  //   console.log("it is 1 or 2 and", answer);
+  //   answer.removeAttribute("class", "addGrid");
+  // }
 }
 
 function ifLastElement(currentEl) {
@@ -1706,7 +1715,9 @@ function createChart(
             return xLabel + ": %" + yLabel;
           }
         }
-      }
+      },
+      responsive: true,
+      maintainAspectRatio: false
     }
   });
 }
@@ -1921,7 +1932,9 @@ function createChartForFactors() {
             }
           }
         ]
-      }
+      },
+      responsive: true,
+      maintainAspectRatio: false
     }
   });
 }
@@ -1985,7 +1998,9 @@ function createChartForOtherFactors() {
             }
           }
         ]
-      }
+      },
+      responsive: true,
+      maintainAspectRatio: false
     }
   });
 }
