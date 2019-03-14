@@ -327,7 +327,7 @@ let questions = [
       let values = [
         {
           title: "Good",
-          img: "a41.svg"
+          img: "a411.svg"
         },
         {
           title: "Solid",
@@ -388,16 +388,15 @@ let questions = [
     answerQ: function() {
       let theInput = document.createElement("input");
       let theLabel = document.createElement("label");
-      // let span = document.createElement("span");
-      // span.innerHTML = "$";
-      // let td = document.createElement("td");
-      // td.innerHTML = "$";
+      let pTitle = document.createElement("p");
+      pTitle.setAttribute("class", "pForTitle");
+      pTitle.innerHTML = "You need this more money";
       theLabel.setAttribute("for", "investment");
       theInput.setAttribute("type", "number");
       theInput.setAttribute("id", "addInvestment");
       theInput.setAttribute("class", "round");
       theInput.setAttribute("placeholder", "Type your number here");
-
+      // answer.appendChild(pTitle);
       // theInput.appendChild(span);
       return theInput;
     },
@@ -870,25 +869,24 @@ function showAnimation(value) {
     // answer.appendChild(divForFigure);
 
     document.querySelector(".divForFigure").appendChild(figure);
-    let vehicleDrive = new TimelineLite();
+    let vehicleDrive = new TimelineMax({ repeat: -1, force3D: true });
     // bikeDrive.to(figure, 22, { left: "100%", ease: Linear.easeNone }, 1);
-    vehicleDrive
-      .fromTo(
-        figure,
-        5,
-        {
-          x: -200,
-          y: 150
-        },
-        {
-          x: 800,
-          y: 150,
+    vehicleDrive.fromTo(
+      figure,
+      4,
+      {
+        x: -200,
+        y: 150
+      },
+      {
+        x: 1600,
+        y: 150,
 
-          ease: Linear.easeOut
-        }
-      )
-      .to(figure, 0.1, { x: "+=10", yoyo: true, repeat: -1 })
-      .to(figure, 0.1, { x: "-=10", yoyo: true, repeat: -1 });
+        ease: Linear.easeOut
+      }
+    );
+    // .to(figure, 0.1, { x: "+=10", yoyo: true, repeat: -1 })
+    // .to(figure, 0.1, { x: "-=10", yoyo: true, repeat: -1 });
     // TweenMax.to(figure, 0.1, { x: "+=20", yoyo: true, repeat: -1 });
     // TweenMax.to(figure, 0.1, { x: "-=20", yoyo: true, repeat: -1 });
   }
@@ -901,7 +899,7 @@ function showAnimation(value) {
     // bikeDrive.to(figure, 22, { left: "100%", ease: Linear.easeNone }, 1);
     vehicleDrive.fromTo(
       figure,
-      4,
+      3,
       {
         x: -800,
         y: 150
@@ -912,8 +910,7 @@ function showAnimation(value) {
         // rotation: -20,
         // left: "100%",
         ease: Linear.easeOut
-      },
-      0.01
+      }
     );
   }
   if (value == "There are only 1-3 similar products/technologies") {
@@ -925,7 +922,7 @@ function showAnimation(value) {
     // bikeDrive.to(figure, 22, { left: "100%", ease: Linear.easeNone }, 1);
     vehicleDrive.fromTo(
       figure,
-      3,
+      1,
       {
         x: -800,
         y: 150
@@ -1071,7 +1068,7 @@ function showAnimation(value) {
   }
   if (value == "Good") {
     let figure = document.createElement("img");
-    figure.setAttribute("src", "img/a41.svg");
+    figure.setAttribute("src", "img/a411.svg");
     figure.setAttribute("class", "bigFigureBounceSmall");
     figure.style.paddingTop = "5em";
     // figure.style.top = "-10em";
@@ -1090,9 +1087,9 @@ function showAnimation(value) {
         x: 100,
         y: 150,
         // rotation: -20,
-        ease: Bounce.easeOut,
+        ease: Circ.easeOut,
         opacity: 1,
-        scale: 1.1
+        scale: 1
       },
       0.01
     );
@@ -1105,7 +1102,7 @@ function showAnimation(value) {
     document.querySelector(".divForFigure").appendChild(figure);
     TweenMax.fromTo(
       figure,
-      1.5,
+      1,
 
       {
         x: 100,
@@ -1117,7 +1114,7 @@ function showAnimation(value) {
         x: 100,
         y: 150,
         // rotation: -20,
-        ease: Bounce.easeOut,
+        ease: Circ.easeOut,
         opacity: 1,
         scale: 1.1
       },
@@ -1128,7 +1125,7 @@ function showAnimation(value) {
     let figure = document.createElement("img");
     figure.setAttribute("src", "img/c41.svg");
     figure.setAttribute("class", "bigFigureBounceSmall");
-    figure.style.paddingTop = "5em";
+    figure.style.paddingTop = "3em";
     document.querySelector(".divForFigure").appendChild(figure);
     TweenMax.fromTo(
       figure,
@@ -1144,7 +1141,7 @@ function showAnimation(value) {
         x: 100,
         y: 150,
         // rotation: -20,
-        ease: Circ.easeOut,
+        ease: Elastic.easeOut.config(1, 0.3),
         opacity: 1,
         scale: 1.3
       },
@@ -1159,7 +1156,7 @@ function showAnimation(value) {
     document.querySelector(".divForFigure").appendChild(figure);
     TweenMax.fromTo(
       figure,
-      1.5,
+      1,
 
       {
         x: 100,
@@ -1433,7 +1430,11 @@ function disabledIfEmpty() {
 function createInputForInvestment(value) {
   if (questions[currentQuestionIndex].id == "8") {
     let divIncome = document.createElement("div");
+    let pForIncome = document.createElement("p");
+    pForIncome.setAttribute("class", "pIncome");
+    pForIncome.innerHTML = "Your yearly income";
     divIncome.setAttribute("class", "round");
+    divIncome.appendChild(pForIncome);
     // let additionalInvestement = document.createElement("div");
     // additionalInvestement.setAttribute("class", "round");
     // additionalInvestement.setAttribute("id", "investment");
@@ -2040,6 +2041,9 @@ function incomeVSinvestments() {
     "%" +
     " " +
     "of your yearly income";
+  let pTitle = document.createElement("p");
+  pTitle.innerHTML = "You need this more money";
+  document.querySelector("#addInvestements").appendChild(pTitle);
   if (percantageFrom < 50) {
     console.log("smaller than 50%");
     TweenMax.to(document.querySelector("#addInvestment"), 1, {
@@ -2050,15 +2054,15 @@ function incomeVSinvestments() {
     TweenMax.to(document.querySelector("#addInvestment"), 1, {
       scale: 0.9
     });
-  } else if (percantageFrom >= 100 && percantageFrom < 200) {
+  } else if (percantageFrom >= 100 && percantageFrom < 150) {
     console.log("smaller than 200%");
     TweenMax.to(document.querySelector("#addInvestment"), 1, {
-      scale: 1.4
+      scale: 1.1
     });
   } else {
     console.log("bigger than 200!");
     TweenMax.to(document.querySelector("#addInvestment"), 1, {
-      scale: 1.7
+      scale: 1.5
     });
   }
 }

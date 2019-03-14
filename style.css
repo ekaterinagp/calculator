@@ -10,6 +10,15 @@
   overflow: hidden;
 }
 
+input#addInvestment::placeholder {
+  color: black;
+  font-size: 1em;
+}
+
+input#addInvestment {
+  font-size: 1em;
+}
+
 canvas {
   max-width: 1000px;
   min-height: 400px;
@@ -214,6 +223,9 @@ form p {
   height: 5em;
   width: 20em;
   background-color: black;
+  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
 }
 
 .btnRadioTwoOptions {
@@ -225,6 +237,9 @@ form p {
   cursor: pointer;
   width: 30%;
   background-color: black;
+  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
 }
 
 #factorsTwoOptions {
@@ -308,7 +323,7 @@ input[type="submit"] {
 
 #timeline {
   font-size: 1.5em;
-  /* margin-top: -1em; */
+  margin: 1em;
   float: right;
   color: white;
 }
@@ -628,6 +643,9 @@ input[type="number"] {
   cursor: pointer;
   height: 8em;
   background-color: black;
+  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
 }
 
 .btnRadioforBig {
@@ -641,6 +659,9 @@ input[type="number"] {
   cursor: pointer;
   /* height: 5em; */
   width: 20em;
+  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
 }
 
 .bigFigureVehicle {
@@ -702,4 +723,13 @@ input[type="number"]::-webkit-outer-spin-button {
   cursor: pointer;
   height: 8em;
   background-color: black;
+  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+}
+
+.pIncome {
+  padding-top: 2em;
+  color: black;
+  font-family: "Gotham_Black";
 }
