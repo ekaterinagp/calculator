@@ -388,9 +388,7 @@ let questions = [
     answerQ: function() {
       let theInput = document.createElement('input');
       let theLabel = document.createElement('label');
-      let pTitle = document.createElement('p');
-      pTitle.setAttribute('class', 'pForTitle');
-      pTitle.innerHTML = 'You need this more money';
+
       theLabel.setAttribute('for', 'investment');
       theInput.setAttribute('type', 'number');
       theInput.setAttribute('id', 'addInvestment');
@@ -574,7 +572,8 @@ function inputAnswerInsert() {
 
 function rangeAnswerInsert() {
   if (questions[currentQuestionIndex].type == 'range') {
-    buildChart(questions[currentQuestionIndex].userAnswer);
+    console.log('rangeAnswerInsert');
+    // buildChart(questions[currentQuestionIndex].userAnswer);
     let slider = document.querySelector('input[type=range]');
     slider.value = questions[currentQuestionIndex].userAnswer;
     getValue();
@@ -1305,6 +1304,9 @@ function createDivForFigure() {
 }
 
 function insertSavedAnswers() {
+  console.log({
+    'questions[currentQuestionIndex]': questions[currentQuestionIndex]
+  });
   createDivForFigure();
   if (questions[currentQuestionIndex].id !== 9) {
     document.querySelector('#next_button').textContent = 'Next';
@@ -1314,13 +1316,14 @@ function insertSavedAnswers() {
     radioAnswerInsert();
     rangeAnswerInsert();
   }
-  // if (
-  //   questions[currentQuestionIndex].id == 1 ||
-  //   questions[currentQuestionIndex].id == 2
-  // ) {
-  //   console.log("it is 1 or 2 and", answer);
-  //   answer.removeAttribute("class", "addGrid");
-  // }
+  if (
+    questions[currentQuestionIndex].id == 1 ||
+    questions[currentQuestionIndex].id == 2
+  ) {
+    console.log({ answer });
+    // answer.removeAttribute("class", "addGrid");
+    answer.classList.remove('addGrid');
+  }
 }
 
 function ifLastElement(currentEl) {
@@ -1585,7 +1588,7 @@ let descriptionOfGrowth = document.querySelector('#descriptionGrowth');
 let slider = document.querySelector('input[type=range]');
 
 function getValue() {
-  // console.log("function runs getvalue");
+  console.log('function runs getvalue');
   let elem = document.querySelector('input[type="range"]');
   let newValue = elem.value;
   // console.log("newValue", newValue);
@@ -1596,6 +1599,7 @@ function getValue() {
 
 function buildChart(value) {
   let slider = document.querySelector('input[type=range]');
+  document.querySelector('#chartPlaceHolder').style.height = '40vh';
   let descriptionOfGrowth = document.querySelector('#descriptionOfGrowth');
   // console.log("lets see what new value is");
   if (value <= 25) {
@@ -1655,7 +1659,7 @@ function createChart(
   data_of_charts,
   background_color
 ) {
-  // console.log("chart is created", data_of_charts);
+  console.log('chart is created', data_of_charts);
   let ctx = document.getElementById(get_wrapper).getContext('2d');
   var myChart = new Chart(ctx, {
     type: type_of_chart,
@@ -2041,9 +2045,7 @@ function incomeVSinvestments() {
     '%' +
     ' ' +
     'of your yearly income';
-  let pTitle = document.createElement('p');
-  pTitle.innerHTML = 'You need this more money';
-  document.querySelector('#addInvestements').appendChild(pTitle);
+
   if (percantageFrom < 50) {
     console.log('smaller than 50%');
     TweenMax.to(document.querySelector('#addInvestment'), 1, {
