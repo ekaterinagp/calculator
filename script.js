@@ -279,7 +279,7 @@ let questions = [
           img: "a51.svg"
         },
         {
-          title: "Blue ocean",
+          title: "No competitors",
           img: "a5.svg"
         }
       ];
@@ -299,9 +299,9 @@ let questions = [
         let nameInput = document.createElement("div");
         let img = document.createElement("img");
         nameInput.style.display = "inline";
-        divWrapperP.setAttribute("class", "btnRadioInline");
+        divWrapperP.setAttribute("class", "btnRadioInlineComp");
         nameInput.textContent = value.title;
-        img.setAttribute("class", "imgInline");
+        img.setAttribute("class", "imgInlineComp");
         img.setAttribute("src", "img/" + value.img);
         divWrapperP.appendChild(nameInput);
         divWrapperP.appendChild(img);
@@ -344,6 +344,8 @@ let questions = [
       ];
       let form = document.createElement("form");
       form.setAttribute("id", "strength");
+      // let divAnswer = document.querySelector("#answer");
+      // divAnswer.removeAttribute("class", "addGrid");
       values.forEach(function(value) {
         let divWrapper = document.createElement("div");
         let label = document.createElement("label");
@@ -358,10 +360,10 @@ let questions = [
         let nameInput = document.createElement("div");
         let img = document.createElement("img");
         nameInput.style.display = "inline";
-        divWrapperP.setAttribute("class", "btnRadio");
+        divWrapperP.setAttribute("class", "btnRadioInlineComp");
         nameInput.textContent = value.title;
 
-        img.setAttribute("class", "imgSize");
+        img.setAttribute("class", "imgInline");
         img.setAttribute("src", "img/" + value.img);
         divWrapperP.appendChild(nameInput);
         divWrapperP.appendChild(img);
@@ -386,12 +388,17 @@ let questions = [
     answerQ: function() {
       let theInput = document.createElement("input");
       let theLabel = document.createElement("label");
+      // let span = document.createElement("span");
+      // span.innerHTML = "$";
+      // let td = document.createElement("td");
+      // td.innerHTML = "$";
       theLabel.setAttribute("for", "investment");
       theInput.setAttribute("type", "number");
       theInput.setAttribute("id", "addInvestment");
       theInput.setAttribute("class", "round");
       theInput.setAttribute("placeholder", "Type your number here");
 
+      // theInput.appendChild(span);
       return theInput;
     },
     canvasForChart: null,
@@ -754,6 +761,7 @@ function showAnimation(value) {
     figure.setAttribute("src", "img/a31.svg");
     figure.setAttribute("class", "bigFigure");
     figure.style.top = "-10em";
+    figure.style.paddingTop = "7em";
     document.querySelector(".divForFigure").appendChild(figure);
     TweenMax.fromTo(
       figure,
@@ -862,24 +870,27 @@ function showAnimation(value) {
     // answer.appendChild(divForFigure);
 
     document.querySelector(".divForFigure").appendChild(figure);
-    let vehicleDrive = new TimelineMax({ repeat: -1, force3D: true });
+    let vehicleDrive = new TimelineLite();
     // bikeDrive.to(figure, 22, { left: "100%", ease: Linear.easeNone }, 1);
-    vehicleDrive.fromTo(
-      figure,
-      5,
-      {
-        x: -800,
-        y: 150
-      },
-      {
-        x: 1600,
-        y: 150,
-        // rotation: -20,
-        // left: "100%",
-        ease: Linear.easeOut
-      },
-      0.01
-    );
+    vehicleDrive
+      .fromTo(
+        figure,
+        5,
+        {
+          x: -200,
+          y: 150
+        },
+        {
+          x: 800,
+          y: 150,
+
+          ease: Linear.easeOut
+        }
+      )
+      .to(figure, 0.1, { x: "+=10", yoyo: true, repeat: -1 })
+      .to(figure, 0.1, { x: "-=10", yoyo: true, repeat: -1 });
+    // TweenMax.to(figure, 0.1, { x: "+=20", yoyo: true, repeat: -1 });
+    // TweenMax.to(figure, 0.1, { x: "-=20", yoyo: true, repeat: -1 });
   }
   if (value == "There are few similar products/technologies") {
     let figure = document.createElement("img");
@@ -983,6 +994,7 @@ function showAnimation(value) {
     let figure = document.createElement("img");
     figure.setAttribute("src", "img/b58.svg");
     figure.setAttribute("class", "bigFigureBounce");
+    figure.style.paddingTop = "3em";
     document.querySelector(".divForFigure").appendChild(figure);
     TweenMax.fromTo(
       figure,
@@ -1031,7 +1043,7 @@ function showAnimation(value) {
       0.01
     );
   }
-  if (value == "Blue ocean") {
+  if (value == "No competitors") {
     let figure = document.createElement("img");
     figure.setAttribute("src", "img/a5.svg");
     figure.setAttribute("class", "bigFigureBounce");
@@ -1060,8 +1072,9 @@ function showAnimation(value) {
   if (value == "Good") {
     let figure = document.createElement("img");
     figure.setAttribute("src", "img/a41.svg");
-    figure.setAttribute("class", "bigFigure");
-    figure.style.top = "-10em";
+    figure.setAttribute("class", "bigFigureBounceSmall");
+    figure.style.paddingTop = "5em";
+    // figure.style.top = "-10em";
     document.querySelector(".divForFigure").appendChild(figure);
     TweenMax.fromTo(
       figure,
@@ -1077,9 +1090,9 @@ function showAnimation(value) {
         x: 100,
         y: 150,
         // rotation: -20,
-        ease: Circ.easeOut,
+        ease: Bounce.easeOut,
         opacity: 1,
-        scale: 0.8
+        scale: 1.1
       },
       0.01
     );
@@ -1087,7 +1100,8 @@ function showAnimation(value) {
   if (value == "Solid") {
     let figure = document.createElement("img");
     figure.setAttribute("src", "img/b41.svg");
-    figure.setAttribute("class", "bigFigure");
+    figure.setAttribute("class", "bigFigureBounceSmall");
+    figure.style.paddingTop = "5em";
     document.querySelector(".divForFigure").appendChild(figure);
     TweenMax.fromTo(
       figure,
@@ -1103,7 +1117,7 @@ function showAnimation(value) {
         x: 100,
         y: 150,
         // rotation: -20,
-        ease: Circ.easeOut,
+        ease: Bounce.easeOut,
         opacity: 1,
         scale: 1.1
       },
@@ -1113,7 +1127,8 @@ function showAnimation(value) {
   if (value == "Strong") {
     let figure = document.createElement("img");
     figure.setAttribute("src", "img/c41.svg");
-    figure.setAttribute("class", "bigFigure");
+    figure.setAttribute("class", "bigFigureBounceSmall");
+    figure.style.paddingTop = "5em";
     document.querySelector(".divForFigure").appendChild(figure);
     TweenMax.fromTo(
       figure,
@@ -1139,7 +1154,8 @@ function showAnimation(value) {
   if (value == "Perfect") {
     let figure = document.createElement("img");
     figure.setAttribute("src", "img/d41.svg");
-    figure.setAttribute("class", "bigFigure");
+    figure.setAttribute("class", "bigFigureBounceSmall");
+    figure.style.paddingTop = "5em";
     document.querySelector(".divForFigure").appendChild(figure);
     TweenMax.fromTo(
       figure,
@@ -1425,7 +1441,7 @@ function createInputForInvestment(value) {
     // additonalInput.innerHTML = value;
     let yearlyIncome = document.createElement("p");
     yearlyIncome.setAttribute("class", "roundInput");
-    yearlyIncome.innerHTML = questions[0].userAnswer * 12;
+    yearlyIncome.innerHTML = questions[0].userAnswer * 12 + "$";
     divIncome.appendChild(yearlyIncome);
     // additionalInvestement.appendChild(additonalInput);
     answer.appendChild(divIncome);
@@ -1736,6 +1752,7 @@ function getValueForInvestment() {
     let inputToCheck = document.querySelector("#addInvestment");
     let theValue = inputToCheck.value;
     theValue = Number(theValue);
+
     questions[currentQuestionIndex].userAnswer = theValue;
     createInputForInvestment(theValue);
   }
@@ -2036,12 +2053,12 @@ function incomeVSinvestments() {
   } else if (percantageFrom >= 100 && percantageFrom < 200) {
     console.log("smaller than 200%");
     TweenMax.to(document.querySelector("#addInvestment"), 1, {
-      scale: 1.5
+      scale: 1.4
     });
   } else {
     console.log("bigger than 200!");
     TweenMax.to(document.querySelector("#addInvestment"), 1, {
-      scale: 2
+      scale: 1.7
     });
   }
 }
