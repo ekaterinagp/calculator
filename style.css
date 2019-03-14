@@ -1,23 +1,36 @@
 .main {
-  width: 95%;
-  height: auto;
-  padding: 3%;
+  width: 100%;
+  height: 100%;
+  /* padding: 3%; */
   text-align: center;
   font-family: "Gotham_Book";
+  /* text-align: -webkit-center; */
+  background-color: rgb(14, 13, 13);
+  color: rgb(247, 243, 243);
+  overflow: hidden;
+}
+
+input#addInvestment::placeholder {
+  color: black;
+  font-size: 1em;
+}
+
+input#addInvestment {
+  font-size: 1em;
 }
 
 canvas {
-  position: absolute;
-  top: 14em;
+  max-width: 1000px;
+  min-height: 400px;
 }
 @font-face {
   font-family: "Gotham_Black";
-  src: url("/fonts/Gotham-Black.otf");
+  src: url("fonts/Gotham-Black.otf");
 }
 
 @font-face {
   font-family: "Gotham_Book";
-  src: url("/fonts/GothamBook.ttf");
+  src: url("fonts/GothamBook.ttf");
 }
 
 h2 {
@@ -29,17 +42,20 @@ h1 {
 }
 .box {
   text-align: -webkit-center;
-  background-color: white;
-  color: black;
+  background-color: rgb(12, 12, 12);
+  color: rgb(252, 247, 247);
+  width: 100%;
+  height: 100%;
 }
 
 .buttons {
-  position: absolute;
+  position: fixed;
   padding: 14px 40px;
   background-color: green;
   color: white;
   font-family: "Gotham_Black";
   top: 90%;
+  margin-top: 10px;
 }
 
 ::-webkit-input-placeholder {
@@ -48,7 +64,16 @@ h1 {
 }
 
 #prevNext {
-  padding-top: 4em;
+  left: 0;
+  background-color: rgb(0, 0, 0);
+  bottom: 0;
+  height: 10vh;
+  width: 100%;
+  position: absolute;
+  box-shadow: inset 0 0 5px 0px #fff, inset 0px 0 0px rgb(0, 0, 0),
+    inset 0px 0 0px rgb(0, 0, 0), inset 20px 0 300px rgb(0, 0, 0),
+    inset 0px 0px 0px 0px rgb(0, 0, 0), 0 0 20px #c5caaa,
+    0px -1px 0px rgb(0, 0, 0), 2px -1px 0px rgb(208, 219, 160);
 }
 
 #chartPlaceHolder {
@@ -59,6 +84,7 @@ h1 {
 
 #otherChart {
   display: none;
+  /* height: 400px; */
 }
 
 #answer {
@@ -152,8 +178,7 @@ form p {
 }
 
 #team,
-#market,
-#strength {
+#market {
   display: grid;
   grid-template-columns: 1fr 2fr;
   text-align: end;
@@ -161,7 +186,8 @@ form p {
 }
 
 #uniqueness,
-#competition {
+#competition,
+#strength {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 1em;
@@ -171,16 +197,17 @@ form p {
   text-align: left;
 }
 
-.wrapper {
+/* .wrapper {
   text-align: start;
-}
+} */
 
 .wrapper .btnRadio:hover {
   background-color: #969494;
 }
 
 .wrapper .btnRadioInline:hover,
-.wrapper .btnRadioForBig:hover {
+.wrapper .btnRadioForBig:hover,
+.wrapper .btnRadioInlineComp:hover {
   background-color: #969494;
 }
 
@@ -195,6 +222,10 @@ form p {
   cursor: pointer;
   height: 5em;
   width: 20em;
+  background-color: black;
+  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
 }
 
 .btnRadioTwoOptions {
@@ -205,6 +236,10 @@ form p {
   align-items: center;
   cursor: pointer;
   width: 30%;
+  background-color: black;
+  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
 }
 
 #factorsTwoOptions {
@@ -220,8 +255,8 @@ form p {
 
 #market input:checked + .btnRadio,
 #uniqueness input:checked + .btnRadioInline,
-#competition input:checked + .btnRadioInline,
-#strength input:checked + .btnRadio,
+#competition input:checked + .btnRadioInlineComp,
+#strength input:checked + .btnRadioInlineComp,
 #factorsTwoOptions input:checked + p,
 #team input:checked + .btnRadio {
   background-color: #6c9972;
@@ -266,7 +301,7 @@ input[name="strength"] {
   display: none;
   position: absolute;
   padding: 1em;
-  z-index: 10;
+  z-index: 20;
 }
 
 #signup {
@@ -288,9 +323,9 @@ input[type="submit"] {
 
 #timeline {
   font-size: 1.5em;
-  margin-top: -1em;
+  margin: 1em;
   float: right;
-  color: black;
+  color: white;
 }
 
 .switch {
@@ -440,7 +475,9 @@ input[type="number"] {
   border: 0;
   border-bottom: 1px solid;
   text-align: center;
-  width: 30%;
+  background-color: black;
+  color: white;
+  /* width: 30%; */
 }
 
 #next_button {
@@ -473,16 +510,14 @@ input[type="number"] {
 }
 
 #comparison {
-  border: 1px solid black;
-  padding: 1em;
+  /* border: 1px solid black; */
   position: absolute;
   font-family: "Gotham_Black";
-  top: 50%;
-  right: 50%;
-  background-color: white;
-  width: 150px;
+  top: 70%;
+  left: 35%;
   opacity: 0.5;
   z-index: 10;
+  color: white;
 }
 
 .hide {
@@ -555,11 +590,20 @@ input[type="number"] {
 #factorsChart,
 #otherChart {
   top: 20em;
+  max-height: 400px;
 }
 
 .bigFigure {
   position: absolute;
-  top: -15em;
+  top: -10em;
+  width: 35em;
+  right: 5em;
+  padding-top: 2em;
+}
+
+.bigFigureStrength {
+  position: absolute;
+  top: -25em;
   width: 35em;
   right: 0;
 }
@@ -569,7 +613,15 @@ input[type="number"] {
   top: 0em;
   width: 35em;
   right: 0;
-  left: 20em;
+  left: 30em;
+}
+
+.bigFigureBounceSmall {
+  position: absolute;
+  top: 0em;
+  width: 20em;
+  right: 0;
+  left: 30em;
 }
 
 .imgInline {
@@ -590,6 +642,10 @@ input[type="number"] {
   /* grid-template-columns: 3fr 1fr; */
   cursor: pointer;
   height: 8em;
+  background-color: black;
+  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
 }
 
 .btnRadioforBig {
@@ -603,6 +659,9 @@ input[type="number"] {
   cursor: pointer;
   /* height: 5em; */
   width: 20em;
+  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
 }
 
 .bigFigureVehicle {
@@ -610,4 +669,67 @@ input[type="number"] {
   top: 0em;
   width: 15em;
   left: -200px;
+}
+
+.round {
+  position: absolute;
+  border-radius: 50%;
+  width: 15em;
+  height: 15em;
+  background: rgb(76, 196, 122);
+  border: 3px solid rgb(51, 50, 50);
+  left: 50em;
+  top: 5em;
+}
+
+.roundInput {
+  top: 35%;
+  right: 40%;
+  position: absolute;
+}
+
+#investment {
+  left: 30em;
+}
+
+#addInvestment {
+  left: 30em;
+  background-color: #0075d8;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* .divForFigure {
+  background-position-x: -200px;
+  background-position-y: 150px;
+} */
+
+.imgInlineComp {
+  width: 13em;
+}
+
+.btnRadioInlineComp {
+  /* position: relative; */
+  -webkit-appearance: button;
+  padding: 1em;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template-rows: 1fr 3fr;
+  cursor: pointer;
+  height: 8em;
+  background-color: black;
+  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+}
+
+.pIncome {
+  padding-top: 2em;
+  color: black;
+  font-family: "Gotham_Black";
 }

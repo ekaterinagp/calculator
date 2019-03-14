@@ -40,6 +40,7 @@ let questions = [
       let theInput = document.createElement('input');
       let description = document.createElement('p');
       description.setAttribute('id', 'descriptionOfGrowth');
+      // divAnswer.removeAttribute("class", "addGrid");
       theInput.setAttribute('type', 'range');
       theInput.setAttribute('min', '1');
       theInput.setAttribute('max', '100');
@@ -278,7 +279,7 @@ let questions = [
           img: 'a51.svg'
         },
         {
-          title: 'Blue ocean',
+          title: 'No competitors',
           img: 'a5.svg'
         }
       ];
@@ -298,9 +299,9 @@ let questions = [
         let nameInput = document.createElement('div');
         let img = document.createElement('img');
         nameInput.style.display = 'inline';
-        divWrapperP.setAttribute('class', 'btnRadioInline');
+        divWrapperP.setAttribute('class', 'btnRadioInlineComp');
         nameInput.textContent = value.title;
-        img.setAttribute('class', 'imgInline');
+        img.setAttribute('class', 'imgInlineComp');
         img.setAttribute('src', 'img/' + value.img);
         divWrapperP.appendChild(nameInput);
         divWrapperP.appendChild(img);
@@ -326,23 +327,25 @@ let questions = [
       let values = [
         {
           title: 'Good',
-          img: 'a4.svg'
+          img: 'a411.svg'
         },
         {
           title: 'Solid',
-          img: 'b4.svg'
+          img: 'b41.svg'
         },
         {
           title: 'Strong',
-          img: 'c4.svg'
+          img: 'c41.svg'
         },
         {
           title: 'Perfect',
-          img: 'd4.svg'
+          img: 'd41.svg'
         }
       ];
       let form = document.createElement('form');
       form.setAttribute('id', 'strength');
+      // let divAnswer = document.querySelector("#answer");
+      // divAnswer.removeAttribute("class", "addGrid");
       values.forEach(function(value) {
         let divWrapper = document.createElement('div');
         let label = document.createElement('label');
@@ -357,10 +360,10 @@ let questions = [
         let nameInput = document.createElement('div');
         let img = document.createElement('img');
         nameInput.style.display = 'inline';
-        divWrapperP.setAttribute('class', 'btnRadio');
+        divWrapperP.setAttribute('class', 'btnRadioInlineComp');
         nameInput.textContent = value.title;
 
-        img.setAttribute('class', 'imgSize');
+        img.setAttribute('class', 'imgInline');
         img.setAttribute('src', 'img/' + value.img);
         divWrapperP.appendChild(nameInput);
         divWrapperP.appendChild(img);
@@ -385,19 +388,19 @@ let questions = [
     answerQ: function() {
       let theInput = document.createElement('input');
       let theLabel = document.createElement('label');
+      let pTitle = document.createElement('p');
+      pTitle.setAttribute('class', 'pForTitle');
+      pTitle.innerHTML = 'You need this more money';
       theLabel.setAttribute('for', 'investment');
       theInput.setAttribute('type', 'number');
       theInput.setAttribute('id', 'addInvestment');
+      theInput.setAttribute('class', 'round');
       theInput.setAttribute('placeholder', 'Type your number here');
+      // answer.appendChild(pTitle);
+      // theInput.appendChild(span);
       return theInput;
     },
-    canvasForChart: function() {
-      let theCanvas = document.createElement('canvas');
-      theCanvas.setAttribute('width', 400);
-      theCanvas.setAttribute('height', 200);
-      theCanvas.setAttribute('id', 'investmentChart');
-      return theCanvas;
-    },
+    canvasForChart: null,
     userAnswer: null
   },
 
@@ -522,7 +525,7 @@ function chartforEight() {
     document.querySelector('#comparison').classList.remove('hide');
     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
     let valueForChart = questions[currentQuestionIndex].userAnswer;
-    createInvestmentChart(valueForChart, 'investmentChart');
+    // createInvestmentChart(valueForChart, "investmentChart");
 
     // getValueForInvestment();
   }
@@ -647,7 +650,10 @@ function disableForRadio() {
         if (allRadios[i].checked == true) {
           let radioValue = allRadios[i].value;
           console.log('radio value', allRadios[i].value);
-          showAnimation(radioValue);
+          if (questions[currentQuestionIndex].id !== 9) {
+            showAnimation(radioValue);
+          }
+
           document.getElementById('next_button').disabled = false;
         }
       }
@@ -754,6 +760,7 @@ function showAnimation(value) {
     figure.setAttribute('src', 'img/a31.svg');
     figure.setAttribute('class', 'bigFigure');
     figure.style.top = '-10em';
+    figure.style.paddingTop = '7em';
     document.querySelector('.divForFigure').appendChild(figure);
     TweenMax.fromTo(
       figure,
@@ -866,20 +873,22 @@ function showAnimation(value) {
     // bikeDrive.to(figure, 22, { left: "100%", ease: Linear.easeNone }, 1);
     vehicleDrive.fromTo(
       figure,
-      5,
+      4,
       {
-        x: -800,
+        x: -200,
         y: 150
       },
       {
         x: 1600,
         y: 150,
-        // rotation: -20,
-        // left: "100%",
+
         ease: Linear.easeOut
-      },
-      0.01
+      }
     );
+    // .to(figure, 0.1, { x: "+=10", yoyo: true, repeat: -1 })
+    // .to(figure, 0.1, { x: "-=10", yoyo: true, repeat: -1 });
+    // TweenMax.to(figure, 0.1, { x: "+=20", yoyo: true, repeat: -1 });
+    // TweenMax.to(figure, 0.1, { x: "-=20", yoyo: true, repeat: -1 });
   }
   if (value == 'There are few similar products/technologies') {
     let figure = document.createElement('img');
@@ -890,7 +899,7 @@ function showAnimation(value) {
     // bikeDrive.to(figure, 22, { left: "100%", ease: Linear.easeNone }, 1);
     vehicleDrive.fromTo(
       figure,
-      4,
+      3,
       {
         x: -800,
         y: 150
@@ -901,8 +910,7 @@ function showAnimation(value) {
         // rotation: -20,
         // left: "100%",
         ease: Linear.easeOut
-      },
-      0.01
+      }
     );
   }
   if (value == 'There are only 1-3 similar products/technologies') {
@@ -914,7 +922,7 @@ function showAnimation(value) {
     // bikeDrive.to(figure, 22, { left: "100%", ease: Linear.easeNone }, 1);
     vehicleDrive.fromTo(
       figure,
-      3,
+      1,
       {
         x: -800,
         y: 150
@@ -974,7 +982,7 @@ function showAnimation(value) {
         // rotation: -20,
         ease: Bounce.easeOut,
         opacity: 1,
-        scale: 1.3
+        scale: 1.1
       },
       0.01
     );
@@ -983,6 +991,7 @@ function showAnimation(value) {
     let figure = document.createElement('img');
     figure.setAttribute('src', 'img/b58.svg');
     figure.setAttribute('class', 'bigFigureBounce');
+    figure.style.paddingTop = '3em';
     document.querySelector('.divForFigure').appendChild(figure);
     TweenMax.fromTo(
       figure,
@@ -1000,7 +1009,7 @@ function showAnimation(value) {
         // rotation: -20,
         ease: Bounce.easeOut,
         opacity: 1,
-        scale: 1.3
+        scale: 1.1
       },
       0.01
     );
@@ -1026,12 +1035,12 @@ function showAnimation(value) {
         // rotation: -20,
         ease: Bounce.easeOut,
         opacity: 1,
-        scale: 1.3
+        scale: 1.1
       },
       0.01
     );
   }
-  if (value == 'Blue ocean') {
+  if (value == 'No competitors') {
     let figure = document.createElement('img');
     figure.setAttribute('src', 'img/a5.svg');
     figure.setAttribute('class', 'bigFigureBounce');
@@ -1052,7 +1061,116 @@ function showAnimation(value) {
         // rotation: -20,
         ease: Bounce.easeOut,
         opacity: 1,
+        scale: 1.1
+      },
+      0.01
+    );
+  }
+  if (value == 'Good') {
+    let figure = document.createElement('img');
+    figure.setAttribute('src', 'img/a411.svg');
+    figure.setAttribute('class', 'bigFigureBounceSmall');
+    figure.style.paddingTop = '5em';
+    // figure.style.top = "-10em";
+    document.querySelector('.divForFigure').appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1.5,
+
+      {
+        x: 100,
+        y: 400,
+        opacity: 0.1,
+        scale: 0.3
+      },
+      {
+        x: 100,
+        y: 150,
+        // rotation: -20,
+        ease: Circ.easeOut,
+        opacity: 1,
+        scale: 1
+      },
+      0.01
+    );
+  }
+  if (value == 'Solid') {
+    let figure = document.createElement('img');
+    figure.setAttribute('src', 'img/b41.svg');
+    figure.setAttribute('class', 'bigFigureBounceSmall');
+    figure.style.paddingTop = '5em';
+    document.querySelector('.divForFigure').appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1,
+
+      {
+        x: 100,
+        y: 400,
+        opacity: 0.1,
+        scale: 0.3
+      },
+      {
+        x: 100,
+        y: 150,
+        // rotation: -20,
+        ease: Circ.easeOut,
+        opacity: 1,
+        scale: 1.1
+      },
+      0.01
+    );
+  }
+  if (value == 'Strong') {
+    let figure = document.createElement('img');
+    figure.setAttribute('src', 'img/c41.svg');
+    figure.setAttribute('class', 'bigFigureBounceSmall');
+    figure.style.paddingTop = '3em';
+    document.querySelector('.divForFigure').appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1.5,
+
+      {
+        x: 100,
+        y: 400,
+        opacity: 0.1,
+        scale: 0.3
+      },
+      {
+        x: 100,
+        y: 150,
+        // rotation: -20,
+        ease: Elastic.easeOut.config(1, 0.3),
+        opacity: 1,
         scale: 1.3
+      },
+      0.01
+    );
+  }
+  if (value == 'Perfect') {
+    let figure = document.createElement('img');
+    figure.setAttribute('src', 'img/d41.svg');
+    figure.setAttribute('class', 'bigFigureBounceSmall');
+    figure.style.paddingTop = '5em';
+    document.querySelector('.divForFigure').appendChild(figure);
+    TweenMax.fromTo(
+      figure,
+      1,
+
+      {
+        x: 100,
+        y: 400,
+        opacity: 0.1,
+        scale: 0.3
+      },
+      {
+        x: 100,
+        y: 150,
+        // rotation: -20,
+        ease: Elastic.easeOut.config(1, 0.3),
+        opacity: 1,
+        scale: 1.5
       },
       0.01
     );
@@ -1091,6 +1209,7 @@ function nextElement() {
   questionText.textContent = currentEl.txt;
   answer.appendChild(questions[currentQuestionIndex].answerQ());
   createDivForFigure();
+  createInputForInvestment();
 
   if (
     questions[currentQuestionIndex].canvasForChart !== null &&
@@ -1139,6 +1258,7 @@ function prevElement() {
   valueForEight();
   chartforEight();
   insertSavedAnswers(currentEl);
+
   ifLastElement(currentEl);
   if (questions[currentQuestionIndex].id == 1) {
     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
@@ -1194,6 +1314,13 @@ function insertSavedAnswers() {
     radioAnswerInsert();
     rangeAnswerInsert();
   }
+  // if (
+  //   questions[currentQuestionIndex].id == 1 ||
+  //   questions[currentQuestionIndex].id == 2
+  // ) {
+  //   console.log("it is 1 or 2 and", answer);
+  //   answer.removeAttribute("class", "addGrid");
+  // }
 }
 
 function ifLastElement(currentEl) {
@@ -1297,6 +1424,29 @@ function disabledIfEmpty() {
   if (questions[currentQuestionIndex].userAnswer) {
     // console.log("userAnswer", questions[currentQuestionIndex].userAnswer);
     document.getElementById('next_button').disabled = false;
+  }
+}
+
+function createInputForInvestment(value) {
+  if (questions[currentQuestionIndex].id == '8') {
+    let divIncome = document.createElement('div');
+    let pForIncome = document.createElement('p');
+    pForIncome.setAttribute('class', 'pIncome');
+    pForIncome.innerHTML = 'Your yearly income';
+    divIncome.setAttribute('class', 'round');
+    divIncome.appendChild(pForIncome);
+    // let additionalInvestement = document.createElement("div");
+    // additionalInvestement.setAttribute("class", "round");
+    // additionalInvestement.setAttribute("id", "investment");
+    // let additonalInput = document.createElement("p");
+    // additonalInput.innerHTML = value;
+    let yearlyIncome = document.createElement('p');
+    yearlyIncome.setAttribute('class', 'roundInput');
+    yearlyIncome.innerHTML = questions[0].userAnswer * 12 + '$';
+    divIncome.appendChild(yearlyIncome);
+    // additionalInvestement.appendChild(additonalInput);
+    answer.appendChild(divIncome);
+    // answer.appendChild(additionalInvestement);
   }
 }
 
@@ -1582,7 +1732,9 @@ function createChart(
             return xLabel + ': %' + yLabel;
           }
         }
-      }
+      },
+      responsive: true,
+      maintainAspectRatio: false
     }
   });
 }
@@ -1601,8 +1753,9 @@ function getValueForInvestment() {
     let inputToCheck = document.querySelector('#addInvestment');
     let theValue = inputToCheck.value;
     theValue = Number(theValue);
+
     questions[currentQuestionIndex].userAnswer = theValue;
-    createInvestmentChart(theValue, 'investmentChart');
+    createInputForInvestment(theValue);
   }
 }
 
@@ -1797,7 +1950,9 @@ function createChartForFactors() {
             }
           }
         ]
-      }
+      },
+      responsive: true,
+      maintainAspectRatio: false
     }
   });
 }
@@ -1861,7 +2016,9 @@ function createChartForOtherFactors() {
             }
           }
         ]
-      }
+      },
+      responsive: true,
+      maintainAspectRatio: false
     }
   });
 }
@@ -1884,4 +2041,28 @@ function incomeVSinvestments() {
     '%' +
     ' ' +
     'of your yearly income';
+  let pTitle = document.createElement('p');
+  pTitle.innerHTML = 'You need this more money';
+  document.querySelector('#addInvestements').appendChild(pTitle);
+  if (percantageFrom < 50) {
+    console.log('smaller than 50%');
+    TweenMax.to(document.querySelector('#addInvestment'), 1, {
+      scale: 0.7
+    });
+  } else if (percantageFrom >= 50 && percantageFrom < 100) {
+    console.log('smaller than 100%');
+    TweenMax.to(document.querySelector('#addInvestment'), 1, {
+      scale: 0.9
+    });
+  } else if (percantageFrom >= 100 && percantageFrom < 150) {
+    console.log('smaller than 200%');
+    TweenMax.to(document.querySelector('#addInvestment'), 1, {
+      scale: 1.1
+    });
+  } else {
+    console.log('bigger than 200!');
+    TweenMax.to(document.querySelector('#addInvestment'), 1, {
+      scale: 1.5
+    });
+  }
 }
