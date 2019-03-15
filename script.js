@@ -1773,7 +1773,7 @@ function createChart(
         }
       },
       responsive: true,
-      maintainAspectRatio: false
+      maintainAspectRatio: true
     }
   });
 }
@@ -1816,6 +1816,7 @@ function createBarChart(value, placeHolder) {
         },
         {
           label: "Average income",
+
           data: [50000],
           backgroundColor: "green",
           shadowOffsetX: 3,
@@ -1844,8 +1845,13 @@ function createBarChart(value, placeHolder) {
     },
     options: {
       legend: {
-        display: true
+        display: true,
+        labels: {
+          fontColor: "white",
+          fontSize: 15
+        }
       },
+
       tooltips: {
         enabled: true
       },
@@ -1872,7 +1878,7 @@ function createBarChart(value, placeHolder) {
           }
         ]
       },
-      responsive: false,
+      responsive: true,
       maintainAspectRatio: true
     }
   });
@@ -1993,7 +1999,7 @@ function createChartForFactors() {
         ]
       },
       responsive: true,
-      maintainAspectRatio: false
+      maintainAspectRatio: true
     }
   });
 }
@@ -2059,7 +2065,7 @@ function createChartForOtherFactors() {
         ]
       },
       responsive: true,
-      maintainAspectRatio: false
+      maintainAspectRatio: true
     }
   });
 }
