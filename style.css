@@ -1,5 +1,6 @@
 body {
   background-color: black;
+  text-rendering: optimizeLegibility;
 }
 
 input {
@@ -51,8 +52,8 @@ canvas {
 }
 
 h2 {
-  /* font-family: "Gotham_Book"; */
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Gotham_Book";
+  /* font-family: Georgia, "Times New Roman", Times, serif; */
   text-rendering: optimizeLegibility;
 }
 
