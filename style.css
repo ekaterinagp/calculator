@@ -793,7 +793,7 @@ input[type="number"]::-webkit-outer-spin-button {
     /* position: absolute; */
     max-width: 100%;
     min-height: auto;
-    padding-top: 20%;
+    padding-top: 5%;
   }
 
   .main {
@@ -820,6 +820,7 @@ input[type="number"]::-webkit-outer-spin-button {
   #strength {
     display: block;
     position: absolute;
+    padding-bottom: 10em;
   }
 
   .btnRadio {
@@ -856,7 +857,7 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   .imgInlineComp {
-    width: 9em;
+    width: 5em;
   }
 
   .round {
