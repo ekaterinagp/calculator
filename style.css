@@ -51,7 +51,8 @@ canvas {
 }
 
 h2 {
-  font-family: "Gotham_Book";
+  /* font-family: "Gotham_Book"; */
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 h1 {
