@@ -1141,6 +1141,12 @@ function disableForRange() {
   }
 }
 
+let testWidth = Math.max(
+  document.documentElement.clientWidth,
+  window.innerWidth || 0
+);
+console.log({ testWidth });
+
 function nextElement() {
   document.querySelector("#comparison").classList.add("hide");
   document.querySelector("#prev_button").style.display = "inline-block";
