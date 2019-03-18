@@ -110,7 +110,7 @@ let questions = [
         label.setAttribute("class", "labelClass");
         theInput.setAttribute("type", "radio");
         theInput.setAttribute("name", "team");
-        theInput.setAttribute("value", value.title);
+        theInput.setAttribute("data", value.title);
         let divWrapperP = document.createElement("div");
         let nameInput = document.createElement("p");
         let img = document.createElement("img");
