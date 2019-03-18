@@ -43,12 +43,12 @@ canvas {
 }
 @font-face {
   font-family: "Gotham_Black";
-  src: url("fonts/Gotham-Black.otf") format("opentype");
+  src: url("fonts/Gotham-Black_Web.woff2") format("opentype");
 }
 
 @font-face {
   font-family: "Gotham_Book";
-  src: url("fonts/GothamBook.ttf") format("opentype");
+  src: url("fonts/Gotham-Book_Web.woff2") format("opentype");
 }
 
 h2 {
