@@ -116,7 +116,7 @@ let questions = [
         let img = document.createElement("img");
         nameInput.style.display = "inline";
         divWrapperP.setAttribute("class", "btnRadio");
-        nameInput.innerText = value.title;
+        nameInput.innerHTML = value.title;
 
         img.setAttribute("class", "imgSize");
         img.setAttribute("src", "img/" + value.img);
