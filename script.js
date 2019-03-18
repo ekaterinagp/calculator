@@ -112,7 +112,7 @@ let questions = [
         theInput.setAttribute("name", "team");
         theInput.setAttribute("value", value.title);
         let divWrapperP = document.createElement("div");
-        let nameInput = document.createElement("div");
+        let nameInput = document.createElement("p");
         let img = document.createElement("img");
         nameInput.style.display = "inline";
         divWrapperP.setAttribute("class", "btnRadio");
