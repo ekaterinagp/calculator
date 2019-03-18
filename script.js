@@ -472,6 +472,10 @@ const answer = document.querySelector("#answer");
 const wrapForCanvas = document.querySelector("#chartPlaceHolder");
 let currentQuestionIndex = 0;
 
+function setNextBtnDisabled(bool) {
+  document.getElementById("next_button").disabled = bool;
+}
+
 function insertIntoDOM() {
   document.querySelector("#prev_button").style.display = "none";
 
@@ -490,80 +494,47 @@ function insertIntoDOM() {
   });
 }
 
-function typeRadio() {
-  if (questions[currentQuestionIndex].type == "radio") {
-    let input = answer.querySelector("input");
-    let radioName = input.getAttribute("name");
-    let radioValue = getRadioCheckedValue(radioName);
-    // console.log("radiovalue and u?", radioValue);
-    questions[currentQuestionIndex].userAnswer = radioValue[0];
-    questions[currentQuestionIndex].userAnswerIndex = radioValue[1];
-
-    // console.log("radioIndex", questions[currentQuestionIndex].userAnswerIndex);
-  }
+function saveRadioAnswer() {
+  let input = answer.querySelector("input");
+  let radioName = input.getAttribute("name");
+  let radioValue = getRadioCheckedValue(radioName);
+  questions[currentQuestionIndex].userAnswer = radioValue[0];
+  questions[currentQuestionIndex].userAnswerIndex = radioValue[1];
 }
 
-function typeRange() {
-  if (questions[currentQuestionIndex].type == "range") {
-    // console.log("question number 2 for get Value");
-
-    let slider = document.querySelector('input[type="range"]');
-    // console.log("slider", slider);
-    // disabledIfEmpty();
-    slider.addEventListener("change", function() {
-      // console.log("eventlistener for getValue");
-      getValue();
-    });
-  }
+function listenForSliderChange() {
+  let slider = document.querySelector('input[type="range"]');
+  slider.addEventListener("change", function() {
+    getValue();
+  });
 }
 
 function typeRageChart() {
-  if (questions[currentQuestionIndex].type == "range") {
-    wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
-    let slider = document.querySelector("input[type=range]");
-    slider.addEventListener("change", function() {
-      // console.log("eventlistener for getValue");
-      getValue();
-    });
-  }
+  wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
+  let slider = document.querySelector("input[type=range]");
+  slider.addEventListener("change", function() {
+    getValue();
+  });
 }
-
-// function chartforEight() {
-//   if (questions[currentQuestionIndex].id == 8) {
-//     // console.log("it is 8 and it needs to create a chart");
-//     document.querySelector("#comparison").classList.remove("hide");
-//     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
-//     let valueForChart = questions[currentQuestionIndex].userAnswer;
-//     // createInvestmentChart(valueForChart, "investmentChart");
-
-//     // getValueForInvestment();
-//   }
-// }
 
 function valueForEight() {
-  if (questions[currentQuestionIndex].id == 8) {
-    createInputForInvestment();
-    answer
-      .querySelector("#addInvestment")
-      .addEventListener("keyup", function() {
-        if (answer.querySelector("#addInvestment").value.length) {
-          document.getElementById("next_button").disabled = false;
-          getValueForInvestment();
+  createInputForInvestment();
+  answer.querySelector("#addInvestment").addEventListener("keyup", function() {
+    if (answer.querySelector("#addInvestment").value.length) {
+      setNextBtnDisabled(false);
+      getValueForInvestment();
 
-          document.querySelector("#comparison").classList.remove("hide");
-          incomeVSinvestments();
-        } else {
-          document.getElementById("next_button").disabled = true;
-        }
-      });
-  }
+      document.querySelector("#comparison").classList.remove("hide");
+      incomeVSinvestments();
+    } else {
+      setNextBtnDisabled(true);
+    }
+  });
 }
 
-function typeInput() {
-  if (questions[currentQuestionIndex].type == "input") {
-    let inputValue = answer.querySelector("input").value;
-    questions[currentQuestionIndex].userAnswer = inputValue;
-  }
+function saveInputAnswer() {
+  let inputValue = answer.querySelector("input").value;
+  questions[currentQuestionIndex].userAnswer = inputValue;
 }
 
 function inputAnswerInsert() {
@@ -618,9 +589,9 @@ function disableForInput() {
   if (questions[currentQuestionIndex].type == "input") {
     answer.querySelector("input").addEventListener("keyup", function() {
       if (answer.querySelector("input").value.length) {
-        document.getElementById("next_button").disabled = false;
+        setNextBtnDisabled(false);
       } else {
-        document.getElementById("next_button").disabled = true;
+        setNextBtnDisabled(true);
       }
     });
   }
@@ -630,10 +601,8 @@ function disableForRadio() {
     questions[currentQuestionIndex].type == "radio" &&
     !questions[currentQuestionIndex].userAnswer
   ) {
-    document.getElementById("next_button").disabled = true;
+    setNextBtnDisabled(true);
   }
-
-  eventlistenerForRadio();
 }
 
 function eventlistenerForRadio() {
@@ -649,7 +618,7 @@ function eventlistenerForRadio() {
         }
       }
     }
-    document.getElementById("next_button").disabled = false;
+    setNextBtnDisabled(false);
   });
 }
 
@@ -1168,39 +1137,43 @@ function showAnimation(value) {
 
 function disableForRange() {
   if (questions[currentQuestionIndex].type == "range") {
-    // console.log("it is range");
-    // console.log("value of input range", answer.querySelector("input").value);
-    // if (answer.querySelector("input").value == 1) {
-    //   console.log("value of input range", answer.querySelector("input").value)
-    //   document.getElementById('next_button').disabled = true;
-    // }
-
-    if (answer.querySelector("input").value == 1)
-      document.getElementById("next_button").disabled = true;
+    if (answer.querySelector("input").value == 1) setNextBtnDisabled(true);
   }
 }
 
 function nextElement() {
-  // console.log("type of input", questions[currentQuestionIndex].type)
-
   document.querySelector("#comparison").classList.add("hide");
   document.querySelector("#prev_button").style.display = "inline-block";
 
-  typeRadio();
-  typeInput();
-  // eventlistenerForRadio();
+  if (questions[currentQuestionIndex].type == "radio") {
+    saveRadioAnswer();
+  }
+  if (questions[currentQuestionIndex].type == "input") {
+    saveInputAnswer();
+  }
+
+  // Clear
   answer.textContent = "";
   wrapForCanvas.innerHTML = "";
 
+  // Get the next element and make it current
   let currentEl = nextItem();
 
+  // Insert current question
   questionTitle.textContent = currentEl.question;
   questionText.innerHTML = currentEl.txt;
   answer.appendChild(questions[currentQuestionIndex].answerQ());
   createDivForFigure();
-  // if (questions[currentQuestionIndex].id == 8) {
-  //   createInputForInvestment();
-  // }
+
+  // Start listener for radio
+  if (questions[currentQuestionIndex].type == "radio") {
+    eventlistenerForRadio();
+  }
+
+  // Start listener for slider
+  if (questions[currentQuestionIndex].type == "range") {
+    listenForSliderChange();
+  }
 
   if (
     questions[currentQuestionIndex].canvasForChart !== null &&
@@ -1212,12 +1185,30 @@ function nextElement() {
     document.querySelector("#chartPlaceHolder").style.height = "0px";
   }
 
-  // console.log("current element", currentEl.id);
-  valueForEight();
-  insertSavedAnswers(currentEl);
+  if (questions[currentQuestionIndex].id == 8) {
+    valueForEight();
+  }
+
+  if (
+    questions[currentQuestionIndex].id == 3 ||
+    questions[currentQuestionIndex].id == 4
+  ) {
+    answer.classList.add("addGrid");
+  } else {
+    answer.classList.remove("addGrid");
+  }
+
+  if (questions[currentQuestionIndex].id !== 9) {
+    document.querySelector("#next_button").textContent = "Next";
+  }
+  // If saved answers already exists - insert
+  if (questions[currentQuestionIndex].userAnswer) {
+    insertSavedAnswers();
+  }
+
   disabledIfEmpty();
   timeline(questions);
-  typeRange();
+
   ifLastElement(currentEl);
 }
 
@@ -1234,25 +1225,32 @@ function prevElement() {
   questionText.innerHTML = currentEl.txt;
 
   answer.appendChild(questions[currentQuestionIndex].answerQ());
-  if (questions[currentQuestionIndex].id == 1)
-    document.querySelector("#prev_button").style.display = "none";
 
-  // console.log("question", currentEl);
-  document.getElementById("next_button").disabled = false;
+  if (questions[currentQuestionIndex].type == "range") {
+    typeRageChart();
+  }
+
   timeline(questions);
-  // console.log(
-  //   "questions[currentQuestionIndex]",
-  //   questions[currentQuestionIndex]
-  // );
   createDivForFigure();
-  disableForRadio();
-  typeRageChart();
-  valueForEight();
-  // eventlistenerForRadio();
-  insertSavedAnswers(currentEl);
+  disabledIfEmpty();
+
+  if (
+    questions[currentQuestionIndex].id == 3 ||
+    questions[currentQuestionIndex].id == 4
+  ) {
+    answer.classList.add("addGrid");
+  } else {
+    answer.classList.remove("addGrid");
+  }
+
+  if (questions[currentQuestionIndex].userAnswer) {
+    insertSavedAnswers();
+  }
 
   ifLastElement(currentEl);
+
   if (questions[currentQuestionIndex].id == 1) {
+    document.querySelector("#prev_button").style.display = "none";
     wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
     getValueForBarChart();
     answer.querySelector("input").addEventListener("blur", function() {
@@ -1260,6 +1258,8 @@ function prevElement() {
     });
   }
   if (questions[currentQuestionIndex].id == 8) {
+    valueForEight();
+
     answer.querySelector("#addInvestment").addEventListener("blur", function() {
       getValueForInvestment();
     });
@@ -1300,34 +1300,9 @@ function createDivForFigure() {
 }
 
 function insertSavedAnswers() {
-  console.log({
-    "questions[currentQuestionIndex]": questions[currentQuestionIndex]
-  });
-  createDivForFigure();
-  // showAnimation();
-
-  if (questions[currentQuestionIndex].id !== 9) {
-    document.querySelector("#next_button").textContent = "Next";
-  }
-  if (questions[currentQuestionIndex].userAnswer) {
-    inputAnswerInsert();
-    radioAnswerInsert();
-    rangeAnswerInsert();
-  }
-  if (
-    questions[currentQuestionIndex].id == 3 ||
-    questions[currentQuestionIndex].id == 4
-  ) {
-    console.log({ answer });
-    // answer.removeAttribute("class", "addGrid");
-
-    answer.classList.add("addGrid");
-  } else {
-    answer.classList.remove("addGrid");
-  }
-  // if (questions[currentQuestionIndex].id == 8) {
-  //   createInputForInvestment();
-  // }
+  inputAnswerInsert();
+  radioAnswerInsert();
+  rangeAnswerInsert();
 }
 
 function ifLastElement(currentEl) {
@@ -1337,7 +1312,6 @@ function ifLastElement(currentEl) {
 
   if (questions[currentQuestionIndex].userAnswer) {
     document.getElementById("next_button").style.display = "none";
-
     document.getElementById("submit").style.display = "inline-block";
   }
 
@@ -1398,7 +1372,7 @@ function ifLastElement(currentEl) {
       document.getElementById("submit").style.display = "inline-block";
     });
   } else {
-    insertSavedAnswers(currentEl);
+    // insertSavedAnswers();
     document.getElementById("next_button").style.display = "inline-block";
     document.getElementById("submit").style.display = "none";
   }
@@ -1418,19 +1392,13 @@ function getRadioCheckedValue(radio_name) {
 }
 
 function disabledIfEmpty() {
-  document.getElementById("next_button").disabled = true;
-
-  // console.log(
-  //   "questions[currentQuestionIndex].type",
-  //   questions[currentQuestionIndex].type
-  // );
+  setNextBtnDisabled(true);
   disableForInput();
   disableForRadio();
   disableForRange();
 
   if (questions[currentQuestionIndex].userAnswer) {
-    // console.log("userAnswer", questions[currentQuestionIndex].userAnswer);
-    document.getElementById("next_button").disabled = false;
+    setNextBtnDisabled(false);
   }
 }
 
@@ -1550,10 +1518,7 @@ function calculateResult(array) {
 function timeline(questions) {
   let timelineInput = document.querySelector("#timeline");
   let allQuestionsDigit = questions.length;
-  // console.log("allQuestionsDigit", allQuestionsDigit);
   let currentQuestionDigit = questions[currentQuestionIndex].id;
-  // console.log("currentQuestionDigit", currentQuestionDigit);
-
   timelineInput.textContent = currentQuestionDigit + "/" + allQuestionsDigit;
 }
 
@@ -1573,11 +1538,11 @@ function init() {
   answer.querySelector("input").addEventListener("keyup", function() {
     // console.log("eventlistener from init!");
     if (answer.querySelector("input").value.length) {
-      document.getElementById("next_button").disabled = false;
+      setNextBtnDisabled(false);
       getValueForBarChart();
     } else {
       // console.log("it is disabled!");
-      document.getElementById("next_button").disabled = true;
+      setNextBtnDisabled(true);
     }
   });
 }
@@ -1597,10 +1562,8 @@ function getValue() {
   console.log("function runs getvalue");
   let elem = document.querySelector('input[type="range"]');
   let newValue = elem.value;
-  // console.log("newValue", newValue);
   buildChart(newValue);
   questions[currentQuestionIndex].userAnswer = newValue;
-  // console.log("new user value", questions[currentQuestionIndex].userAnswer);
 }
 
 function buildChart(value) {
@@ -1655,7 +1618,7 @@ function buildChart(value) {
     slider.style.backgroundColor = "rgba(0, 230, 64, .5)";
     descriptionOfGrowth.textContent = "You expect amazing growth";
   }
-  document.getElementById("next_button").disabled = false;
+  setNextBtnDisabled(false);
 }
 
 function createChart(
