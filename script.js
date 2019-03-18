@@ -1233,7 +1233,7 @@ function nextElement() {
   let currentEl = nextItem();
 
   questionTitle.textContent = currentEl.question;
-  questionText.textContent = currentEl.txt;
+  questionText.innerHTML = currentEl.txt;
   answer.appendChild(questions[currentQuestionIndex].answerQ());
   createDivForFigure();
   // if (questions[currentQuestionIndex].id == 8) {
@@ -1269,7 +1269,7 @@ function prevElement() {
 
   let currentEl = prevItem();
   questionTitle.textContent = currentEl.question;
-  questionText.textContent = currentEl.txt;
+  questionText.innerHTML = currentEl.txt;
 
   answer.appendChild(questions[currentQuestionIndex].answerQ());
   if (questions[currentQuestionIndex].id == 1)
