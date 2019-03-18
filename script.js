@@ -476,7 +476,7 @@ function insertIntoDOM() {
   document.querySelector("#prev_button").style.display = "none";
 
   questionTitle.textContent = questions[currentQuestionIndex].question;
-  questionText.textContent = questions[currentQuestionIndex].txt;
+  questionText.innerHTML = questions[currentQuestionIndex].txt;
 
   answer.appendChild(questions[currentQuestionIndex].answerQ());
 
