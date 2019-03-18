@@ -34,12 +34,12 @@ canvas {
 }
 @font-face {
   font-family: "Gotham_Black";
-  src: url("fonts/Gotham-Black.otf");
+  src: url("fonts/Gotham-Black.otf") format("opentype");
 }
 
 @font-face {
   font-family: "Gotham_Book";
-  src: url("fonts/GothamBook.ttf");
+  src: url("fonts/GothamBook.ttf") format("opentype");
 }
 
 h2 {
@@ -717,6 +717,14 @@ input[type="number"] {
   left: 30em;
 }
 
+span {
+  color: black;
+}
+
+.dollarSign {
+  color: white;
+}
+
 /* #addInvestment {
   left: 30em;
   background-color: #0075d8;
@@ -783,6 +791,13 @@ input[type="number"]::-webkit-outer-spin-button {
     width: auto;
   }
 
+  #timeline {
+    font-size: 1.5em;
+    margin: 0;
+    float: none;
+    color: white;
+  }
+
   #team,
   #market,
   #uniqueness,
@@ -793,7 +808,7 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   .btnRadio {
-    height: 4em;
+    /* height: 4em; */
     /* width: 100%; */
     margin: 5px;
   }
@@ -839,6 +854,10 @@ input[type="number"]::-webkit-outer-spin-button {
     left: 0;
     padding: 1em;
   }
+
+  .addGrid {
+    display: block;
+  }
 }
 
 @media only screen and (max-width: 330px) {
@@ -859,6 +878,13 @@ input[type="number"]::-webkit-outer-spin-button {
     display: none;
   }
 
+  #timeline {
+    font-size: 1.5em;
+    margin: 0;
+    float: none;
+    color: white;
+  }
+
   #roundInputDiv {
     width: 25%;
     height: 13%;
@@ -867,9 +893,13 @@ input[type="number"]::-webkit-outer-spin-button {
     margin-top: 2em;
   }
   input[type="number"]#addinvestment {
-    width: 75%;
+    width: 100%;
   }
-  canvas {
+
+  .addGrid {
+    display: block;
+  }
+  /* canvas {
     padding-top: 0;
-  }
+  } */
 }
