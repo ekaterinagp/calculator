@@ -796,6 +796,10 @@ input[type="number"]::-webkit-outer-spin-button {
     padding-top: 20%;
   }
 
+  .main {
+    overflow-y: scroll;
+  }
+
   #chartPlaceHolder {
     position: relative;
     text-align: -webkit-center;
