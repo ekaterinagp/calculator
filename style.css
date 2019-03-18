@@ -6,6 +6,10 @@ input {
   -webkit-appearance: none;
 }
 
+#questionText {
+  overflow: visible;
+}
+
 .main {
   width: 100%;
   height: 100%;
