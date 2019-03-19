@@ -472,6 +472,12 @@ const answer = document.querySelector("#answer");
 const wrapForCanvas = document.querySelector("#chartPlaceHolder");
 let currentQuestionIndex = 0;
 
+let testWidth = Math.max(
+  document.documentElement.clientWidth,
+  window.innerWidth || 0
+);
+console.log({ testWidth });
+
 function setNextBtnDisabled(bool) {
   document.getElementById("next_button").disabled = bool;
 }
@@ -567,7 +573,9 @@ function radioAnswerInsert() {
           radioArr[u].checked = true;
         }
       }
-      showAnimation(questions[currentQuestionIndex].userAnswer);
+      if (testWidth > 410) {
+        showAnimation(questions[currentQuestionIndex].userAnswer);
+      }
     } else {
       if (
         questions[currentQuestionIndex].userAnswer ||
@@ -614,7 +622,9 @@ function eventlistenerForRadio() {
         let radioValue = allRadios[i].value;
         questions[currentQuestionIndex].answer = radioValue;
         if (questions[currentQuestionIndex].id !== 9) {
-          showAnimation(radioValue);
+          if (testWidth > 410) {
+            showAnimation(questions[currentQuestionIndex].userAnswer);
+          }
         }
       }
     }
@@ -623,6 +633,7 @@ function eventlistenerForRadio() {
 }
 
 function showAnimation(value) {
+  console.log("animation run");
   document.querySelector(".divForFigure").innerHTML = "";
   if (value == "Minimum of 3 years of work experience each") {
     let figure = document.createElement("img");
@@ -1140,12 +1151,6 @@ function disableForRange() {
     if (answer.querySelector("input").value == 1) setNextBtnDisabled(true);
   }
 }
-
-let testWidth = Math.max(
-  document.documentElement.clientWidth,
-  window.innerWidth || 0
-);
-console.log({ testWidth });
 
 function nextElement() {
   document.querySelector("#comparison").classList.add("hide");
