@@ -574,15 +574,22 @@ function radioAnswerInsert() {
         questions[currentQuestionIndex].userAnswer == 0
       ) {
         document.querySelector("#submit").style.display = "block";
-        let divForFactors = document.createElement("div");
-        divForFactors.setAttribute("class", "hiddenDivFactors");
+
+        let divForFactors = document.getElementById("divForFactors");
+        if (!divForFactors) {
+          divForFactors = document.createElement("div");
+          divForFactors.setAttribute("id", "divForFactors");
+          divForFactors.setAttribute("class", "hiddenDivFactors");
+        }
+        // let divForFactors = document.createElement("div");
+        // divForFactors.setAttribute("class", "hiddenDivFactors");
         {
           if (questions[currentQuestionIndex].userAnswer == 100) {
             document.querySelector("input[value=yes]").checked = true;
-            displayPositiveFactors();
+            displayPositiveFactors(divForFactors);
           } else {
             document.querySelector("input[value=no]").checked = true;
-            displayNegativeFactors();
+            displayNegativeFactors(divForFactors);
           }
         }
       }
@@ -1332,7 +1339,16 @@ function insertSavedAnswers() {
 }
 
 function ifLastElement() {
-  document.querySelector("#hiddenDivFactors").classList.remove("hidden");
+  // <div id="hiddenDivFactors" class="hiddenDivFactors hidden"></div>
+
+  let divForFactors = document.getElementById("divForFactors");
+  if (!divForFactors) {
+    divForFactors = document.createElement("div");
+    divForFactors.setAttribute("id", "divForFactors");
+    divForFactors.setAttribute("class", "hiddenDivFactors");
+  }
+
+  // document.querySelector("#hiddenDivFactors").classList.remove("hidden");
   document.querySelector("#chartPlaceHolder").style.display = "none";
   if (questions[8].userAnswer) {
     document.getElementById("next_button").style.display = "none";
@@ -1345,7 +1361,8 @@ function ifLastElement() {
     let factorsRadio = document.getElementsByName("factors");
 
     factorsRadio[0].addEventListener("click", function() {
-      document.querySelector(".hiddenDivFactors").innerHTML = "";
+      // document.querySelector(".hiddenDivFactors").innerHTML = "";
+      divForFactors.innerHTML = "";
 
       let input = answer.querySelector("input");
 
@@ -1356,7 +1373,7 @@ function ifLastElement() {
       if (radioValue[0] == "yes") {
         radioValue = 100;
         questions[currentQuestionIndex].userAnswer = radioValue;
-        displayPositiveFactors();
+        displayPositiveFactors(divForFactors);
       }
 
       this.checked = true;
@@ -1366,7 +1383,8 @@ function ifLastElement() {
       document.getElementById("submit").style.display = "inline-block";
     });
     factorsRadio[1].addEventListener("click", function() {
-      document.querySelector(".hiddenDivFactors").innerHTML = "";
+      // document.querySelector(".hiddenDivFactors").innerHTML = "";
+      divForFactors.innerHTML = "";
 
       let input = answer.querySelector("input");
 
@@ -1378,7 +1396,7 @@ function ifLastElement() {
         radioValue = "0";
         questions[currentQuestionIndex].userAnswer = radioValue;
 
-        displayNegativeFactors();
+        displayNegativeFactors(divForFactors);
       }
 
       // console.log("radioValue", radioValue);
@@ -1408,8 +1426,8 @@ function getRadioCheckedValue(radio_name) {
   return "";
 }
 
-function displayPositiveFactors() {
-  let divForFactors = document.querySelector(".hiddenDivFactors");
+function displayPositiveFactors(divForFactors) {
+  // let divForFactors = document.querySelector(".hiddenDivFactors");
   // divForFactors.setAttribute("class", "divPositive");
   let values = [
     "Good reviews",
@@ -1519,8 +1537,8 @@ function displayPositiveFactors() {
   answer.appendChild(divForFactors);
 }
 
-function displayNegativeFactors() {
-  let divForFactors = document.querySelector(".hiddenDivFactors");
+function displayNegativeFactors(divForFactors) {
+  // let divForFactors = document.querySelector(".hiddenDivFactors");
   // divForFactors.setAttribute("class", "divPositive");
   let values = [
     "Big debt",
