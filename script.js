@@ -447,21 +447,7 @@ let questions = [
       });
       return form;
     },
-    canvasForChart: function() {
-      let theCanvas = document.createElement("canvas");
-      let theSecond = document.createElement("canvas");
-      theSecond.setAttribute("width", 400);
-      theSecond.setAttribute("height", 200);
-      theCanvas.setAttribute("width", 400);
-      theCanvas.setAttribute("height", 200);
-      theCanvas.setAttribute("id", "factorsChart");
-      theSecond.setAttribute("id", "otherChart");
-
-      return {
-        theCanvas: theCanvas,
-        theSecond: theSecond
-      };
-    },
+    canvasForChart: null,
     userAnswer: null
   }
 ];
@@ -471,6 +457,12 @@ const questionText = document.querySelector("#questionText");
 const answer = document.querySelector("#answer");
 const wrapForCanvas = document.querySelector("#chartPlaceHolder");
 let currentQuestionIndex = 0;
+
+let viewWidth = Math.max(
+  document.documentElement.clientWidth,
+  window.innerWidth || 0
+);
+console.log({ viewWidth });
 
 function setNextBtnDisabled(bool) {
   document.getElementById("next_button").disabled = bool;
@@ -567,7 +559,9 @@ function radioAnswerInsert() {
           radioArr[u].checked = true;
         }
       }
-      showAnimation(questions[currentQuestionIndex].userAnswer);
+      if (viewWidth > 410) {
+        showAnimation(questions[currentQuestionIndex].userAnswer);
+      }
     } else {
       if (
         questions[currentQuestionIndex].userAnswer ||
@@ -606,6 +600,7 @@ function disableForRadio() {
 }
 
 function eventlistenerForRadio() {
+  console.log("eventlistener runs");
   document.querySelector("form").addEventListener("click", function() {
     let allRadios = document.querySelectorAll("input[type=radio]");
 
@@ -613,8 +608,12 @@ function eventlistenerForRadio() {
       if (allRadios[i].checked == true) {
         let radioValue = allRadios[i].value;
         questions[currentQuestionIndex].answer = radioValue;
+        console.log({ radioValue });
         if (questions[currentQuestionIndex].id !== 9) {
-          showAnimation(radioValue);
+          if (viewWidth > 410) {
+            console.log("bigger than 410 and that is why should run");
+            showAnimation(radioValue);
+          }
         }
       }
     }
@@ -623,8 +622,11 @@ function eventlistenerForRadio() {
 }
 
 function showAnimation(value) {
+  console.log("animation run");
   document.querySelector(".divForFigure").innerHTML = "";
   if (value == "Minimum of 3 years of work experience each") {
+    console.log({ value });
+
     let figure = document.createElement("img");
     figure.setAttribute("src", "img/b1.svg");
     figure.setAttribute("class", "bigFigure");
@@ -646,6 +648,7 @@ function showAnimation(value) {
     );
   }
   if (value == "Fresh out of school and working towards a solution") {
+    console.log({ value });
     let figure = document.createElement("img");
     figure.setAttribute("src", "img/a1.svg");
     figure.setAttribute("class", "bigFigure");
@@ -667,6 +670,7 @@ function showAnimation(value) {
     );
   }
   if (value == "Minimum of 7 years of experience in your specific field each") {
+    console.log({ value });
     let figure = document.createElement("img");
     figure.setAttribute("src", "img/c1.svg");
     figure.setAttribute("class", "bigFigure");
@@ -690,6 +694,7 @@ function showAnimation(value) {
   if (
     value == "Subject matter experts with published thoughts on your industry"
   ) {
+    console.log({ value });
     let figure = document.createElement("img");
     figure.setAttribute("src", "img/d1.svg");
     figure.setAttribute("class", "bigFigure");
@@ -1141,12 +1146,6 @@ function disableForRange() {
   }
 }
 
-let testWidth = Math.max(
-  document.documentElement.clientWidth,
-  window.innerWidth || 0
-);
-console.log({ testWidth });
-
 function nextElement() {
   document.querySelector("#comparison").classList.add("hide");
   document.querySelector("#prev_button").style.display = "inline-block";
@@ -1173,6 +1172,7 @@ function nextElement() {
 
   // Start listener for radio
   if (questions[currentQuestionIndex].type == "radio") {
+    console.log("it is radio listen for events");
     eventlistenerForRadio();
   }
 
@@ -1312,38 +1312,32 @@ function insertSavedAnswers() {
 }
 
 function ifLastElement(currentEl) {
-  let canvasForLast = questions[8].canvasForChart(),
-    firstCanvas = canvasForLast.theCanvas,
-    secondCanvas = canvasForLast.theSecond;
-
-  if (questions[currentQuestionIndex].userAnswer) {
+  document.querySelector(".hiddenDivFactors").classList.remove("hide");
+  if (questions[8].userAnswer) {
     document.getElementById("next_button").style.display = "none";
     document.getElementById("submit").style.display = "inline-block";
   }
 
   if (currentEl.id == questions.length) {
     document.querySelector("#next_button").textContent = "Submit";
-    // console.log("it is 9");
+
     let factorsRadio = document.getElementsByName("factors");
+
     factorsRadio[0].addEventListener("click", function() {
-      document.querySelector("#chartPlaceHolder").innerHTML = "";
-      // console.log("works");
+      document.querySelector(".hiddenDivFactors").innerHTML = "";
+
       let input = answer.querySelector("input");
-      // console.log("form", input);
+
       let radioName = input.getAttribute("name");
-      // console.log("radio_name", radioName);
+
       let radioValue = getRadioCheckedValue(radioName);
 
       if (radioValue[0] == "yes") {
         radioValue = 100;
         questions[currentQuestionIndex].userAnswer = radioValue;
-        createChartForFactors(firstCanvas);
-        document.querySelector("#factorsChart").style.display = "block";
-        if (document.querySelector("#otherChart")) {
-          document.querySelector("#otherChart").style.display = "none";
-        }
+        displayPositiveFactors();
       }
-      // console.log("radioValue", radioValue);
+
       this.checked = true;
 
       document.getElementById("next_button").style.display = "none";
@@ -1351,23 +1345,19 @@ function ifLastElement(currentEl) {
       document.getElementById("submit").style.display = "inline-block";
     });
     factorsRadio[1].addEventListener("click", function() {
-      // console.log("works");
-      document.querySelector("#chartPlaceHolder").innerHTML = "";
+      document.querySelector(".hiddenDivFactors").innerHTML = "";
+
       let input = answer.querySelector("input");
-      // console.log("form", input);
+
       let radioName = input.getAttribute("name");
-      // console.log("radio_name", radioName);
+
       let radioValue = getRadioCheckedValue(radioName);
 
       if (radioValue[0] == "no") {
         radioValue = "0";
         questions[currentQuestionIndex].userAnswer = radioValue;
 
-        createChartForOtherFactors(secondCanvas);
-        document.querySelector("#otherChart").style.display = "block";
-        if (document.querySelector("#factorsChart")) {
-          document.querySelector("#factorsChart").style.display = "none";
-        }
+        displayNegativeFactors();
       }
 
       // console.log("radioValue", radioValue);
@@ -1395,6 +1385,44 @@ function getRadioCheckedValue(radio_name) {
   }
   // console.log("radio value returned?", oRadio[u].value);
   return "";
+}
+
+function displayPositiveFactors() {
+  let divForFactors = document.querySelector(".hiddenDivFactors");
+  // divForFactors.setAttribute("class", "divPositive");
+  let values = [
+    "Good reviews",
+    "Strong Partners",
+    "Stabel revenue",
+    "Destribution channels",
+    "Traction"
+  ];
+  values.forEach(function(value) {
+    let pForPositive = document.createElement("p");
+    pForPositive.setAttribute("class", "positive");
+    pForPositive.innerHTML = value;
+    divForFactors.appendChild(pForPositive);
+  });
+  answer.appendChild(divForFactors);
+}
+
+function displayNegativeFactors() {
+  let divForFactors = document.querySelector(".hiddenDivFactors");
+  // divForFactors.setAttribute("class", "divPositive");
+  let values = [
+    "Big debt",
+    "Not experienced team",
+    "Defective product",
+    "Lack of financial planning",
+    "Low margins"
+  ];
+  values.forEach(function(value) {
+    let pForNegative = document.createElement("p");
+    pForNegative.setAttribute("class", "negative");
+    pForNegative.innerHTML = value;
+    divForFactors.appendChild(pForNegative);
+  });
+  answer.appendChild(divForFactors);
 }
 
 function disabledIfEmpty() {
@@ -1877,138 +1905,138 @@ function createInvestmentChart(value, placeHolder) {
   });
 }
 
-function createChartForFactors() {
-  let canvasForLast = questions[8].canvasForChart();
-  let firstCanvas = canvasForLast.theCanvas;
-  // let secondCanvas = canvasForLast.theSecond;
-  wrapForCanvas.appendChild(firstCanvas);
-  document.querySelector("#chartPlaceHolder").style.height = "40vh";
-  new Chart(firstCanvas, {
-    type: "bar",
-    data: {
-      labels: [
-        "Good reviews",
-        "Strong Partners",
-        "Stabel revenue",
-        "Destribution channels",
-        "Traction"
-      ],
-      datasets: [
-        {
-          backgroundColor: [
-            "#3e95cd",
-            "#8e5ea2",
-            "#3cba9f",
-            "#e8c3b9",
-            "#c45850"
-          ],
-          data: [50, 45, 60, 55, 49]
-        }
-      ]
-    },
-    options: {
-      legend: {
-        display: false
-      },
-      title: {
-        display: true,
-        text: "Positive factors"
-      },
-      scales: {
-        xAxes: [
-          {
-            display: true,
-            stacked: false,
-            ticks: {
-              beginAtZero: true,
-              stepSize: 10,
-              suggestedMax: 100
-            }
-          }
-        ],
-        yAxes: [
-          {
-            display: true,
-            stacked: false,
-            ticks: {
-              beginAtZero: true,
-              stepSize: 10,
-              display: false
-            }
-          }
-        ]
-      },
-      responsive: true,
-      maintainAspectRatio: true
-    }
-  });
-}
+// function createChartForFactors() {
+//   let canvasForLast = questions[8].canvasForChart();
+//   let firstCanvas = canvasForLast.theCanvas;
+//   // let secondCanvas = canvasForLast.theSecond;
+//   wrapForCanvas.appendChild(firstCanvas);
+//   document.querySelector("#chartPlaceHolder").style.height = "40vh";
+//   new Chart(firstCanvas, {
+//     type: "bar",
+//     data: {
+//       labels: [
+//         "Good reviews",
+//         "Strong Partners",
+//         "Stabel revenue",
+//         "Destribution channels",
+//         "Traction"
+//       ],
+//       datasets: [
+//         {
+//           backgroundColor: [
+//             "#3e95cd",
+//             "#8e5ea2",
+//             "#3cba9f",
+//             "#e8c3b9",
+//             "#c45850"
+//           ],
+//           data: [50, 45, 60, 55, 49]
+//         }
+//       ]
+//     },
+//     options: {
+//       legend: {
+//         display: false
+//       },
+//       title: {
+//         display: true,
+//         text: "Positive factors"
+//       },
+//       scales: {
+//         xAxes: [
+//           {
+//             display: true,
+//             stacked: false,
+//             ticks: {
+//               beginAtZero: true,
+//               stepSize: 10,
+//               suggestedMax: 100
+//             }
+//           }
+//         ],
+//         yAxes: [
+//           {
+//             display: true,
+//             stacked: false,
+//             ticks: {
+//               beginAtZero: true,
+//               stepSize: 10,
+//               display: false
+//             }
+//           }
+//         ]
+//       },
+//       responsive: true,
+//       maintainAspectRatio: true
+//     }
+//   });
+// }
 
-function createChartForOtherFactors() {
-  let canvasForLast = questions[8].canvasForChart();
-  let secondCanvas = canvasForLast.theSecond;
-  wrapForCanvas.appendChild(secondCanvas);
-  document.querySelector("#chartPlaceHolder").style.height = "40vh";
-  new Chart(secondCanvas, {
-    type: "bar",
-    data: {
-      labels: [
-        "Big debt",
-        "Not experienced team",
-        "Defective product",
-        "Lack of financial planning",
-        "Low margins"
-      ],
-      datasets: [
-        {
-          backgroundColor: [
-            "#FFA500",
-            "#FFDEAD",
-            "#FF4500",
-            "#CD853F",
-            "#BC8F8F"
-          ],
-          data: [50, 45, 60, 55, 49]
-        }
-      ]
-    },
-    options: {
-      legend: {
-        display: false
-      },
-      title: {
-        display: true,
-        text: "Negative factors"
-      },
-      scales: {
-        xAxes: [
-          {
-            display: true,
-            stacked: false,
-            ticks: {
-              beginAtZero: true,
-              stepSize: 15,
-              suggestedMax: 100
-            }
-          }
-        ],
-        yAxes: [
-          {
-            display: true,
-            stacked: false,
-            ticks: {
-              beginAtZero: true,
-              stepSize: 10,
-              display: false
-            }
-          }
-        ]
-      },
-      responsive: true,
-      maintainAspectRatio: true
-    }
-  });
-}
+// function createChartForOtherFactors() {
+//   let canvasForLast = questions[8].canvasForChart();
+//   let secondCanvas = canvasForLast.theSecond;
+//   wrapForCanvas.appendChild(secondCanvas);
+//   document.querySelector("#chartPlaceHolder").style.height = "40vh";
+//   new Chart(secondCanvas, {
+//     type: "bar",
+//     data: {
+//       labels: [
+//         "Big debt",
+//         "Not experienced team",
+//         "Defective product",
+//         "Lack of financial planning",
+//         "Low margins"
+//       ],
+//       datasets: [
+//         {
+//           backgroundColor: [
+//             "#FFA500",
+//             "#FFDEAD",
+//             "#FF4500",
+//             "#CD853F",
+//             "#BC8F8F"
+//           ],
+//           data: [50, 45, 60, 55, 49]
+//         }
+//       ]
+//     },
+//     options: {
+//       legend: {
+//         display: false
+//       },
+//       title: {
+//         display: true,
+//         text: "Negative factors"
+//       },
+//       scales: {
+//         xAxes: [
+//           {
+//             display: true,
+//             stacked: false,
+//             ticks: {
+//               beginAtZero: true,
+//               stepSize: 15,
+//               suggestedMax: 100
+//             }
+//           }
+//         ],
+//         yAxes: [
+//           {
+//             display: true,
+//             stacked: false,
+//             ticks: {
+//               beginAtZero: true,
+//               stepSize: 10,
+//               display: false
+//             }
+//           }
+//         ]
+//       },
+//       responsive: true,
+//       maintainAspectRatio: true
+//     }
+//   });
+// }
 
 ////GET VALUE AND CREATE CHARTS END
 
