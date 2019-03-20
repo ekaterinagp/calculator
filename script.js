@@ -563,18 +563,30 @@ function radioAnswerInsert() {
         showAnimation(questions[currentQuestionIndex].userAnswer);
       }
     } else {
+      // // if (questions[currentQuestionIndex].id == 9) {
+      // //   // document.querySelector("#hiddenDivFactors").style.display = "block";
+      // let divForFactors = document.querySelector("#hiddenDivFactors");
+      // answer.appendChild(divForFactors);
+      // ifLastElement();
+      // // }
       if (
         questions[currentQuestionIndex].userAnswer ||
         questions[currentQuestionIndex].userAnswer == 0
       ) {
-        if (questions[currentQuestionIndex].userAnswer == 100) {
-          document.querySelector("input[value=yes]").checked = true;
-          createChartForFactors();
-        } else {
-          document.querySelector("input[value=no]").checked = true;
-          createChartForOtherFactors();
+        document.querySelector("#submit").style.display = "block";
+        let divForFactors = document.createElement("div");
+        divForFactors.setAttribute("class", "hiddenDivFactors");
+        {
+          if (questions[currentQuestionIndex].userAnswer == 100) {
+            document.querySelector("input[value=yes]").checked = true;
+            displayPositiveFactors();
+          } else {
+            document.querySelector("input[value=no]").checked = true;
+            displayNegativeFactors();
+          }
         }
       }
+      // }
     }
   }
 }
@@ -600,25 +612,27 @@ function disableForRadio() {
 }
 
 function eventlistenerForRadio() {
-  console.log("eventlistener runs");
-  document.querySelector("form").addEventListener("click", function() {
-    let allRadios = document.querySelectorAll("input[type=radio]");
+  if (questions[currentQuestionIndex].id !== 9) {
+    console.log("eventlistener runs");
+    document.querySelector("form").addEventListener("click", function() {
+      let allRadios = document.querySelectorAll("input[type=radio]");
 
-    for (let i = 0; i < allRadios.length; i++) {
-      if (allRadios[i].checked == true) {
-        let radioValue = allRadios[i].value;
-        questions[currentQuestionIndex].answer = radioValue;
-        console.log({ radioValue });
-        if (questions[currentQuestionIndex].id !== 9) {
-          if (viewWidth > 410) {
-            console.log("bigger than 410 and that is why should run");
-            showAnimation(radioValue);
+      for (let i = 0; i < allRadios.length; i++) {
+        if (allRadios[i].checked == true) {
+          let radioValue = allRadios[i].value;
+          questions[currentQuestionIndex].answer = radioValue;
+          console.log({ radioValue });
+          if (questions[currentQuestionIndex].id !== 9) {
+            if (viewWidth > 410) {
+              console.log("bigger than 410 and that is why should run");
+              showAnimation(radioValue);
+            }
           }
         }
       }
-    }
-    setNextBtnDisabled(false);
-  });
+      setNextBtnDisabled(false);
+    });
+  }
 }
 
 function showAnimation(value) {
@@ -1214,14 +1228,14 @@ function nextElement() {
 
   disabledIfEmpty();
   timeline(questions);
-
-  ifLastElement(currentEl);
+  if (questions[currentQuestionIndex].id == 9) {
+    // let divForFactors = document.createElement("div");
+    // answer.appendChild(divForFactors);
+    ifLastElement();
+  }
 }
 
 function prevElement() {
-  if (questions[currentQuestionIndex].id !== 9)
-    document.querySelector("#next_button").textContent = "Next";
-
   document.querySelector("#comparison").classList.add("hide");
   answer.textContent = "";
   wrapForCanvas.innerHTML = "";
@@ -1231,7 +1245,12 @@ function prevElement() {
   questionText.innerHTML = currentEl.txt;
 
   answer.appendChild(questions[currentQuestionIndex].answerQ());
-
+  if (questions[currentQuestionIndex].id !== 9) {
+    console.log("it is not 9 and that is why should be next");
+    document.querySelector("#submit").style.display = "none";
+    document.querySelector("#next_button").style.display = "inline-block";
+    document.querySelector("#next_button").textContent = "Next";
+  }
   if (questions[currentQuestionIndex].type == "range") {
     typeRageChart();
   }
@@ -1252,8 +1271,9 @@ function prevElement() {
   if (questions[currentQuestionIndex].userAnswer) {
     insertSavedAnswers();
   }
-
-  ifLastElement(currentEl);
+  if (questions[currentQuestionIndex].id == 9) {
+    ifLastElement();
+  }
 
   if (questions[currentQuestionIndex].id == 1) {
     document.querySelector("#prev_button").style.display = "none";
@@ -1311,14 +1331,15 @@ function insertSavedAnswers() {
   rangeAnswerInsert();
 }
 
-function ifLastElement(currentEl) {
-  document.querySelector(".hiddenDivFactors").classList.remove("hide");
+function ifLastElement() {
+  document.querySelector("#hiddenDivFactors").classList.remove("hidden");
+  document.querySelector("#chartPlaceHolder").style.display = "none";
   if (questions[8].userAnswer) {
     document.getElementById("next_button").style.display = "none";
     document.getElementById("submit").style.display = "inline-block";
   }
 
-  if (currentEl.id == questions.length) {
+  if (questions[currentQuestionIndex].id == 9) {
     document.querySelector("#next_button").textContent = "Submit";
 
     let factorsRadio = document.getElementsByName("factors");
@@ -1397,12 +1418,104 @@ function displayPositiveFactors() {
     "Destribution channels",
     "Traction"
   ];
-  values.forEach(function(value) {
-    let pForPositive = document.createElement("p");
-    pForPositive.setAttribute("class", "positive");
-    pForPositive.innerHTML = value;
-    divForFactors.appendChild(pForPositive);
-  });
+
+  let goodReviews = document.createElement("p");
+  goodReviews.innerHTML = values[0];
+  divForFactors.appendChild(goodReviews);
+  // values.forEach(function(value) {
+  //   let pForPositive = document.createElement("p");
+  //   // pForPositive.setAttribute("class", "positive");
+  //   pForPositive.innerHTML = value;
+
+  // });
+
+  // divForFactors.appendChild(pForPositive);
+  // console.log("pforPositive", pForPositive);
+  // let xTo = viewWidth;
+  TweenMax.fromTo(
+    goodReviews,
+    1,
+    {
+      x: 50,
+      y: -30
+    },
+    {
+      x: 0,
+      y: 90,
+      ease: Bounce.easeOut
+    },
+    0.01
+  );
+  let strongPartners = document.createElement("p");
+  strongPartners.innerHTML = values[1];
+  divForFactors.appendChild(strongPartners);
+  TweenMax.fromTo(
+    strongPartners,
+    1,
+    {
+      x: -800,
+      y: 130
+    },
+    {
+      x: 70,
+      y: 90,
+      ease: Linear.easeOut
+    },
+    0.7
+  );
+  let stableRevenue = document.createElement("p");
+  stableRevenue.innerHTML = values[2];
+  divForFactors.appendChild(stableRevenue);
+  TweenMax.fromTo(
+    stableRevenue,
+    1,
+    {
+      x: 800,
+      y: 70
+    },
+    {
+      x: -20,
+      y: 80,
+      ease: Linear.easeOut
+    },
+    0.8
+  );
+
+  let channels = document.createElement("p");
+  channels.innerHTML = values[3];
+  divForFactors.appendChild(channels);
+  TweenMax.fromTo(
+    channels,
+    1,
+    {
+      x: 70,
+      y: -30
+    },
+    {
+      x: 0,
+      y: 100,
+      ease: Bounce.easeOut
+    },
+    2
+  );
+  let tractions = document.createElement("p");
+  tractions.innerHTML = values[4];
+  divForFactors.appendChild(tractions);
+  TweenMax.fromTo(
+    tractions,
+    1,
+    {
+      x: 800,
+      y: 90
+    },
+    {
+      x: -20,
+      y: 90,
+      ease: Linear.easeOut
+    },
+    3
+  );
+
   answer.appendChild(divForFactors);
 }
 
@@ -1411,17 +1524,96 @@ function displayNegativeFactors() {
   // divForFactors.setAttribute("class", "divPositive");
   let values = [
     "Big debt",
-    "Not experienced team",
+    "Lack of experience",
     "Defective product",
     "Lack of financial planning",
     "Low margins"
   ];
-  values.forEach(function(value) {
-    let pForNegative = document.createElement("p");
-    pForNegative.setAttribute("class", "negative");
-    pForNegative.innerHTML = value;
-    divForFactors.appendChild(pForNegative);
-  });
+  let bigDebt = document.createElement("p");
+  bigDebt.innerHTML = values[0];
+  divForFactors.appendChild(bigDebt);
+  TweenMax.fromTo(
+    bigDebt,
+    1,
+    {
+      x: 50,
+      y: -50
+    },
+    {
+      x: 0,
+      y: 90,
+      ease: Bounce.easeOut
+    },
+    0.01
+  );
+  let noExperience = document.createElement("p");
+  noExperience.innerHTML = values[1];
+  divForFactors.appendChild(noExperience);
+  TweenMax.fromTo(
+    noExperience,
+    1,
+    {
+      x: -800,
+      y: 130
+    },
+    {
+      x: 70,
+      y: 90,
+      ease: Linear.easeOut
+    },
+    0.7
+  );
+  let defective = document.createElement("p");
+  defective.innerHTML = values[2];
+  divForFactors.appendChild(defective);
+  TweenMax.fromTo(
+    defective,
+    1,
+    {
+      x: 800,
+      y: 70
+    },
+    {
+      x: -20,
+      y: 80,
+      ease: Linear.easeOut
+    },
+    0.8
+  );
+  let finPlan = document.createElement("p");
+  finPlan.innerHTML = values[3];
+  divForFactors.appendChild(finPlan);
+  TweenMax.fromTo(
+    finPlan,
+    1,
+    {
+      x: 70,
+      y: -30
+    },
+    {
+      x: 0,
+      y: 100,
+      ease: Bounce.easeOut
+    },
+    2
+  );
+  let lowMargin = document.createElement("p");
+  lowMargin.innerHTML = values[4];
+  divForFactors.appendChild(lowMargin);
+  TweenMax.fromTo(
+    lowMargin,
+    1,
+    {
+      x: 800,
+      y: 90
+    },
+    {
+      x: -20,
+      y: 90,
+      ease: Linear.easeOut
+    },
+    3
+  );
   answer.appendChild(divForFactors);
 }
 
@@ -2075,7 +2267,7 @@ function incomeVSinvestments() {
   } else {
     console.log("bigger than 200!");
     TweenMax.to(document.querySelector("#roundInputDiv"), 1, {
-      scale: 1.3
+      scale: 1.2
     });
   }
 }
