@@ -807,7 +807,7 @@ input[type="number"]::-webkit-outer-spin-button {
     /* position: absolute; */
     max-width: 100%;
     min-height: auto;
-    padding-top: 30%;
+    padding-top: 10%;
   }
 
   .wrapper:nth-child(2n) {
