@@ -100,7 +100,7 @@ let questions = [
       ];
       let form = document.createElement("form");
       form.setAttribute("id", "team");
-
+      form.setAttribute("class", "listenTo");
       values.forEach(function(value) {
         let divWrapper = document.createElement("div");
         let label = document.createElement("label");
@@ -165,6 +165,7 @@ let questions = [
         }
       ];
       let form = document.createElement("form");
+      form.setAttribute("class", "listenTo");
       form.setAttribute("id", "market");
       values.forEach(function(value) {
         let divWrapper = document.createElement("div");
@@ -227,6 +228,7 @@ let questions = [
         }
       ];
       let form = document.createElement("form");
+      form.setAttribute("class", "listenTo");
       form.setAttribute("id", "uniqueness");
       let divAnswer = document.querySelector("#answer");
       divAnswer.removeAttribute("class", "addGrid");
@@ -288,6 +290,7 @@ let questions = [
         }
       ];
       let form = document.createElement("form");
+      form.setAttribute("class", "listenTo");
       form.setAttribute("id", "competition");
       values.forEach(function(value) {
         let divWrapper = document.createElement("div");
@@ -347,6 +350,7 @@ let questions = [
         }
       ];
       let form = document.createElement("form");
+      form.setAttribute("class", "listenTo");
       form.setAttribute("id", "strength");
       // let divAnswer = document.querySelector("#answer");
       // divAnswer.removeAttribute("class", "addGrid");
@@ -424,6 +428,7 @@ let questions = [
     answerQ: function() {
       let values = ["yes", "no"];
       let form = document.createElement("form");
+      form.setAttribute("class", "listenTo");
       form.setAttribute("id", "factorsTwoOptions");
       values.forEach(function(value) {
         let divWrapper = document.createElement("div");
@@ -623,7 +628,7 @@ function disableForRadio() {
 function eventlistenerForRadio() {
   if (questions[currentQuestionIndex].id !== 9) {
     console.log("eventlistener runs");
-    document.querySelector("form").addEventListener("click", function() {
+    document.querySelector(".listenTo").addEventListener("click", function() {
       let allRadios = document.querySelectorAll("input[type=radio]");
 
       for (let i = 0; i < allRadios.length; i++) {
@@ -1405,7 +1410,8 @@ function ifLastElement() {
 }
 
 function getRadioCheckedValue(radio_name) {
-  let oRadio = document.forms[0].elements[radio_name];
+  let formToCheck = document.querySelector(".listenTo");
+  let oRadio = formToCheck.elements[radio_name];
 
   for (let u = 0; u < oRadio.length; u++) {
     if (oRadio[u].checked) {
