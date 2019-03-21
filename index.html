@@ -11,37 +11,66 @@
   </head>
 
   <body>
+    <div id="intro" class="hideintro">
+      <div class="wrapperIntro">
+        <p class="introP">
+          Hey, find out your startup's pre-money valuation!
+        </p>
+        <button id="start">Start</button>
+      </div>
+    </div>
     <div id="popUp">
-      <div id="signUp">
-        <div>
-          <label for="name"></label>
-          <input type="text" name="name" placeholder="Name" />
-        </div>
+      <div class="popWrapper">
+        <p class="endText">
+          Hey, fill in the form and we will send you results by email!
+        </p>
+        <div id="signUp">
+          <div>
+            <label for="name"></label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              pattern="[A-Za-z]{1,50}"
+              required
+            />
+          </div>
 
-        <div>
-          <label for="companyName"></label>
-          <input type="text" name="company" placeholder="Company" />
-        </div>
+          <div>
+            <label for="companyName"></label>
+            <input
+              type="text"
+              name="company"
+              placeholder="Company"
+              pattern="[a-zA-Z0-9-]+"
+              required
+            />
+          </div>
 
-        <div>
-          <label for="email" name="email"></label>
-          <input type="email" placeholder="E-mail" />
-        </div>
+          <div>
+            <label for="email" name="email"></label>
+            <input
+              type="email"
+              placeholder="E-mail"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+              required
+            />
+          </div>
 
-        <div>
-          <label for="phone" name="phone"></label
-          ><input type="tel" placeholder="Phone" />
+          <div>
+            <label for="phone" name="phone"></label
+            ><input type="tel" placeholder="Phone" />
+          </div>
         </div>
-      </div>
-      <div class="md-checkbox">
-        <input id="i2" type="checkbox" checked />
-        <label for="i2">I agree to GDRP blablabla</label>
-      </div>
-      <div class="md-checkbox">
-        <input id="i1" type="checkbox" />
-        <label for="i1">I want to get my results on email bla bla bla</label>
-      </div>
-      <div class="inputSub">
+        <div class="md-checkbox">
+          <input id="i2" type="checkbox" checked />
+          <label for="i2">I agree to GDRP blablabla</label>
+        </div>
+        <div class="md-checkbox">
+          <input id="i1" type="checkbox" />
+          <label for="i1">I want to get my results on email bla bla bla</label>
+        </div>
+        <!-- <div class="inputSub"> -->
         <input type="submit" value="Submit" />
       </div>
     </div>

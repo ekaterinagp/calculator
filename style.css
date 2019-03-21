@@ -1,6 +1,8 @@
 body {
   background-color: black;
   text-rendering: optimizeLegibility;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 input {
@@ -10,6 +12,51 @@ input {
 #questionText {
   overflow: visible;
   z-index: 10;
+  text-align: center;
+}
+
+#intro {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: black;
+  color: white;
+  z-index: 20;
+  margin: 0;
+  overflow: hidden;
+  right: 0;
+}
+
+.introP {
+  font-size: 2em;
+  text-align: center;
+  font-family: "Gotham_Black";
+}
+
+.wrapperIntro,
+.popWrapper {
+  text-align: center;
+  padding-top: 10%;
+}
+
+#start {
+  position: relative;
+  -webkit-appearance: none;
+  /* top: 60%;
+  left: 50%; */
+  width: 20%;
+  height: 10%;
+  border: 1px solid #545454;
+  background-color: black;
+  color: white;
+  font-size: 1.5em;
+  text-align: center;
+  cursor: pointer;
+}
+
+#start:hover {
+  background-color: #6c9972;
+  color: #f7f7f7;
 }
 
 .main {
@@ -22,6 +69,13 @@ input {
   background-color: rgb(14, 13, 13);
   color: rgb(247, 243, 243);
   overflow: hidden;
+}
+
+input[type="email"]::placeholder,
+input[type="text"]::placeholder,
+input[type="tel"]::placeholder {
+  color: white;
+  font-size: 1em;
 }
 
 input#addInvestment::placeholder {
@@ -77,6 +131,7 @@ h1 {
   font-family: "Gotham_Black";
   top: 90%;
   margin-top: 10px;
+  border: 1px solid #545454;
 }
 
 ::-webkit-input-placeholder {
@@ -92,19 +147,17 @@ h1 {
   left: 0;
   background-color: rgb(0, 0, 0);
   bottom: 0;
-  height: 10vh;
+  height: 9vh;
   width: 100%;
-  position: absolute;
-  box-shadow: inset 0 0 5px 0px #fff, inset 0px 0 0px rgb(0, 0, 0),
-    inset 0px 0 0px rgb(0, 0, 0), inset 20px 0 300px rgb(0, 0, 0),
-    inset 0px 0px 0px 0px rgb(0, 0, 0), 0 0 20px #c5caaa,
-    0px -1px 0px rgb(0, 0, 0), 2px -1px 0px rgb(208, 219, 160);
+  position: fixed;
+  border: 1px solid #545454;
+  /* box-shadow:  */
 }
 
 #chartPlaceHolder {
   position: relative;
   text-align: -webkit-center;
-  width: 60vw;
+  /* width: 60vw; */
   height: 20vh;
 }
 
@@ -250,9 +303,10 @@ form p {
   height: 5em;
   width: 20em;
   background-color: black;
-  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  border: 1px solid #545454;
+  /* -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
   -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
-  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7); */
 }
 
 .btnRadioTwoOptions {
@@ -264,9 +318,10 @@ form p {
   cursor: pointer;
   width: 30%;
   background-color: black;
-  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  border: 1px solid #545454;
+  /* -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
   -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
-  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7); */
 }
 
 #factorsTwoOptions {
@@ -320,15 +375,34 @@ input[name="strength"] {
   box-shadow: none;
 }
 
+.endText {
+  font-size: 1.5em;
+  color: white;
+  font-family: "Gotham_Book";
+  text-align: center;
+}
+
 #popUp {
-  width: 85%;
-  height: 80%;
-  background-color: #0a0a24;
+  width: 100%;
+  height: 100%;
+  background-color: #010149;
   color: white;
   display: none;
   position: absolute;
-  padding: 1em;
+  /* padding: 1em; */
+  margin: 0;
   z-index: 20;
+  padding: 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  border: 0;
+  border-bottom: 1px solid white;
+  background-color: inherit;
+  color: white;
+  width: 20%;
 }
 
 #signup {
@@ -344,8 +418,17 @@ input[name="strength"] {
 }
 
 input[type="submit"] {
-  width: 7em;
-  height: 2em;
+  background-color: #545454;
+  border: 0;
+  color: white;
+  -webkit-appearance: none;
+  width: 10%;
+  height: 5%;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: green;
 }
 
 #timeline {
@@ -514,7 +597,7 @@ input[type="range"]:focus::-ms-fill-upper {
 
 input[type="number"] {
   border: 0;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #545454;
   text-align: center;
   background-color: black;
   color: white;
@@ -539,7 +622,7 @@ input[type="number"] {
   /* background-color: $; */
   border: none;
   border-radius: 3px;
-  box-shadow: 1px 1px 10px rgba(50, 50, 50, 0.4);
+  box-shadow: 1px 1px 10px #545454;
   transition: 0.3s all ease;
   /* letter-spacing: .1rem; */
   font-size: 0.85rem;
@@ -562,7 +645,7 @@ input[type="number"] {
 }
 
 #divForFactors {
-  position: absolute;
+  /* position: absolute; */
   font-family: "Gotham_Black";
 }
 
@@ -590,10 +673,12 @@ input[type="number"] {
   line-height: 1.25em;
   vertical-align: top;
   clear: both;
+  position: relative;
   padding-left: 1px;
+  left: 40vw;
 }
 .md-checkbox label:not(:empty) {
-  padding-left: 0.75em;
+  padding-left: 2.75em;
 }
 .md-checkbox label:before,
 .md-checkbox label:after {
@@ -644,7 +729,7 @@ input[type="number"] {
   /* top: -50%; */
   width: 35%;
   right: 5%;
-  padding-bottom: 60%;
+  /* padding-bottom: 60%; */
   /* padding-top: 2%; */
 }
 
@@ -673,7 +758,16 @@ input[type="number"] {
 
 .imgInline {
   width: 8em;
-  padding-top: 3%;
+  /* padding-top: 3%; */
+}
+
+#divForFactors p {
+  display: inline-block;
+}
+
+#divForFactors {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
 .imgForBig {
@@ -692,9 +786,10 @@ input[type="number"] {
   width: auto;
   height: 8em;
   background-color: black;
-  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  border: 1px solid #545454;
+  /* -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
   -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
-  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7); */
 }
 
 .btnRadioforBig {
@@ -708,9 +803,10 @@ input[type="number"] {
   cursor: pointer;
   /* height: 5em; */
   width: 20%;
-  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  border: 1px solid #545454;
+  /* -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
   -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
-  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7); */
 }
 
 .bigFigureVehicle {
@@ -729,7 +825,7 @@ input[type="number"] {
   width: 15em;
   height: 15em;
   background: rgb(76, 196, 122);
-  border: 3px solid rgb(51, 50, 50);
+  border: 1px solid #545454;
   left: 55%;
 }
 
@@ -740,7 +836,7 @@ input[type="number"] {
   width: 15em;
   height: 15em;
   background: rgb(76, 196, 122);
-  border: 3px solid rgb(51, 50, 50);
+  border: 1px solid #545454;
   left: 55%;
 }
 
@@ -792,9 +888,10 @@ input[type="number"]::-webkit-outer-spin-button {
   cursor: pointer;
   height: 8em;
   background-color: black;
-  -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  border: 1px solid #545454;
+  /* -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
   -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
-  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+  box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7); */
 }
 
 .pIncome {
@@ -893,9 +990,10 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 80%;
     margin: 5px;
     background-color: black;
-    -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+    border: 1px solid #545454;
+    /* -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
     -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
-    box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+    box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7); */
   }
 
   .imgInline {
@@ -979,7 +1077,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .bigFigure {
     position: absolute;
-    /* top: -50%; */
+    top: -50%;
     width: 35%;
     right: 5%;
     padding-bottom: 0;
@@ -998,9 +1096,10 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 90%;
     height: 8em;
     background-color: black;
-    -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+    border: 1px solid #545454;
+    /* -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
     -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
-    box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
+    box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7); */
   }
 }
 

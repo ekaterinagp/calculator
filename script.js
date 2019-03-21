@@ -1,6 +1,8 @@
 "use strict";
+const startBtn = document.querySelector("#start");
 
-window.addEventListener("load", function() {
+startBtn.addEventListener("click", function() {
+  document.querySelector("#intro").style.display = "none";
   init();
 });
 
@@ -820,7 +822,7 @@ function showAnimation(value) {
     let figure = document.createElement("img");
     figure.setAttribute("src", "img/d34.svg");
     figure.setAttribute("class", "bigFigure");
-    figure.style.paddingBottom = "45%";
+    // figure.style.paddingBottom = "45%";
     document.querySelector(".divForFigure").appendChild(figure);
     TweenMax.fromTo(
       figure,
@@ -1063,17 +1065,14 @@ function showAnimation(value) {
 
       {
         x: 100,
-        y: 400,
-        opacity: 0.1,
-        scale: 0.3
+        y: 400
       },
       {
         x: 100,
         y: 150,
         // rotation: -20,
-        ease: Circ.easeOut,
-        opacity: 1,
-        scale: 1
+        ease: Circ.easeOut
+        // opacity: 1,
       },
       0.01
     );
@@ -1090,17 +1089,13 @@ function showAnimation(value) {
 
       {
         x: 100,
-        y: 400,
-        opacity: 0.1,
-        scale: 0.3
+        y: 400
       },
       {
         x: 100,
         y: 150,
         // rotation: -20,
-        ease: Circ.easeOut,
-        opacity: 1,
-        scale: 1.1
+        ease: Circ.easeOut
       },
       0.01
     );
@@ -1117,17 +1112,13 @@ function showAnimation(value) {
 
       {
         x: 100,
-        y: 400,
-        opacity: 0.1,
-        scale: 0.3
+        y: 400
       },
       {
         x: 100,
         y: 150,
         // rotation: -20,
-        ease: Elastic.easeOut.config(1, 0.3),
-        opacity: 1,
-        scale: 1.3
+        ease: Elastic.easeOut.config(1, 0.3)
       },
       0.01
     );
@@ -1144,17 +1135,17 @@ function showAnimation(value) {
 
       {
         x: 100,
-        y: 400,
-        opacity: 0.1,
-        scale: 0.3
+        y: 400
+        // opacity: 0.1,
+        // scale: 0.3
       },
       {
         x: 100,
         y: 150,
         // rotation: -20,
-        ease: Elastic.easeOut.config(1, 0.3),
-        opacity: 1,
-        scale: 1.5
+        ease: Elastic.easeOut.config(1, 0.3)
+        // opacity: 1,
+        // scale: 1.5
       },
       0.01
     );
@@ -1432,106 +1423,117 @@ function displayPositiveFactors(divForFactors) {
   let values = [
     "Good reviews",
     "Strong Partners",
-    "Stabel revenue",
-    "Destribution channels",
+    "Stable revenue",
+    "Distribution channels",
     "Traction"
   ];
 
   let goodReviews = document.createElement("p");
+  goodReviews.setAttribute("color", "darkgreen");
   goodReviews.innerHTML = values[0];
   divForFactors.appendChild(goodReviews);
-  // values.forEach(function(value) {
-  //   let pForPositive = document.createElement("p");
-  //   // pForPositive.setAttribute("class", "positive");
-  //   pForPositive.innerHTML = value;
 
-  // });
-
-  // divForFactors.appendChild(pForPositive);
-  // console.log("pforPositive", pForPositive);
-  // let xTo = viewWidth;
   TweenMax.fromTo(
     goodReviews,
     1,
     {
-      x: 50,
-      y: -30
+      opacity: 0,
+      scale: 0.5
     },
     {
-      x: 0,
-      y: 90,
-      ease: Bounce.easeOut
+      // x: -100,
+      // y: 100,
+      ease: Linear.easeOut,
+      opacity: 1,
+      scale: 1.1,
+      delay: 0.01
     },
     0.01
   );
   let strongPartners = document.createElement("p");
+  strongPartners.setAttribute("color", "#7CFC00");
   strongPartners.innerHTML = values[1];
   divForFactors.appendChild(strongPartners);
   TweenMax.fromTo(
     strongPartners,
     1,
     {
-      x: -800,
-      y: 130
+      opacity: 0,
+      scale: 0.5
     },
     {
-      x: 70,
-      y: 90,
-      ease: Linear.easeOut
+      // x: -50,
+      // y: 100,
+      ease: Linear.easeOut,
+      opacity: 1,
+      scale: 1.1,
+      delay: 1
     },
-    0.7
+    3
   );
   let stableRevenue = document.createElement("p");
+  stableRevenue.setAttribute("color", "#006400");
   stableRevenue.innerHTML = values[2];
   divForFactors.appendChild(stableRevenue);
   TweenMax.fromTo(
     stableRevenue,
     1,
     {
-      x: 800,
-      y: 70
+      opacity: 0,
+      scale: 0.5
     },
     {
-      x: -20,
-      y: 80,
-      ease: Linear.easeOut
+      // x: 0,
+      // y: 100,
+      ease: Linear.easeOut,
+      opacity: 1,
+      scale: 1.1,
+      delay: 2
     },
-    0.8
+    6
   );
 
   let channels = document.createElement("p");
+  channels.setAttribute("color", "#32CD32");
   channels.innerHTML = values[3];
   divForFactors.appendChild(channels);
   TweenMax.fromTo(
     channels,
     1,
     {
-      x: 70,
-      y: -30
+      opacity: 0,
+      scale: 0.5
     },
     {
-      x: 0,
-      y: 100,
-      ease: Bounce.easeOut
+      // x: 50,
+      // y: 100,
+      ease: Linear.easeOut,
+      opacity: 1,
+      scale: 1.1,
+      delay: 3
     },
-    2
+    8
   );
   let tractions = document.createElement("p");
+  tractions.setAttribute("color", "green");
   tractions.innerHTML = values[4];
   divForFactors.appendChild(tractions);
   TweenMax.fromTo(
     tractions,
     1,
     {
-      x: 800,
-      y: 90
+      opacity: 0,
+      scale: 0.5
     },
     {
-      x: -20,
-      y: 90,
-      ease: Linear.easeOut
+      // x: 100,
+      // y: 100,
+      ease: Linear.easeOut,
+      opacity: 1,
+      scale: 1.1,
+      delay: 4
     },
-    3
+    10
   );
 
   answer.appendChild(divForFactors);
@@ -1575,7 +1577,7 @@ function displayNegativeFactors(divForFactors) {
       y: 130
     },
     {
-      x: 70,
+      x: 0,
       y: 90,
       ease: Linear.easeOut
     },
@@ -1592,8 +1594,8 @@ function displayNegativeFactors(divForFactors) {
       y: 70
     },
     {
-      x: -20,
-      y: 80,
+      x: 0,
+      y: 90,
       ease: Linear.easeOut
     },
     0.8
@@ -1610,7 +1612,7 @@ function displayNegativeFactors(divForFactors) {
     },
     {
       x: 0,
-      y: 100,
+      y: 90,
       ease: Bounce.easeOut
     },
     2
@@ -1911,6 +1913,13 @@ function createChart(
       ]
     },
     options: {
+      legend: {
+        display: true,
+        labels: {
+          fontColor: "white",
+          fontSize: 15
+        }
+      },
       scales: {
         xAxes: [
           {
@@ -2062,58 +2071,58 @@ function createBarChart(value, placeHolder) {
   });
 }
 
-function createInvestmentChart(value, placeHolder) {
-  let barChartIncomeCanvas = document.getElementById(placeHolder);
+// function createInvestmentChart(value, placeHolder) {
+//   let barChartIncomeCanvas = document.getElementById(placeHolder);
 
-  let barChart = new Chart(barChartIncomeCanvas, {
-    type: "bar",
-    data: {
-      labels: ["Additional investments"],
-      datasets: [
-        {
-          label: "Additional investements",
-          data: [value],
-          backgroundColor: "blue"
-        },
-        {
-          label: "Your yearly income",
-          data: [questions[0].userAnswer * 12],
-          backgroundColor: "green"
-        }
-      ]
-    },
-    options: {
-      legend: {
-        display: true
-      },
-      tooltips: {
-        enabled: true
-      },
-      scales: {
-        xAxes: [
-          {
-            display: false,
-            stacked: true,
-            ticks: {
-              beginAtZero: true,
-              stepSize: 10000
-            }
-          }
-        ],
-        yAxes: [
-          {
-            display: false,
-            stacked: true,
-            ticks: {
-              beginAtZero: true,
-              stepSize: 10000
-            }
-          }
-        ]
-      }
-    }
-  });
-}
+//   let barChart = new Chart(barChartIncomeCanvas, {
+//     type: "bar",
+//     data: {
+//       labels: ["Additional investments"],
+//       datasets: [
+//         {
+//           label: "Additional investements",
+//           data: [value],
+//           backgroundColor: "blue"
+//         },
+//         {
+//           label: "Your yearly income",
+//           data: [questions[0].userAnswer * 12],
+//           backgroundColor: "green"
+//         }
+//       ]
+//     },
+//     options: {
+//       legend: {
+//         display: true
+//       },
+//       tooltips: {
+//         enabled: true
+//       },
+//       scales: {
+//         xAxes: [
+//           {
+//             display: false,
+//             stacked: true,
+//             ticks: {
+//               beginAtZero: true,
+//               stepSize: 10000
+//             }
+//           }
+//         ],
+//         yAxes: [
+//           {
+//             display: false,
+//             stacked: true,
+//             ticks: {
+//               beginAtZero: true,
+//               stepSize: 10000
+//             }
+//           }
+//         ]
+//       }
+//     }
+//   });
+// }
 
 // function createChartForFactors() {
 //   let canvasForLast = questions[8].canvasForChart();
