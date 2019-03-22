@@ -422,14 +422,14 @@ input[type="submit"] {
   border: 0;
   color: white;
   -webkit-appearance: none;
-  width: 10%;
-  height: 5%;
+  width: 12%;
+  padding: 1em;
   cursor: pointer;
 }
 
-input[type="submit"]:hover {
+/* input[type="submit"]:hover {
   background-color: green;
-}
+} */
 
 #timeline {
   font-size: 1.5em;
@@ -660,8 +660,18 @@ input[type="number"] {
 
 .md-checkbox {
   position: relative;
-  margin: 1em 0;
+  /* margin: 1em 0; */
   text-align: left;
+}
+
+input#i1,
+input#i2 {
+  -webkit-appearance: checkbox;
+}
+
+.terms {
+  display: initial;
+  font-family: "Gotham_Book";
 }
 
 .md-checkbox.md-checkbox-inline {

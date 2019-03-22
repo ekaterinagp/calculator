@@ -30,6 +30,7 @@
             <label for="name"></label>
             <input
               type="text"
+              id="userName"
               name="name"
               placeholder="Name"
               pattern="[A-Za-z]{1,50}"
@@ -41,6 +42,7 @@
             <label for="companyName"></label>
             <input
               type="text"
+              id="userCompany"
               name="company"
               placeholder="Company"
               pattern="[a-zA-Z0-9-]+"
@@ -49,9 +51,11 @@
           </div>
 
           <div>
-            <label for="email" name="email"></label>
+            <label for="email"></label>
             <input
               type="email"
+              id="userEmail"
+              name="email"
               placeholder="E-mail"
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
               required
@@ -59,20 +63,28 @@
           </div>
 
           <div>
-            <label for="phone" name="phone"></label
-            ><input type="tel" placeholder="Phone" />
+            <label for="phone"></label
+            ><input
+              type="tel"
+              id="userPhone"
+              name="phone"
+              placeholder="Phone"
+            />
+          </div>
+
+          <div>
+            <input id="i2" type="checkbox" name="gdpr" required />
+            <p class="terms">I agree to GDRP blablabla</p>
+          </div>
+          <div>
+            <input id="i1" type="checkbox" name="terms" required />
+            <p class="terms">I want to get my results on email bla bla bla</p>
+          </div>
+          <!-- <div class="inputSub"> -->
+          <div>
+            <input type="submit" value="Submit" onclick="saveUserData()" />
           </div>
         </form>
-        <div class="md-checkbox">
-          <input id="i2" type="checkbox" checked />
-          <label for="i2">I agree to GDRP blablabla</label>
-        </div>
-        <div class="md-checkbox">
-          <input id="i1" type="checkbox" />
-          <label for="i1">I want to get my results on email bla bla bla</label>
-        </div>
-        <!-- <div class="inputSub"> -->
-        <input type="submit" value="Submit" />
       </div>
     </div>
 

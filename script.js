@@ -10,7 +10,7 @@ let questions = [
   {
     id: 1,
     question: "Monthly income",
-    txt: "What is your average monthly income?",
+    txt: "What is your average monthly revenue?",
     type: "input",
     answerQ: function() {
       let theInput = document.createElement("input");
@@ -22,7 +22,7 @@ let questions = [
       theInput.setAttribute("type", "number");
       theInput.setAttribute("id", "incomeNumber");
       answer.appendChild(dollarSign);
-      theInput.setAttribute("placeholder", "Type your income here");
+      theInput.setAttribute("placeholder", "Type your revenue here");
       return theInput;
     },
     canvasForChart: function() {
@@ -2280,7 +2280,7 @@ function incomeVSinvestments() {
     percantageFrom +
     "%" +
     " " +
-    "of your yearly income";
+    "of your yearly revenue";
 
   if (percantageFrom < 50) {
     console.log("smaller than 50%");
@@ -2303,4 +2303,40 @@ function incomeVSinvestments() {
       scale: 1.2
     });
   }
+}
+
+//save data from submit form
+
+let signUpForm = document.querySelector("#signUp");
+
+let nameInput = signUpForm.querySelector("#userName");
+
+let companyInput = signUpForm.querySelector("#userCompany");
+
+let emailInput = signUpForm.querySelector("#userEmail");
+let phoneInput = signUpForm.querySelector("#userPhone");
+let submitBtn = document.querySelector("input[type=submit");
+
+function checkInputValue() {
+  if (nameInput.value && companyInput.value && emailInput.value) {
+    submitBtn.backgroundColor = "green";
+  }
+}
+
+function saveUserData() {
+  // checkInputValue();
+  // submitBtn.addEventListener("click", function(e) {
+  //   e.preventDefault();
+  const userObject = {
+    name: null,
+    company: null,
+    email: null,
+    phone: null
+  };
+  userObject.name = nameInput.value;
+  userObject.company = companyInput.value;
+  userObject.email = emailInput.value;
+  userObject.phone = phoneInput.value;
+  console.log({ userObject });
+  // });
 }
