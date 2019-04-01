@@ -19,6 +19,8 @@ let questions = [
       dollarSign.setAttribute("class", "dollarSign");
       dollarSign.innerText = "$";
       theLabel.setAttribute("for", "income");
+      theInput.setAttribute("pattern", "(?!0+)d+");
+      theInput.setAttribute("required", "true");
       theInput.setAttribute("type", "number");
       theInput.setAttribute("id", "incomeNumber");
       answer.appendChild(dollarSign);
@@ -508,7 +510,7 @@ function listenForSliderChange() {
   });
 }
 
-function typeRageChart() {
+function typeRangeChart() {
   wrapForCanvas.appendChild(questions[currentQuestionIndex].canvasForChart());
   let slider = document.querySelector("input[type=range]");
   slider.addEventListener("change", function() {
@@ -1255,7 +1257,7 @@ function prevElement() {
     document.querySelector("#next_button").textContent = "Next";
   }
   if (questions[currentQuestionIndex].type == "range") {
-    typeRageChart();
+    typeRangeChart();
   }
 
   timeline(questions);
