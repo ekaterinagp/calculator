@@ -568,7 +568,7 @@ function radioAnswerInsert() {
           radioArr[u].checked = true;
         }
       }
-      if (viewWidth > 415) {
+      if (viewWidth > 425) {
         showAnimation(questions[currentQuestionIndex].userAnswer);
       }
     } else {
@@ -639,7 +639,7 @@ function eventlistenerForRadio() {
           questions[currentQuestionIndex].answer = radioValue;
           console.log({ radioValue });
           if (questions[currentQuestionIndex].id !== 9) {
-            if (viewWidth > 415) {
+            if (viewWidth > 425) {
               console.log("bigger than 410 and that is why should run");
               showAnimation(radioValue);
             }

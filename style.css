@@ -131,7 +131,7 @@ h1 {
   background-color: green;
   color: white;
   font-family: "Gotham_Black";
-  top: 92%;
+  top: 91%;
   /* margin-top: 10px; */
   border: 1px solid #545454;
 }
@@ -598,7 +598,7 @@ input[type="range"]:focus::-ms-fill-upper {
 }
 
 input[type="number"] {
-  font-size: 1.5em;
+  font-size: 1.2em;
   border: 0;
   border-bottom: 1px solid #545454;
   text-align: center;
@@ -609,6 +609,7 @@ input[type="number"] {
 
 #next_button {
   right: 0;
+  /* background-color: green; */
 }
 
 #number {
@@ -659,6 +660,11 @@ input[type="number"] {
 #prev_button {
   display: inline-block;
   left: 0;
+}
+
+.overlay {
+  background-color: #545454;
+  opacity: 0.6;
 }
 
 .iconsDiv {
@@ -1442,7 +1448,7 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   input#addInvestment {
-    font-size: 1.3em;
+    font-size: 1.1em;
     /* position: absolute; */
     margin-top: 35%;
     /* padding-top: 20em; */
