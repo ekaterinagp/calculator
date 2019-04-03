@@ -19,7 +19,8 @@ let questions = [
       dollarSign.setAttribute("class", "dollarSign");
       dollarSign.innerText = "$";
       theLabel.setAttribute("for", "income");
-      theInput.setAttribute("pattern", "(?!0+)d+");
+      // theInput.setAttribute("pattern", "(?!0+)d+");
+      theInput.setAttribute("min", "5");
       theInput.setAttribute("required", "true");
       theInput.setAttribute("type", "number");
       theInput.setAttribute("id", "incomeNumber");
@@ -568,7 +569,7 @@ function radioAnswerInsert() {
           radioArr[u].checked = true;
         }
       }
-      if (viewWidth > 425) {
+      if (viewWidth > 699) {
         showAnimation(questions[currentQuestionIndex].userAnswer);
       }
     } else {
@@ -639,7 +640,7 @@ function eventlistenerForRadio() {
           questions[currentQuestionIndex].answer = radioValue;
           console.log({ radioValue });
           if (questions[currentQuestionIndex].id !== 9) {
-            if (viewWidth > 425) {
+            if (viewWidth > 699) {
               console.log("bigger than 410 and that is why should run");
               showAnimation(radioValue);
             }

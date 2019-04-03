@@ -124,14 +124,16 @@ h1 {
 }
 
 .buttons {
-  margin: 1em;
+  /* margin: 1em; */
+  margin-bottom: 2em;
+  /* margin: 2em; */
   position: fixed;
   width: 15%;
   padding: 14px 40px;
   background-color: green;
   color: white;
   font-family: "Gotham_Black";
-  top: 91%;
+  top: 92%;
   /* margin-top: 10px; */
   border: 1px solid #545454;
 }
@@ -149,7 +151,7 @@ h1 {
   left: 0;
   background-color: #0c0522;
   bottom: 0;
-  height: 8vh;
+  height: 9vh;
   width: 100%;
   position: fixed;
   border-top: 1px solid #545454;
@@ -395,6 +397,7 @@ input[name="strength"] {
   margin: 0;
   z-index: 20;
   padding: 0;
+  overflow: hidden;
 }
 
 input[type="text"],
@@ -947,6 +950,14 @@ input[type="number"]::-webkit-outer-spin-button {
     padding-top: 10%;
   }
 
+  #prevnext {
+    height: 15vh;
+  }
+
+  .buttons {
+    top: 89%;
+  }
+
   #divForFactors {
     display: block;
     padding-bottom: 10em;
@@ -1097,6 +1108,14 @@ input[type="number"]::-webkit-outer-spin-button {
   }
   #roundBig {
     display: none;
+  }
+
+  #prevnext {
+    height: 15vh;
+  }
+
+  .buttons {
+    top: 89%;
   }
 
   .buttons {
@@ -1303,8 +1322,20 @@ input[type="number"]::-webkit-outer-spin-button {
     margin-top: 25%;
   }
 
+  #prevnext {
+    height: 15vh;
+  }
+
+  .buttons {
+    top: 89%;
+  }
+
   .buttons {
     width: 25%;
+  }
+
+  .main {
+    overflow-y: scroll;
   }
 
   #uniqueness,
@@ -1361,7 +1392,7 @@ input[type="number"]::-webkit-outer-spin-button {
     background-color: green;
     color: white;
     font-family: "Gotham_Black";
-    top: 90%;
+    top: 80%;
     margin-top: 10px;
     border: 1px solid #545454;
     /* padding: 1em; */
@@ -1369,7 +1400,7 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
-@media only screen and (min-width: 810px) and (min-width: 1600px) {
+@media only screen and (min-width: 810px) and (max-width: 1600px) {
   #comparison {
     left: 25%;
   }
@@ -1385,6 +1416,14 @@ input[type="number"]::-webkit-outer-spin-button {
     /* position: absolute; */
     padding-bottom: 10em;
     text-align: center;
+  }
+
+  #prevnext {
+    height: 15vh;
+  }
+
+  .buttons {
+    top: 89%;
   }
 
   canvas {
@@ -1506,4 +1545,7 @@ input[type="number"]::-webkit-outer-spin-button {
     padding: 1em;
     cursor: pointer;
   }
+}
+
+@media only screen and (min-width: 820px) and (max-width: 1050px) {
 }
