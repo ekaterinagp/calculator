@@ -9,7 +9,7 @@ startBtn.addEventListener("click", function() {
 let questions = [
   {
     id: 1,
-    question: "Monthly income",
+    question: "Monthly revenue",
     txt: "What is your average monthly revenue?",
     type: "input",
     answerQ: function() {
@@ -568,7 +568,7 @@ function radioAnswerInsert() {
           radioArr[u].checked = true;
         }
       }
-      if (viewWidth > 410) {
+      if (viewWidth > 415) {
         showAnimation(questions[currentQuestionIndex].userAnswer);
       }
     } else {
@@ -639,7 +639,7 @@ function eventlistenerForRadio() {
           questions[currentQuestionIndex].answer = radioValue;
           console.log({ radioValue });
           if (questions[currentQuestionIndex].id !== 9) {
-            if (viewWidth > 410) {
+            if (viewWidth > 415) {
               console.log("bigger than 410 and that is why should run");
               showAnimation(radioValue);
             }
@@ -1435,15 +1435,19 @@ function displayPositiveFactors(divForFactors) {
     "Distribution channels",
     "Traction"
   ];
-
+  let divForReviews = document.createElement("div");
+  divForReviews.setAttribute("class", "iconsDiv");
   let goodReviews = document.createElement("p");
-  goodReviews.setAttribute("color", "darkgreen");
   goodReviews.innerHTML = values[0];
-  divForFactors.appendChild(goodReviews);
+  let reviewImg = document.createElement("img");
+  reviewImg.setAttribute("src", "img/icons/reviews.png");
+  divForReviews.appendChild(goodReviews);
+  divForReviews.appendChild(reviewImg);
+  divForFactors.appendChild(divForReviews);
 
   TweenMax.fromTo(
-    goodReviews,
-    1,
+    divForReviews,
+    0.5,
     {
       opacity: 0,
       scale: 0.5
@@ -1458,13 +1462,18 @@ function displayPositiveFactors(divForFactors) {
     },
     0.01
   );
+  let partnersDiv = document.createElement("div");
+  partnersDiv.setAttribute("class", "iconsDiv");
   let strongPartners = document.createElement("p");
-  strongPartners.setAttribute("color", "#7CFC00");
   strongPartners.innerHTML = values[1];
-  divForFactors.appendChild(strongPartners);
+  let partnerImg = document.createElement("img");
+  partnerImg.setAttribute("src", "img/icons/partners.png");
+  partnersDiv.appendChild(strongPartners);
+  partnersDiv.appendChild(partnerImg);
+  divForFactors.appendChild(partnersDiv);
   TweenMax.fromTo(
-    strongPartners,
-    1,
+    partnersDiv,
+    0.5,
     {
       opacity: 0,
       scale: 0.5
@@ -1475,17 +1484,22 @@ function displayPositiveFactors(divForFactors) {
       ease: Linear.easeOut,
       opacity: 1,
       scale: 1.1,
-      delay: 1
+      delay: 0.6
     },
-    3
+    1
   );
+  let revenueDiv = document.createElement("div");
+  revenueDiv.setAttribute("class", "iconsDiv");
   let stableRevenue = document.createElement("p");
-  stableRevenue.setAttribute("color", "#006400");
   stableRevenue.innerHTML = values[2];
-  divForFactors.appendChild(stableRevenue);
+  let revenueImg = document.createElement("img");
+  revenueImg.setAttribute("src", "img/icons/revenue.png");
+  revenueDiv.appendChild(stableRevenue);
+  revenueDiv.appendChild(revenueImg);
+  divForFactors.appendChild(revenueDiv);
   TweenMax.fromTo(
-    stableRevenue,
-    1,
+    revenueDiv,
+    0.5,
     {
       opacity: 0,
       scale: 0.5
@@ -1496,18 +1510,22 @@ function displayPositiveFactors(divForFactors) {
       ease: Linear.easeOut,
       opacity: 1,
       scale: 1.1,
-      delay: 2
+      delay: 1.1
     },
-    6
+    1
   );
-
+  let divForChannels = document.createElement("div");
+  divForChannels.setAttribute("class", "iconsDiv");
   let channels = document.createElement("p");
-  channels.setAttribute("color", "#32CD32");
   channels.innerHTML = values[3];
-  divForFactors.appendChild(channels);
+  let channelsImg = document.createElement("img");
+  channelsImg.setAttribute("src", "img/icons/channels.png");
+  divForChannels.appendChild(channels);
+  divForChannels.appendChild(channelsImg);
+  divForFactors.appendChild(divForChannels);
   TweenMax.fromTo(
-    channels,
-    1,
+    divForChannels,
+    0.5,
     {
       opacity: 0,
       scale: 0.5
@@ -1518,31 +1536,36 @@ function displayPositiveFactors(divForFactors) {
       ease: Linear.easeOut,
       opacity: 1,
       scale: 1.1,
-      delay: 3
+      delay: 1.6
     },
-    8
+    1
   );
-  let tractions = document.createElement("p");
-  tractions.setAttribute("color", "green");
-  tractions.innerHTML = values[4];
-  divForFactors.appendChild(tractions);
-  TweenMax.fromTo(
-    tractions,
-    1,
-    {
-      opacity: 0,
-      scale: 0.5
-    },
-    {
-      // x: 100,
-      // y: 100,
-      ease: Linear.easeOut,
-      opacity: 1,
-      scale: 1.1,
-      delay: 4
-    },
-    10
-  );
+  // let tractionDiv = document.createElement("div");
+  // tractionDiv.setAttribute("class", "iconsDiv");
+  // let tractions = document.createElement("p");
+  // tractions.innerHTML = values[4];
+  // let tractionImg = document.createElement("img");
+  // tractionImg.setAttribute("src", "img/icons/traction.png");
+  // tractionDiv.appendChild(tractions);
+  // tractionDiv.appendChild(tractionImg);
+  // divForFactors.appendChild(tractionDiv);
+  // TweenMax.fromTo(
+  //   tractionDiv,
+  //   1,
+  //   {
+  //     opacity: 0,
+  //     scale: 0.5
+  //   },
+  //   {
+  //     // x: 100,
+  //     // y: 100,
+  //     ease: Linear.easeOut,
+  //     opacity: 1,
+  //     scale: 1.1,
+  //     delay: 4
+  //   },
+  //   10
+  // );
 
   answer.appendChild(divForFactors);
 }
@@ -1557,90 +1580,126 @@ function displayNegativeFactors(divForFactors) {
     "Lack of financial planning",
     "Low margins"
   ];
+  let divForDebt = document.createElement("div");
+  divForDebt.setAttribute("class", "iconsDiv");
   let bigDebt = document.createElement("p");
   bigDebt.innerHTML = values[0];
-  divForFactors.appendChild(bigDebt);
+  let iconImg = document.createElement("img");
+  iconImg.setAttribute("src", "img/icons/debt.png");
+
+  divForDebt.appendChild(bigDebt);
+  divForDebt.appendChild(iconImg);
+  divForFactors.appendChild(divForDebt);
   TweenMax.fromTo(
-    bigDebt,
-    1,
+    divForDebt,
+    0.5,
     {
-      x: 50,
-      y: -50
+      opacity: 0,
+      scale: 0.5
     },
     {
-      x: 0,
-      y: 90,
-      ease: Bounce.easeOut
+      ease: Linear.easeOut,
+      opacity: 1,
+      scale: 1.1,
+      delay: 0.01
     },
     0.01
   );
+  let divForExperience = document.createElement("div");
+  divForExperience.setAttribute("class", "iconsDiv");
   let noExperience = document.createElement("p");
   noExperience.innerHTML = values[1];
-  divForFactors.appendChild(noExperience);
+  let expImg = document.createElement("img");
+  expImg.setAttribute("src", "img/icons/lack.png");
+  divForExperience.appendChild(noExperience);
+  divForExperience.appendChild(expImg);
+  divForFactors.appendChild(divForExperience);
   TweenMax.fromTo(
-    noExperience,
-    1,
+    divForExperience,
+    0.5,
     {
-      x: -800,
-      y: 130
+      opacity: 0,
+      scale: 0.5
     },
     {
-      x: 0,
-      y: 90,
-      ease: Linear.easeOut
+      ease: Linear.easeOut,
+      opacity: 1,
+      scale: 1.1,
+      delay: 0.6
     },
-    0.7
+    1
   );
+  let divForDefective = document.createElement("div");
+  divForDefective.setAttribute("class", "iconsDiv");
   let defective = document.createElement("p");
   defective.innerHTML = values[2];
-  divForFactors.appendChild(defective);
+  let defectiveImg = document.createElement("img");
+  defectiveImg.setAttribute("src", "img/icons/defective.png");
+  divForDefective.appendChild(defective);
+  divForDefective.appendChild(defectiveImg);
+  divForFactors.appendChild(divForDefective);
   TweenMax.fromTo(
-    defective,
-    1,
+    divForDefective,
+    0.5,
     {
-      x: 800,
-      y: 70
+      opacity: 0,
+      scale: 0.5
     },
     {
-      x: 0,
-      y: 90,
-      ease: Linear.easeOut
+      ease: Linear.easeOut,
+      opacity: 1,
+      scale: 1.1,
+      delay: 1.1
     },
-    0.8
+    1
   );
-  let finPlan = document.createElement("p");
-  finPlan.innerHTML = values[3];
-  divForFactors.appendChild(finPlan);
-  TweenMax.fromTo(
-    finPlan,
-    1,
-    {
-      x: 70,
-      y: -30
-    },
-    {
-      x: 0,
-      y: 90,
-      ease: Bounce.easeOut
-    },
-    2
-  );
+  // let divForPlan = document.createElement("div");
+  // divForPlan.setAttribute("class", "iconsDiv");
+  // let finPlan = document.createElement("p");
+  // finPlan.innerHTML = values[3];
+  // let planImg = document.createElement("img");
+  // planImg.setAttribute("src", "img/icons/lackOfPlanning.png");
+  // divForPlan.appendChild(finPlan);
+  // divForPlan.appendChild(planImg);
+  // divForFactors.appendChild(divForPlan);
+  // TweenMax.fromTo(
+  //   divForPlan,
+  //   1,
+  //   {
+  //     opacity: 0,
+  //     scale: 0.5
+  //   },
+  //   {
+  //     ease: Linear.easeOut,
+  //     opacity: 1,
+  //     scale: 1.1,
+  //     delay: 3
+  //   },
+  //   8
+  // );
+  let marginDiv = document.createElement("div");
+  marginDiv.setAttribute("class", "iconsDiv");
   let lowMargin = document.createElement("p");
   lowMargin.innerHTML = values[4];
-  divForFactors.appendChild(lowMargin);
+  let marginImg = document.createElement("img");
+  marginImg.setAttribute("src", "img/icons/lowMargins.png");
+  marginDiv.appendChild(lowMargin);
+  marginDiv.appendChild(marginImg);
+  divForFactors.appendChild(marginDiv);
   TweenMax.fromTo(
-    lowMargin,
-    1,
+    marginDiv,
+    0.5,
     {
-      x: 800,
-      y: 90
+      opacity: 0,
+      scale: 0.5
     },
     {
-      x: -20,
-      y: 90,
-      ease: Linear.easeOut
+      ease: Linear.easeOut,
+      opacity: 1,
+      scale: 1.1,
+      delay: 1.6
     },
-    3
+    1
   );
   answer.appendChild(divForFactors);
 }
@@ -1664,6 +1723,7 @@ function createInputForInvestment() {
     // pForIncome.setAttribute("class", "pIncome");
     // pForIncome.innerHTML = "Your yearly income";
     divIncome.setAttribute("class", "round");
+    divIncome.setAttribute("id", "roundBig");
     // document.querySelector(".box").appendChild(pForIncome);
     // let additionalInvestement = document.createElement("div");
     // additionalInvestement.setAttribute("class", "round");
@@ -1890,30 +1950,30 @@ function createChart(
       labels: labels_of_chart,
       datasets: [
         {
-          label: "Average",
+          label: "Average growth",
           data: [0, 60, 100, 110, 130, 150],
           backgroundColor: "rgba(63,	152,	255,.3)	",
           // borderColor: 'rgba(19, 247, 228,1)',
-          borderWidth: 2,
-          bevelWidth: 3,
-          bevelHighlightColor: "rgba(255, 255, 255, 0.75)",
-          bevelShadowColor: "rgba(0, 0, 0, 0.5)"
+          borderWidth: 2
+          // bevelWidth: 3,
+          // bevelHighlightColor: "rgba(255, 255, 255, 0.75)",
+          // bevelShadowColor: "rgba(0, 0, 0, 0.5)"
           // pointBackgroundColor: 'rgba(19, 247, 228,1)',
           // pointBorderColor: 'rgba(19, 247, 228,1)',
           // pointBorderWidth: 5,
         },
         {
-          label: "Original data",
+          label: "Your growth",
           data: data_of_charts,
           animationSteps: 6000,
           // easing: 'easeInOutElastic',
           backgroundColor: background_color,
           // borderColor: 'rgba(19, 247, 228,1)',
           borderWidth: 2,
-          shadowOffsetX: 3,
-          shadowOffsetY: 3,
-          shadowBlur: 10,
-          shadowColor: "rgba(0, 0, 0, 0.5)",
+          // shadowOffsetX: 3,
+          // shadowOffsetY: 3,
+          // shadowBlur: 10,
+          // shadowColor: "rgba(0, 0, 0, 0.5)",
           // pointBackgroundColor: 'rgba(19, 247, 228,1)',
           // pointBorderColor: 'rgba(19, 247, 228,1)',
           pointBorderWidth: 0
@@ -1999,42 +2059,42 @@ function createBarChart(value, placeHolder) {
   let barChart = new Chart(barChartIncomeCanvas, {
     type: "bar",
     data: {
-      labels: ["Income"],
+      labels: ["Revenue"],
       datasets: [
         {
-          label: "Your income",
+          label: "Your revenue",
           data: [value],
-          backgroundColor: "blue",
-          bevelWidth: 3,
-          bevelHighlightColor: "rgba(255, 255, 255, 0.75)",
-          bevelShadowColor: "rgba(0, 0, 0, 0.5)"
+          backgroundColor: "blue"
+          // bevelWidth: 3,
+          // bevelHighlightColor: "rgba(255, 255, 255, 0.75)",
+          // bevelShadowColor: "rgba(0, 0, 0, 0.5)"
         },
         {
-          label: "Average income",
+          label: "Average revenue",
 
           data: [50000],
-          backgroundColor: "green",
-          shadowOffsetX: 3,
-          shadowOffsetY: 3,
-          shadowBlur: 10,
-          shadowColor: "rgba(0, 0, 0, 0.5)",
-          hoverInnerGlowWidth: 20,
-          hoverInnerGlowColor: "rgb(255, 255, 0)",
-          hoverOuterGlowWidth: 20,
-          hoverOuterGlowWidth: "rgb(255, 255, 0)"
+          backgroundColor: "green"
+          // shadowOffsetX: 3,
+          // shadowOffsetY: 3,
+          // shadowBlur: 10,
+          // shadowColor: "rgba(0, 0, 0, 0.5)",
+          // hoverInnerGlowWidth: 20,
+          // hoverInnerGlowColor: "rgb(255, 255, 0)",
+          // hoverOuterGlowWidth: 20,
+          // hoverOuterGlowWidth: "rgb(255, 255, 0)"
         },
         {
-          label: "Max income",
+          label: "Max revenue",
           data: [100000],
-          backgroundColor: "#EEEEEE",
-          shadowOffsetX: 3,
-          shadowOffsetY: 3,
-          shadowBlur: 10,
-          shadowColor: "rgba(0, 0, 0, 0.5)",
-          hoverInnerGlowWidth: 20,
-          hoverInnerGlowColor: "rgb(255, 255, 0)",
-          hoverOuterGlowWidth: 20,
-          hoverOuterGlowWidth: "rgb(255, 255, 0)"
+          backgroundColor: "#EEEEEE"
+          // shadowOffsetX: 3,
+          // shadowOffsetY: 3,
+          // shadowBlur: 10,
+          // shadowColor: "rgba(0, 0, 0, 0.5)",
+          // hoverInnerGlowWidth: 20,
+          // hoverInnerGlowColor: "rgb(255, 255, 0)",
+          // hoverOuterGlowWidth: 20,
+          // hoverOuterGlowWidth: "rgb(255, 255, 0)"
         }
       ]
     },

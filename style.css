@@ -19,7 +19,7 @@ input {
   width: 100%;
   height: 100%;
   position: absolute;
-  background-color: black;
+  background-color: #0c0522;
   color: white;
   z-index: 20;
   margin: 0;
@@ -47,7 +47,7 @@ input {
   width: 20%;
   height: 10%;
   border: 1px solid #545454;
-  background-color: black;
+  background-color: #0c0522;
   color: white;
   font-size: 1.5em;
   text-align: center;
@@ -66,7 +66,7 @@ input {
   text-align: center;
   font-family: "Gotham_Book";
   /* text-align: -webkit-center; */
-  background-color: rgb(14, 13, 13);
+  background-color: #0c0522;
   color: rgb(247, 243, 243);
   overflow: hidden;
 }
@@ -79,7 +79,7 @@ input[type="tel"]::placeholder {
 }
 
 input#addInvestment::placeholder {
-  color: black;
+  color: #0c0522;
   font-size: 1em;
 }
 
@@ -88,7 +88,7 @@ input#addInvestment {
   /* position: absolute; */
   margin-top: 35%;
   /* padding-top: 20em; */
-  color: black;
+  color: #0c0522;
   background-color: inherit;
 }
 
@@ -117,20 +117,22 @@ h1 {
 }
 .box {
   text-align: -webkit-center;
-  background-color: rgb(12, 12, 12);
+  background-color: #0c0522;
   color: rgb(252, 247, 247);
   width: 100%;
   height: 100%;
 }
 
 .buttons {
+  margin: 1em;
   position: fixed;
+  width: 15%;
   padding: 14px 40px;
   background-color: green;
   color: white;
   font-family: "Gotham_Black";
-  top: 90%;
-  margin-top: 10px;
+  top: 92%;
+  /* margin-top: 10px; */
   border: 1px solid #545454;
 }
 
@@ -145,12 +147,12 @@ h1 {
 
 #prevNext {
   left: 0;
-  background-color: rgb(0, 0, 0);
+  background-color: #0c0522;
   bottom: 0;
-  height: 9vh;
+  height: 8vh;
   width: 100%;
   position: fixed;
-  border: 1px solid #545454;
+  border-top: 1px solid #545454;
   /* box-shadow:  */
 }
 
@@ -183,7 +185,7 @@ h1 {
 }
 
 button:disabled {
-  background-color: black;
+  background-color: #0c0522;
 }
 
 .checkmark {
@@ -192,7 +194,7 @@ button:disabled {
   left: 3px;
   height: 25px;
   width: 25px;
-  border: 1pt solid black;
+  border: 1pt solid #0c0522;
   border-radius: 50%;
 }
 
@@ -218,7 +220,7 @@ input[name="factors"] {
 
 /* When the radio button is checked, add a blue background */
 .container input:checked ~ .checkmark::before {
-  background-color: black;
+  background-color: #0c0522;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -297,12 +299,12 @@ form p {
   padding: 1em;
   display: inline-grid;
   justify-items: center;
-  /* align-items: center; */
+  align-items: center;
   grid-template-columns: 3fr 1fr;
   cursor: pointer;
   height: 5em;
   width: 20em;
-  background-color: black;
+  background-color: #0c0522;
   border: 1px solid #545454;
   /* -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
   -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
@@ -317,7 +319,7 @@ form p {
   align-items: center;
   cursor: pointer;
   width: 30%;
-  background-color: black;
+  background-color: #0c0522;
   border: 1px solid #545454;
   /* -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
   -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
@@ -385,7 +387,7 @@ input[name="strength"] {
 #popUp {
   width: 100%;
   height: 100%;
-  background-color: #010149;
+  background-color: #0c0522;
   color: white;
   display: none;
   position: absolute;
@@ -596,10 +598,11 @@ input[type="range"]:focus::-ms-fill-upper {
 }
 
 input[type="number"] {
+  font-size: 1.5em;
   border: 0;
   border-bottom: 1px solid #545454;
   text-align: center;
-  background-color: black;
+  background-color: #0c0522;
   color: white;
   /* width: 30%; */
 }
@@ -658,10 +661,20 @@ input[type="number"] {
   left: 0;
 }
 
+.iconsDiv {
+  position: relative;
+  text-align: -webkit-center;
+}
+
 .md-checkbox {
   position: relative;
   /* margin: 1em 0; */
   text-align: left;
+}
+
+.iconsDiv img {
+  width: 8em;
+  display: block;
 }
 
 input#i1,
@@ -701,7 +714,7 @@ input#i2 {
   width: 1.25em;
   height: 1.25em;
   background: #fff;
-  border: 2px solid rgba(0, 0, 0, 0.54);
+  border: 2px solid #0c0522;
   border-radius: 0.125em;
   cursor: pointer;
   transition: background 0.3s;
@@ -777,7 +790,7 @@ input#i2 {
 
 #divForFactors {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .imgForBig {
@@ -795,7 +808,7 @@ input#i2 {
   cursor: pointer;
   width: auto;
   height: 8em;
-  background-color: black;
+  background-color: #0c0522;
   border: 1px solid #545454;
   /* -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
   -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
@@ -860,7 +873,7 @@ input#i2 {
 }
 
 span {
-  color: black;
+  color: #0c0522;
 }
 
 .dollarSign {
@@ -897,7 +910,7 @@ input[type="number"]::-webkit-outer-spin-button {
   grid-template-rows: 1fr 3fr;
   cursor: pointer;
   height: 8em;
-  background-color: black;
+  background-color: #0c0522;
   border: 1px solid #545454;
   /* -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
   -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
@@ -920,12 +933,39 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: #0075d8;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 400px) and (min-width: 340px) {
   canvas {
     /* position: absolute; */
     max-width: 100%;
     min-height: auto;
     padding-top: 10%;
+  }
+
+  #divForFactors {
+    display: block;
+    padding-bottom: 10em;
+  }
+
+  input[type="submit"] {
+    width: auto;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
+    border: 0;
+    border-bottom: 1px solid white;
+    background-color: inherit;
+    color: white;
+    width: 55%;
+  }
+
+  .buttons {
+    width: 35%;
+  }
+
+  .endText {
+    padding: 1em;
   }
 
   .wrapper:nth-child(2n) {
@@ -999,7 +1039,7 @@ input[type="number"]::-webkit-outer-spin-button {
     height: 5em;
     width: 80%;
     margin: 5px;
-    background-color: black;
+    background-color: #0c0522;
     border: 1px solid #545454;
     /* -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
     -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
@@ -1007,12 +1047,12 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   .imgInline {
-    width: 5em;
+    width: 7em;
     /* padding-top: 3%; */
   }
 
   .imgInlineComp {
-    width: 5em;
+    width: 8em;
   }
 
   .round {
@@ -1028,6 +1068,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .addGrid {
     display: block;
+  }
+
+  #start {
+    width: 50%;
   }
 }
 
@@ -1045,8 +1089,64 @@ input[type="number"]::-webkit-outer-spin-button {
   .divForFigure {
     display: none;
   }
-  .round {
+  #roundBig {
     display: none;
+  }
+
+  .buttons {
+    width: 40%;
+  }
+
+  #comparison {
+    /* border: 1px solid black; */
+    position: absolute;
+    font-family: "Gotham_Black";
+    bottom: 10%;
+    left: 0;
+    opacity: 0.5;
+    z-index: 10;
+    color: white;
+    padding: 1em;
+  }
+  .btnRadioInline,
+  .btnRadioInlineComp {
+    position: relative;
+    text-align: center;
+    -webkit-appearance: none;
+    padding: 1em;
+    display: inline-grid;
+    justify-items: center;
+    /* align-items: center; */
+    grid-template-columns: 3fr 1fr;
+    cursor: pointer;
+    height: 5em;
+    /* width: 20em; */
+    background-color: #0c0522;
+    border: 1px solid #545454;
+  }
+  #team,
+  #market,
+  #uniqueness,
+  #competition,
+  #strength {
+    display: block;
+    /* position: absolute; */
+    padding-bottom: 10em;
+    text-align: center;
+  }
+
+  canvas {
+    max-width: 1000px;
+    min-height: 230px;
+  }
+
+  .imgInline {
+    width: 6em;
+    /* padding-top: 3%; */
+  }
+
+  .imgInlineComp {
+    width: 8em;
   }
 
   #timeline {
@@ -1056,15 +1156,62 @@ input[type="number"]::-webkit-outer-spin-button {
     color: white;
   }
 
-  #roundInputDiv {
-    width: 25%;
-    height: 13%;
+  input[type="submit"] {
+    background-color: #545454;
+    border: 0;
+    color: white;
+    -webkit-appearance: none;
+    width: auto;
+    padding: 1em;
+    cursor: pointer;
+  }
+
+  #start {
+    width: 50%;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
+    border: 0;
+    border-bottom: 1px solid white;
+    background-color: inherit;
+    color: white;
+    width: 55%;
+  }
+
+  .endText {
+    font-size: 1.5em;
+    color: white;
+    font-family: "Gotham_Book";
     text-align: center;
-    margin-left: 5em;
-    margin-top: 2em;
+    padding: 1em;
+  }
+
+  input#addInvestment {
+    font-size: 1.2em;
+    /* position: absolute; */
+    margin-top: 35%;
+    /* padding-top: 20em; */
+    color: #0c0522;
+    background-color: inherit;
+  }
+
+  #roundInputDiv {
+    width: 35%;
+    height: 20%;
+    text-align: center;
+    /* margin-left: 5em; */
+    margin-top: 0em;
   }
   input[type="number"]#addinvestment {
     width: 100%;
+  }
+
+  #divForFactors {
+    display: block;
+    padding-bottom: 10em;
+    /* grid-template-columns: 1fr 1fr 1fr 1fr; */
   }
 
   .addGrid {
@@ -1105,11 +1252,27 @@ input[type="number"]::-webkit-outer-spin-button {
     cursor: pointer;
     width: 90%;
     height: 8em;
-    background-color: black;
+    background-color: #0c0522;
     border: 1px solid #545454;
     /* -webkit-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
     -moz-box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7);
     box-shadow: 5px 2px 10px 3px rgba(176, 168, 132, 0.7); */
+  }
+  #comparison {
+    /* border: 1px solid black; */
+    position: absolute;
+    font-family: "Gotham_Black";
+    bottom: 10%;
+    /* left: 25%; */
+    opacity: 0.5;
+    z-index: 10;
+    color: white;
+  }
+
+  #divForFactors {
+    display: grid;
+    grid-gap: 1.8em;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
 
@@ -1119,5 +1282,222 @@ input[type="number"]::-webkit-outer-spin-button {
     min-width: 1300px;
     min-height: 650px;
     padding-top: 5%;
+  }
+}
+
+@media only screen and (max-width: 800px) and (min-width: 700px) {
+  .bigFigure {
+    position: absolute;
+    /* top: -50%; */
+    /* bottom: -80%; */
+    width: 70%;
+    right: 5%;
+    /* padding-bottom: 60%; */
+    /* padding-top: 25%; */
+    margin-top: 25%;
+  }
+
+  .buttons {
+    width: 25%;
+  }
+
+  #uniqueness,
+  #competition,
+  #strength {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-gap: 1em;
+  }
+
+  .bigFigureVehicle {
+    position: absolute;
+    margin-top: 25%;
+    width: 15em;
+    left: -200px;
+  }
+
+  .bigFigureBounce {
+    position: absolute;
+    top: 75%;
+    width: 50%;
+    right: 0;
+    left: 20%;
+  }
+
+  .bigFigureBounceSmall {
+    position: absolute;
+    top: 75%;
+    width: 35%;
+    right: 0;
+    left: 20%;
+  }
+
+  #comparison {
+    /* border: 1px solid black; */
+    position: absolute;
+    font-family: "Gotham_Black";
+    bottom: 10%;
+    left: 20%;
+    opacity: 0.5;
+    z-index: 10;
+    color: white;
+  }
+
+  #divForFactors {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr; */
+  }
+
+  .buttons {
+    position: fixed;
+    padding: 14px 40px;
+    background-color: green;
+    color: white;
+    font-family: "Gotham_Black";
+    top: 90%;
+    margin-top: 10px;
+    border: 1px solid #545454;
+    /* padding: 1em; */
+    margin: 2em;
+  }
+}
+
+@media only screen and (min-width: 810px) and (min-width: 1600px) {
+  #comparison {
+    left: 25%;
+  }
+}
+
+@media only screen and (min-width: 410px) and (max-width: 742px) {
+  #team,
+  #market,
+  #uniqueness,
+  #competition,
+  #strength {
+    display: block;
+    /* position: absolute; */
+    padding-bottom: 10em;
+    text-align: center;
+  }
+
+  canvas {
+    max-width: 1000px;
+    min-height: 270px;
+  }
+
+  #start {
+    position: relative;
+    -webkit-appearance: none;
+    width: 40%;
+    height: 10%;
+    border: 1px solid #545454;
+    background-color: #0c0522;
+    color: white;
+    font-size: 1.5em;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  #timeline {
+    font-size: 1.5em;
+    margin: 1em;
+    float: inherit;
+    color: white;
+  }
+
+  .buttons {
+    width: 30%;
+  }
+
+  .imgInlineComp {
+    width: 10em;
+  }
+
+  .imgInline {
+    width: 6em;
+    /* padding-top: 3%; */
+  }
+
+  .btnRadio,
+  .btnRadioInline,
+  .btnRadioInlineComp {
+    position: relative;
+    text-align: center;
+    -webkit-appearance: none;
+    padding: 1em;
+    display: inline-grid;
+    justify-items: center;
+    /* align-items: center; */
+    grid-template-columns: 3fr 1fr;
+    cursor: pointer;
+    height: 5em;
+    width: 22em;
+    background-color: #0c0522;
+    border: 1px solid #545454;
+  }
+
+  #roundBig {
+    display: none;
+  }
+
+  input#addInvestment {
+    font-size: 1.3em;
+    /* position: absolute; */
+    margin-top: 35%;
+    /* padding-top: 20em; */
+    color: #0c0522;
+    background-color: inherit;
+  }
+
+  #comparison {
+    /* border: 1px solid black; */
+    position: absolute;
+    font-family: "Gotham_Black";
+    bottom: 10%;
+    left: 0;
+    padding: 1em;
+    opacity: 0.5;
+    z-index: 10;
+    color: white;
+  }
+
+  #divForFactors {
+    display: block;
+    padding-bottom: 10em;
+    overflow: scroll;
+    /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+  }
+
+  .wrapper {
+    text-align: center;
+  }
+
+  .wrapper:nth-child(2n) {
+    text-align: center;
+  }
+
+  .main {
+    overflow-y: scroll;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"] {
+    border: 0;
+    border-bottom: 1px solid white;
+    background-color: inherit;
+    color: white;
+    width: 55%;
+  }
+
+  input[type="submit"] {
+    background-color: #545454;
+    border: 0;
+    color: white;
+    -webkit-appearance: none;
+    width: 20%;
+    padding: 1em;
+    cursor: pointer;
   }
 }
