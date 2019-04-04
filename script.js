@@ -75,7 +75,8 @@ let questions = [
   {
     id: 3,
     question: "Team and Leader",
-    txt: "How strong is an entrepreneur and a team?",
+    txt:
+      "How strong is your team overall? Experience, leadership, and competence.",
     type: "radio",
     answerQ: function() {
       let values = [
@@ -331,7 +332,8 @@ let questions = [
   {
     id: 7,
     question: "Strength",
-    txt: "How strong is marketing plan/sales/partnerships?",
+    txt:
+      "How strong is your marketing, business development traction, and partnerships?",
     type: "radio",
     answerQ: function() {
       let values = [
@@ -394,7 +396,7 @@ let questions = [
   {
     id: 8,
     question: "Additional investements",
-    txt: "How much more investments do you need?",
+    txt: "How much more investment capital do you need?",
     type: "input",
     answerQ: function() {
       // let thePTitle = document.createElement("p");
@@ -424,12 +426,12 @@ let questions = [
 
   {
     id: 9,
-    question: "Positive factors",
+    question: "Positive and negative factors",
     txt:
-      "Do you have any positive factor(s) that affect or may affect your income in future?",
+      "Are there any factors that may significantly affect your revenue in the future?",
     type: "radio",
     answerQ: function() {
-      let values = ["yes", "no"];
+      let values = ["Positive", "Negative"];
       let form = document.createElement("form");
       form.setAttribute("class", "listenTo");
       form.setAttribute("id", "factorsTwoOptions");
@@ -595,10 +597,10 @@ function radioAnswerInsert() {
         // divForFactors.setAttribute("class", "hiddenDivFactors");
         {
           if (questions[currentQuestionIndex].userAnswer == 100) {
-            document.querySelector("input[value=yes]").checked = true;
+            document.querySelector("input[value=Positive]").checked = true;
             displayPositiveFactors(divForFactors);
           } else {
-            document.querySelector("input[value=no]").checked = true;
+            document.querySelector("input[value=Negative]").checked = true;
             displayNegativeFactors(divForFactors);
           }
         }
@@ -1369,7 +1371,7 @@ function ifLastElement() {
 
       let radioValue = getRadioCheckedValue(radioName);
 
-      if (radioValue[0] == "yes") {
+      if (radioValue[0] == "Positive") {
         radioValue = 100;
         questions[currentQuestionIndex].userAnswer = radioValue;
         displayPositiveFactors(divForFactors);
@@ -1391,7 +1393,7 @@ function ifLastElement() {
 
       let radioValue = getRadioCheckedValue(radioName);
 
-      if (radioValue[0] == "no") {
+      if (radioValue[0] == "Negative") {
         radioValue = "0";
         questions[currentQuestionIndex].userAnswer = radioValue;
 
@@ -1734,7 +1736,7 @@ function createInputForInvestment() {
     let yearlyIncome = document.createElement("p");
     yearlyIncome.setAttribute("class", "roundInput");
     yearlyIncome.innerHTML =
-      "Your yearly income is " + questions[0].userAnswer * 12 + "$";
+      "Annual income is " + questions[0].userAnswer * 12 + "$";
     divIncome.appendChild(yearlyIncome);
     // additionalInvestement.appendChild(additonalInput);
     answer.appendChild(divIncome);
@@ -2343,7 +2345,7 @@ function incomeVSinvestments() {
     percantageFrom +
     "%" +
     " " +
-    "of your yearly revenue";
+    "of your annual income";
 
   if (percantageFrom < 50) {
     console.log("smaller than 50%");
