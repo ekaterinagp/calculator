@@ -151,7 +151,7 @@ h1 {
   left: 0;
   background-color: #0c0522;
   bottom: 0;
-  height: 9vh;
+  height: 9%;
   width: 100%;
   position: fixed;
   border-top: 1px solid #545454;
@@ -951,11 +951,11 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   #prevnext {
-    height: 15vh;
+    height: 10%;
   }
 
   .buttons {
-    top: 89%;
+    top: 92%;
   }
 
   #divForFactors {
@@ -1111,11 +1111,11 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   #prevnext {
-    height: 15vh;
+    height: 10%;
   }
 
   .buttons {
-    top: 89%;
+    top: 92%;
   }
 
   .buttons {
@@ -1323,11 +1323,11 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   #prevnext {
-    height: 15vh;
+    height: 10%;
   }
 
   .buttons {
-    top: 89%;
+    top: 92%;
   }
 
   .buttons {
@@ -1392,7 +1392,7 @@ input[type="number"]::-webkit-outer-spin-button {
     background-color: green;
     color: white;
     font-family: "Gotham_Black";
-    top: 80%;
+    top: 92%;
     margin-top: 10px;
     border: 1px solid #545454;
     /* padding: 1em; */
@@ -1419,11 +1419,11 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   #prevnext {
-    height: 15vh;
+    height: 10%;
   }
 
   .buttons {
-    top: 89%;
+    top: 92%;
   }
 
   canvas {
