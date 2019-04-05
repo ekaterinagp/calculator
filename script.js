@@ -1812,6 +1812,7 @@ function init() {
     // console.log("userAnswer", allOneUserAnswers);
     document.getElementById("prev_button").style.display = "none";
     let finalResult = calculateResult(collectAllAnswers());
+    //COMMENT IT OUT
     console.log("final result function", finalResult);
   });
 
@@ -2335,6 +2336,7 @@ function incomeVSinvestments() {
 
 //calculate result
 
+//THIS IS NEEDED FOR Back-end
 //Calculation part
 function calculateResult(array) {
   let answer1 = array[0] * 12;
@@ -2366,6 +2368,7 @@ function calculateResult(array) {
   let sumOfFactors =
     answer3 + answer4 + answer5 + answer6 + answer7 + answer8 + answer9;
   let preFinalResult = sumOfFactors * preMV;
+  //this is THE RESULT
   let finalResult = parseFloat(preFinalResult.toFixed(2));
   // console.log("sumOfFactors", sumOfFactors)
   return finalResult;
