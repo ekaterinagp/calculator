@@ -1795,43 +1795,6 @@ function collectAllAnswers() {
   // console.log("userAnswer", allOneUserAnswers);
 }
 
-//Calculation part
-function calculateResult(array) {
-  let answer1 = array[0] * 12;
-  let answerModified = turnToNumber(1);
-  console.log("answerModified", answerModified);
-  let answer2 = (answer1 * answerModified) / 100 + answer1;
-  console.log("answer2", answer2);
-  let terminalValue = answer2 * 2;
-  console.log("treminalValue", terminalValue);
-  let postMV = terminalValue / 20;
-  console.log("postMV", postMV);
-  let preMV = postMV - array[0];
-  console.log("preMV", preMV);
-  let answerThreeModified = turnIndexToNumber(2);
-  let answer3 = (answerThreeModified * 30) / 10000;
-  console.log("answer3", answer3);
-  let answerFourModified = turnIndexToNumber(3);
-  let answer4 = (answerFourModified * 25) / 10000;
-  let answerFiveModified = turnIndexToNumber(4);
-  let answer5 = (answerFiveModified * 15) / 10000;
-  let answerSixModified = turnIndexToNumber(5);
-  let answer6 = (answerSixModified * 10) / 10000;
-  let answerSeventhModified = turnIndexToNumber(6);
-  let answer7 = (answerSeventhModified * 10) / 10000;
-  // //figure out how to make it prettier
-  let answer81 = (answerSeventhModified * 100) / array[0];
-  let answer8 = (answer81 * 5) / 10000;
-  let answer9 = (array[8] * 5) / 10000;
-  let sumOfFactors =
-    answer3 + answer4 + answer5 + answer6 + answer7 + answer8 + answer9;
-  let preFinalResult = sumOfFactors * preMV;
-  let finalResult = parseFloat(preFinalResult.toFixed(2));
-  // console.log("sumOfFactors", sumOfFactors)
-  return finalResult;
-}
-//END OF CALCULATION
-
 function timeline(questions) {
   let timelineInput = document.querySelector("#timeline");
   let allQuestionsDigit = questions.length;
@@ -2369,6 +2332,45 @@ function incomeVSinvestments() {
     });
   }
 }
+
+//calculate result
+
+//Calculation part
+function calculateResult(array) {
+  let answer1 = array[0] * 12;
+  let answerModified = turnToNumber(1);
+  console.log("answerModified", answerModified);
+  let answer2 = (answer1 * answerModified) / 100 + answer1;
+  console.log("answer2", answer2);
+  let terminalValue = answer2 * 2;
+  console.log("treminalValue", terminalValue);
+  let postMV = terminalValue / 20;
+  console.log("postMV", postMV);
+  let preMV = postMV - array[0];
+  console.log("preMV", preMV);
+  let answerThreeModified = turnIndexToNumber(2);
+  let answer3 = (answerThreeModified * 30) / 10000;
+  console.log("answer3", answer3);
+  let answerFourModified = turnIndexToNumber(3);
+  let answer4 = (answerFourModified * 25) / 10000;
+  let answerFiveModified = turnIndexToNumber(4);
+  let answer5 = (answerFiveModified * 15) / 10000;
+  let answerSixModified = turnIndexToNumber(5);
+  let answer6 = (answerSixModified * 10) / 10000;
+  let answerSeventhModified = turnIndexToNumber(6);
+  let answer7 = (answerSeventhModified * 10) / 10000;
+  // //figure out how to make it prettier
+  let answer81 = (answerSeventhModified * 100) / array[0];
+  let answer8 = (answer81 * 5) / 10000;
+  let answer9 = (array[8] * 5) / 10000;
+  let sumOfFactors =
+    answer3 + answer4 + answer5 + answer6 + answer7 + answer8 + answer9;
+  let preFinalResult = sumOfFactors * preMV;
+  let finalResult = parseFloat(preFinalResult.toFixed(2));
+  // console.log("sumOfFactors", sumOfFactors)
+  return finalResult;
+}
+//END OF CALCULATION
 
 //save data from submit form
 
